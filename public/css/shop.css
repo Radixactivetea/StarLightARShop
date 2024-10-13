@@ -14,6 +14,18 @@
     align-items: center;
     justify-content: end;
     padding: 20px 0;
+    position: sticky;
+    top: 83px;
+}
+
+
+
+.dropdown-menu {
+    z-index: 2;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(175, 143, 111, 0.3);
 }
 
 .filter-bar {
