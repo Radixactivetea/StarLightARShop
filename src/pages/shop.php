@@ -9,12 +9,18 @@
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="./public/css/bs-theme-overrides.css">
     <!-- shop style -->
-    
+    <link rel="stylesheet" href="./public/css/shop.css">
 </head>
 
 <body>
     <!-- navigator -->
-     <?php require "./src/components/nav.html"; ?>
+    <?php require "./src/components/nav.html"; ?>
+
+    <div class="main-grid container">
+        <div class="sort-bar">Sort By</div>
+        <div class="filter-bar">2</div>
+        <div class="shop-content">3</div>
+    </div>
 
 
 
@@ -25,8 +31,6 @@
 
 
 
-
-     
     <!-- footer -->
     <?php require "./src/components/footer.html"; ?>
 

@@ -1,0 +1,25 @@
+.main-grid {
+    min-height: 80vh;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    "sort sort"
+    "filter shop-content";
+}
+
+.sort-bar {
+    grid-area: sort;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding: 20px 0;
+}
+
+.filter-bar {
+    grid-area: filter;
+}
+
+.shop-content {
+    grid-area: shop-content;
+}
