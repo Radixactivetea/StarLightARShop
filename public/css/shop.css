@@ -3,10 +3,12 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     grid-template-rows: auto 1fr;
-    grid-template-areas: 
-    "sort sort"
-    "filter shop-content";
+    grid-template-areas:
+        "sort sort"
+        "filter shop-content";
 }
+
+/* sortbar style */
 
 .sort-bar {
     grid-area: sort;
@@ -18,7 +20,13 @@
     top: 83px;
 }
 
+.dropdown-toggle::after {
+    transition: transform 0.2s ease-in-out;
+}
 
+.dropdown-toggle.show::after {
+    transform: rotate(180deg);
+}
 
 .dropdown-menu {
     z-index: 2;
@@ -28,9 +36,41 @@
     background-color: rgba(175, 143, 111, 0.3);
 }
 
+/* filterbar style */
+
 .filter-bar {
     grid-area: filter;
+    position: sticky;
+    top: 160.6px;
+    align-self: start;
 }
+
+.accordion {
+    --bs-accordion-btn-focus-box-shadow: 0;
+    --bs-accordion-active-bg: 0;
+    --bs-accordion-border-width: 0;
+    --bs-accordion-border-color: rgba(175, 143, 111, 0.3);
+}
+
+.accordion-header {
+    border-bottom: 1px solid rgba(175, 143, 111, 0.3);
+    border-top: 1px solid rgba(175, 143, 111, 0.3);
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: var(--bs-accordion-btn-icon);
+    transform: var(--bs-accordion-btn-icon-transform);
+}
+
+.list-group {
+    --bs-list-group-border-color: rgba(175, 143, 111, 0.3);
+}
+
+.list-group-item {
+    font-weight: 400;
+}
+
+/* content style */
 
 .shop-content {
     grid-area: shop-content;
