@@ -59,7 +59,6 @@
             
         </div>
     </div>
-     <?php require "./src/components/nav.php"; ?>
 
 
 
