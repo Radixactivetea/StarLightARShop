@@ -17,7 +17,7 @@
 
 <body>
     <!-- navigator -->
-    <?php include "./src/components/nav.html"; ?>
+    <?php include "./src/components/nav.php"; ?>
 
     <div id="promotion" class="carousel slide promotion-carousel" data-bs-ride="carousel">
         <div class="carousel-inner" style="text-align: center;">
