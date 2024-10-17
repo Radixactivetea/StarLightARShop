@@ -14,7 +14,7 @@
 
 <body>
     <!-- navigator -->
-    <?php require "./src/components/nav.html"; ?>
+    <?php require "./src/components/nav.php"; ?>
 
     <div class="main-grid container">
         <div class="sort-bar">
@@ -59,6 +59,7 @@
             
         </div>
     </div>
+     <?php require "./src/components/nav.php"; ?>
 
 
 
