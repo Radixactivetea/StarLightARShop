@@ -28,10 +28,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link <?= urlis($_SERVER['REQUEST_URI']) ? 'active' : '' ?>" href="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link <?= urlis($_SERVER['REQUEST_URI']) ? 'active' : '' ?>" href="/shop">Shop</a></li>
-                <li class="nav-item"><a class="nav-link <?= urlis($_SERVER['REQUEST_URI']) ? 'active' : '' ?>" href="#">AR Experience</a></li>
-                <li class="nav-item"><a class="nav-link <?= urlis($_SERVER['REQUEST_URI']) ? 'active' : '' ?>" href="#">About Us</a></li>
+                <li class="nav-item"><a class="nav-link <?= urlis('/') ? 'active' : '' ?>" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link <?= urlis('/shop') ? 'active' : '' ?>" href="/shop">Shop</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">AR Experience</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">About Us</a></li>
             </ul>
         </div>
         <input class="focus-ring focus-ring-primary search" type="search" placeholder="Search">
