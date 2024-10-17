@@ -14,7 +14,7 @@
 
 <body>
     <!-- navigator -->
-     <?php require "./src/components/nav.html"; ?>
+     <?php require "./src/components/nav.php"; ?>
 
 
 
