@@ -4,4 +4,4 @@ require 'function.php';
 
 
 
-require 'router/routes.php';
+require 'routes/routes.php';
