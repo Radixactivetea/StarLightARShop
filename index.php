@@ -7,7 +7,11 @@ $config = require 'config.php';
 
 $db = new Database($config['database']);
 
-$post = $db ->query("select * from items")->fetchAll();
+$id = $_GET['id'];
+
+$query = 'select * from items where id = :id';
+
+$post = $db ->query( $query , [':id' => $id])->fetch();
 
 dd($post);
 
