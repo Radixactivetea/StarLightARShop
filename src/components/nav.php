@@ -4,10 +4,10 @@
 <nav>
     <div class="container justify-content-lg-end align-items-lg-center">
         <div class="row d-flex justify-content-end align-items-center" style="height: 35px;">
-            <div class="col-auto d-md-flex align-items-md-center" style="padding: 0px;"><a class="nav-link-top" href="#"
+            <div class="col-auto d-md-flex align-items-md-center" style="padding: 0px;"><a class="nav-link-top" href="/help"
                     style="border-right: 2px solid var(--bs-emphasis-color);">Help</a></div>
             <div class="col-auto d-md-flex align-items-md-center" style="padding-left: 0px;"><a class="nav-link-top"
-                    href="#" style="padding-right: 0px;font-size: 13px;">Hi, John<svg xmlns="http://www.w3.org/2000/svg"
+                    href="/profile" style="padding-right: 0px;font-size: 13px;">Hi, John<svg xmlns="http://www.w3.org/2000/svg"
                         viewBox="-32 0 512 512" width="1em" height="1em" fill="currentColor"
                         style="margin-left: 10px;transform: translateY(-3px);width: 20px;height: 20px;">
                         <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
@@ -43,14 +43,14 @@
                     <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
                     <path d="M21 21l-6 -6"></path>
                 </svg></a>
-            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+            <a href="/mail"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icon-tabler-mail">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"></path>
                     <path d="M3 7l9 6l9 -6"></path>
                 </svg></a>
-            <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
+            <a href="/cart"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"
                     stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"
                     class="icon icon-tabler icon-tabler-shopping-cart">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
@@ -59,7 +59,7 @@
                     <path d="M17 17h-11v-14h-2"></path>
                     <path d="M6 5l14 1l-1 7h-13"></path>
                 </svg></a>
-            <a class="responsive-icon" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
+            <a class="responsive-icon" href="/profile"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em"
                     viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
                     stroke-linejoin="round" class="icon icon-tabler icon-tabler-user">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
