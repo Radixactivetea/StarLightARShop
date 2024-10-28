@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Light Pottery Shop</title>
     <!-- bootstap css & override -->
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./public/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
     <!-- glide.js style -->
-    <link rel="stylesheet" href="./node_modules/@glidejs/glide/dist/css/glide.core.min.css">
+    <link rel="stylesheet" href="/node_modules/@glidejs/glide/dist/css/glide.core.min.css">
     <!-- home style -->
-    <link rel="stylesheet" href="./public/css/home.css">
+    <link rel="stylesheet" href="/public/css/home.css">
     
 
 <body>
     <!-- navigator -->
-    <?php include "./src/components/nav.php"; ?>
+    <?php include "src/components/nav.php"; ?>
 
     <div id="promotion" class="carousel slide promotion-carousel" data-bs-ride="carousel">
         <div class="carousel-inner" style="text-align: center;">
@@ -184,15 +184,15 @@
 
 
     <!-- footer -->
-    <?php include "./src/components/footer.html"; ?>
+    <?php include "src/components/footer.html"; ?>
 
     <!-- bootstap and popper -->
-    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- glide.js -->
-    <script src="./node_modules/@glidejs/glide/dist/glide.min.js"></script>
+    <script src="/node_modules/@glidejs/glide/dist/glide.min.js"></script>
     <!-- home.js -->
-    <script src="./public/js/home.js"></script>
+    <script src="/public/js/home.js"></script>
 </body>
 
 </html>

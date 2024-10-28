@@ -1,5 +1,5 @@
-<link rel="stylesheet" href="./public/css/nav.css">
-<link rel="stylesheet" href="./public/css/Navbar-Centered-Brand-icons.css">
+<link rel="stylesheet" href="/public/css/nav.css">
+<link rel="stylesheet" href="/public/css/Navbar-Centered-Brand-icons.css">
 
 <nav>
     <div class="container justify-content-lg-end align-items-lg-center">
@@ -20,7 +20,7 @@
 </nav>
 <nav class="navbar navbar-expand-lg bg-body" style="padding: 0px;">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="/"><img src="./public/img/logo.png"></a>
+        <a class="navbar-brand d-flex align-items-center" href="/"><img src="/public/img/logo.png"></a>
         <div id="navcol-4" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
