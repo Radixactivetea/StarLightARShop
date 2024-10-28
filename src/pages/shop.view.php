@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Light Pottery Shop</title>
     <!-- bootstap css & override -->
-    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./public/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <!-- shop style -->
     
 </head>
 
 <body>
     <!-- navigator -->
-    <?php require "./src/components/nav.php"; ?>
+    <?php require "src/components/nav.php"; ?>
 
 
 
@@ -28,11 +28,11 @@
 
      
     <!-- footer -->
-    <?php require "./src/components/footer.html"; ?>
+    <?php require "src/components/footer.html"; ?>
 
     <!-- bootstap and popper -->
-    <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 
 </html>
