@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <!-- shop style -->
-    <link rel="stylesheet" href="./public/css/shop.css">
+    <link rel="stylesheet" href="/public/css/shop.css">
 </head>
 
 <body>
