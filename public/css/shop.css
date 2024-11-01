@@ -23,18 +23,6 @@
     padding-left: 20px;
 }
 
-.accordion {
-    --bs-accordion-border-color: none;
-    --bs-accordion-btn-focus-box-shadow: none;
-    --bs-accordion-active-bg: none;
-    --bs-accordion-active-color: none;
-}
-
-.accordion-button:not(.collapsed)::after {
-    background-image: var(--bs-accordion-btn-icon);
-    transform: var(--bs-accordion-btn-icon-transform);
-}
-
 .btn-group>:not(.btn-check:first-child)+.btn {
     margin-left: 0;
 }
