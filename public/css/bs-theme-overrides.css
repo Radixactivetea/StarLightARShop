@@ -76,3 +76,14 @@
   --bs-btn-disabled-border-color: #74512D;
 }
 
+.accordion {
+  --bs-accordion-border-color: none;
+  --bs-accordion-btn-focus-box-shadow: none;
+  --bs-accordion-active-bg: none;
+  --bs-accordion-active-color: none;
+}
+
+.accordion-button:not(.collapsed)::after {
+  background-image: var(--bs-accordion-btn-icon);
+  transform: var(--bs-accordion-btn-icon-transform);
+}
