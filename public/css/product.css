@@ -1,0 +1,50 @@
+.quantity {
+  display: flex;
+  border: 1px solid #AF8F6f;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.quantity button {
+  background-color: transparent;
+  color: #AF8F6f;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  width: 30px;
+  height: auto;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.quantity button:hover {
+  background-color: #AF8F6f;
+}
+
+.input-box {
+  background-color: transparent;
+  width: 40px;
+  text-align: center;
+  border: none;
+  padding: 8px 10px;
+  font-size: 16px;
+  outline: none;
+}
+
+/* Hide the number input spin buttons */
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input-box[type="number"] {
+  appearance: textfield;
+}
+
+.accordion {
+  --bs-accordion-body-padding-x: 0px;
+  --bs-accordion-body-padding-y: 16px;
+  --bs-accordion-btn-padding-x: 0px;
+  --bs-accordion-btn-padding-y: 8px;
+}

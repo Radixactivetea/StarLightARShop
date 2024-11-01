@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <!-- shop style -->
-
+    <link rel="stylesheet" href="/public/css/product.css">
 </head>
 
 <body>
@@ -24,24 +24,76 @@
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
                         src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
                 <div class="col-md-6">
-                    <h3 class="fw-bolder">Shop item template</h3>
+                    <h2 class="fw-bolder">Shop item template</h2>
                     <div class="mb-5">
                         <!-- <span class="text-decoration-line-through">$45.00</span> -->
                         <span>RM 40.00</span>
                     </div>
-                    <p class="lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at dolorem
+                    <p class="fs-6 fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at
+                        dolorem
                         quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis
                         delectus ipsam minima ea iste laborum vero?</p>
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1"
-                            style="max-width: 3rem" />
+                        <div class="quantity me-3">
+                            <button class="minus" aria-label="Decrease">&minus;</button>
+                            <input type="number" class="input-box" value="1" min="1" max="10">
+                            <button class="plus" aria-label="Increase">&plus;</button>
+                        </div>
                         <button class="btn btn-outline-primary flex-shrink-0" type="button">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
                     </div>
-                    <a href="#" class="">vr</a>
-
+                    <div class="accordion mt-5 border-top border-primary-subtle">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                    aria-controls="panelsStayOpen-collapseOne">
+                                    Accordion Item #1
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                <div class="accordion-body fw-light ">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
+                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
+                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseTwo">
+                                    Accordion Item #2
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                <div class="accordion-body fw-light ">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
+                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
+                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                    aria-controls="panelsStayOpen-collapseThree">
+                                    Accordion Item #3
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body fw-light ">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
+                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
+                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -165,6 +217,8 @@
     <!-- bootstap and popper -->
     <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/public/js/product.js"></script>
 </body>
 
 </html>
