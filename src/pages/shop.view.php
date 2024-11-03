@@ -74,7 +74,7 @@
         <div class="shop-content">
             <div class="col">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <a href="#" class="col text-decoration-none">
+                    <a href="/shop/1" class="col text-decoration-none">
                         <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
                             <img src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
                                 alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
