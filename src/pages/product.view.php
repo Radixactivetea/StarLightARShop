@@ -19,10 +19,11 @@
 
     <!-- Product section-->
     <section class="py-5">
-        <div class="container my-5">
+        <div class="container">
             <div class="row gx-4 gx-lg-5 align-items-start">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg" alt="Product Item" /></div>
+                        src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
+                        alt="Product Item" /></div>
                 <div class="col-md-6">
                     <h2 class="fw-bolder">Shop item template</h2>
                     <div class="mb-5">
@@ -91,6 +92,10 @@
                                     facere dignissimos non recusandae aliquam possimus harum repellat pariatur
                                     reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
                                 </div>
+                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#ReviewSection" aria-expanded="false" aria-controls="ReviewSection">
+                                    Full Reviews
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -100,8 +105,8 @@
     </section>
 
     <!-- Review section -->
-    <section class="py-5 d-none">
-        <div class="container">
+    <section id="ReviewSection" class="collapse">
+        <div class="container my-5">
             <h4 class="text-center mb-4">People Love Us</h4>
             <div class="row border-top border-bottom border-primary-subtle py-4">
                 <div class="col-12 col-lg-10">
