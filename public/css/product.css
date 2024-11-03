@@ -1,3 +1,11 @@
+@media (min-width: 768px) {
+  .sticky {
+      position: sticky;
+      top: 83px;
+      z-index: 1;
+  }
+}
+
 .quantity {
   display: flex;
   border: 1px solid #AF8F6f;

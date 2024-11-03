@@ -21,7 +21,7 @@
     <section class="py-5">
         <div class="container">
             <div class="row gx-4 gx-lg-5 align-items-start">
-                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
+                <div class="col-md-6 sticky"><img class="card-img-top mb-5 mb-md-0"
                         src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
                         alt="Product Item" /></div>
                 <div class="col-md-6">
