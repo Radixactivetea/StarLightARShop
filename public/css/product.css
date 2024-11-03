@@ -19,6 +19,7 @@
 
 .quantity button:hover {
   background-color: #AF8F6f;
+  color: white;
 }
 
 .input-box {

@@ -141,7 +141,7 @@
     <!-- Related items section-->
     <section class="py-5">
         <div class="container">
-            <h4 class="mb-4">Related products</h4>
+            <h4 class="mb-4">Just for You</h4>
             <div class="col">
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
                     <a href="/shop/1" class="col text-decoration-none">
@@ -155,7 +155,7 @@
                             </div>
                         </div>
                     </a>
-                    <!-- more related product (limit to 5) -->
+                    <!-- more related product (limit to 4) -->
                 </div>
             </div>
         </div>
