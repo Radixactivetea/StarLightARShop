@@ -18,11 +18,11 @@
   --bs-btn-color: #000000;
   --bs-btn-bg: #AF8F6F;
   --bs-btn-border-color: #AF8F6F;
-  --bs-btn-hover-color: #000000;
+  --bs-btn-hover-color: #ffffff;
   --bs-btn-hover-bg: #BBA085;
   --bs-btn-hover-border-color: #B79A7D;
   --bs-btn-focus-shadow-rgb: 26,21,17;
-  --bs-btn-active-color: #000000;
+  --bs-btn-active-color: #ffffff;
   --bs-btn-active-bg: #BFA58C;
   --bs-btn-active-border-color: #B79A7D;
   --bs-btn-disabled-color: #000000;
@@ -34,10 +34,10 @@
   --bs-btn-color: #AF8F6F;
   --bs-btn-border-color: #AF8F6F;
   --bs-btn-focus-shadow-rgb: 175,143,111;
-  --bs-btn-hover-color: #000000;
+  --bs-btn-hover-color: #ffffff;
   --bs-btn-hover-bg: #AF8F6F;
   --bs-btn-hover-border-color: #AF8F6F;
-  --bs-btn-active-color: #000000;
+  --bs-btn-active-color: #ffffff;
   --bs-btn-active-bg: #AF8F6F;
   --bs-btn-active-border-color: #AF8F6F;
   --bs-btn-disabled-color: #AF8F6F;
