@@ -51,4 +51,5 @@
 
 .shop-content {
     grid-area: shop-content;
+    margin-bottom: 10px;
 }

@@ -92,7 +92,7 @@
                                     facere dignissimos non recusandae aliquam possimus harum repellat pariatur
                                     reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
                                 </div>
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                <button class="btn btn-outline-primary flex-shrink-0" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#ReviewSection" aria-expanded="false" aria-controls="ReviewSection">
                                     Full Reviews
                                 </button>
