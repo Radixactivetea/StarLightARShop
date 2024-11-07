@@ -32,18 +32,14 @@
                         <div class="accordion-body">
                             <div class="btn-group category-checkbox" role="group"
                                 aria-label="Basic checkbox toggle button group">
-                                <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
-                                <label class="btn btn-outline-primary category-btn" for="btncheck1">Oil
-                                    Dispenser</label>
 
-                                <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
-                                <label class="btn btn-outline-primary category-btn" for="btncheck2">Plates</label>
+                                <?php foreach ($category as $category): ?>
+                                    <input type="checkbox" class="btn-check" id="<?= $category['name'] ?>"
+                                        autocomplete="off">
+                                    <label class="btn btn-outline-primary category-btn"
+                                        for="<?= $category['name'] ?>"><?= $category['name'] ?></label>
+                                <?php endforeach ?>
 
-                                <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
-                                <label class="btn btn-outline-primary category-btn" for="btncheck3">Bowls</label>
-
-                                <input type="checkbox" class="btn-check" id="btncheck4" autocomplete="off">
-                                <label class="btn btn-outline-primary category-btn" for="btncheck4">Mug</label>
                             </div>
                         </div>
                     </div>
@@ -72,7 +68,7 @@
                 </div>
             </div>
         </div>
-        <div class="shop-content">
+        <div class="shop-content mb-5">
             <div class="col">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
 
