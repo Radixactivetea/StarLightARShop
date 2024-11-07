@@ -32,7 +32,7 @@
     </div>
 
     <div class="collection container">
-        <img class="collection-img" src="./public/img/collection.png" />
+        <img class="collection-img" src="./public/upload/bundle.png" />
         <div class="collection-desc">
             <p class="">New Collection</p>
             <h2 class="product-title">P-White-Collection</h2>
