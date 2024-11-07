@@ -24,7 +24,8 @@
 
             <?php foreach ($promotion as $index => $announcement): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                    <div title="<?= $announcement['description'] ?>" class="d-block w-100"><?= $announcement['name'] ?></div>
+                    <div title="<?= $announcement['description'] ?>" class="d-block w-100"><?= $announcement['name'] ?>
+                    </div>
                 </div>
             <?php endforeach ?>
 
@@ -32,13 +33,12 @@
     </div>
 
     <div class="collection container">
-        <img class="collection-img" src="./public/upload/bundle.png" />
+        <img class="collection-img" src="./public/upload/<?= $collection['image_url'] ?>"  alt="collection image"/>
         <div class="collection-desc">
             <p class="">New Collection</p>
-            <h2 class="product-title">P-White-Collection</h2>
-            <p class="product-description">Remastered for style, elevate your house look with the P-White-Collection.
-            </p>
-            <button class="btn btn-primary">Shop Now</button>
+            <h2 class="product-title"><?= $collection['name'] ?></h2>
+            <p class="product-description fw-light w-75 mx-auto"><?= $collection['description'] ?></p>
+            <a href="/shop/<?= $collection['product_id'] ?>" class="btn btn-primary">Shop Now</a>
         </div>
     </div>
 
@@ -65,62 +65,22 @@
         </div>
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
-                <li class="glide__slide">
-                    <a href="#">
-                        <div class="card h-100">
-                            <img src="./public/img/product.png" class="card-img-top" alt="Product">
-                            <div class="card-body">
-                                <p class="card-text">Stoneware Olive Oil Dispenser | Canard 34 oz</p>
+                <?php foreach ($new_product as $new_product): ?>
+                    <li class="glide__slide">
+                        <a href="/shop/<?= $new_product['product_id'] ?>">
+                            <div class="card h-100">
+                                <img src="./public/upload/<?= $new_product['image_url'] ?>" alt="new product image" class="card-img-top" alt="Product">
+                                <div class="card-body">
+                                    <p class="card-text"><?= $new_product['name'] ?></p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="glide__slide">
-                    <a href="#">
-                        <div class="card h-100">
-                            <img src="./public/img/product2.png" class="card-img-top" alt="Product">
-                            <div class="card-body">
-                                <p class="card-text">Stoneware Jug Dadasi 50 oz</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="glide__slide">
-                    <a href="#">
-                        <div class="card h-100">
-                            <img src="./public/img/product3.png" class="card-img-top" alt="Product">
-                            <div class="card-body">
-                                <p class="card-text">Rustic Shallow Bowls in Toasted Marshmallow Glaze</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="glide__slide">
-                    <a href="#">
-                        <div class="card h-100">
-                            <img src="./public/img/product4.png" class="card-img-top" alt="Product">
-                            <div class="card-body">
-                                <p class="card-text">Pottery Mug with Dark Brown Raw Stone Clay, 11 Ounce Coffee Cup
-                                    with Carved</p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="glide__slide">
-                    <a href="#">
-                        <div class="card h-100">
-                            <img src="./public/img/product5.png" class="card-img-top" alt="Product">
-                            <div class="card-body">
-                                <p class="card-text">Close out Lot of Imperfect Dishes, Creamy White and Ocher Glazes
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </li>
+                        </a>
+                    </li>
+                <?php endforeach ?>
             </ul>
         </div>
         <div class="col d-flex justify-content-center">
-            <button class="btn btn-primary">Show more</button>
+            <a href="/shop" class="btn btn-primary">Show more</a>
         </div>
     </div>
 
