@@ -58,7 +58,8 @@
                     </h2>
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                         <div class="accordion-body">
-                            <div class="btn-group category-checkbox" role="group" aria-label="Basic radio toggle button group">
+                            <div class="btn-group category-checkbox" role="group"
+                                aria-label="Basic radio toggle button group">
                                 <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
                                     checked>
                                 <label class="btn btn-outline-primary category-btn" for="btnradio1">Low - High</label>
@@ -74,17 +75,20 @@
         <div class="shop-content">
             <div class="col">
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                    <a href="/shop/1" class="col text-decoration-none">
-                        <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
-                            <img src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
-                                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                                class="card-img-top"   />
-                            <div class="card-body">
-                                <h5 class="card-title text-sm text-gray-700">Earthen Bottle</h5>
-                                <p class="card-text text-lg font-weight-bold text-gray-900">$48</p>
+
+                    <?php foreach ($products as $products): ?>
+                        <a href="/shop/<?= $products['product_id'] ?>" class="col text-decoration-none">
+                            <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
+                                <img src="/public/upload/product/<?= $products['image_url'] ?>"
+                                    alt="<?= $products['image_url'] ?>" class="card-img-top" />
+                                <div class="card-body">
+                                    <h5 class="card-title text-sm text-gray-700"><?= $products['name'] ?></h5>
+                                    <p class="card-text text-lg fw-light text-gray-900">RM <?= $products['price'] ?></p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    <?php endforeach ?>
+
                 </div>
             </div>
         </div>
