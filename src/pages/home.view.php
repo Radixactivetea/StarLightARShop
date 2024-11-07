@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/node_modules/@glidejs/glide/dist/css/glide.core.min.css">
     <!-- home style -->
     <link rel="stylesheet" href="/public/css/home.css">
-    
+
 
 <body>
     <!-- navigator -->
@@ -21,15 +21,13 @@
 
     <div id="promotion" class="carousel slide promotion-carousel" data-bs-ride="carousel">
         <div class="carousel-inner" style="text-align: center;">
-            <div class="carousel-item active">
-                <div class="d-bloock w-100">Announcement One</div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-bloock w-100">Announcement Two</div>
-            </div>
-            <div class="carousel-item">
-                <div class="d-bloock w-100">Announcement Three</div>
-            </div>
+
+            <?php foreach ($promotion as $index => $announcement): ?>
+                <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
+                    <div title="<?= $announcement['description'] ?>" class="d-block w-100"><?= $announcement['name'] ?></div>
+                </div>
+            <?php endforeach ?>
+
         </div>
     </div>
 
@@ -102,7 +100,8 @@
                         <div class="card h-100">
                             <img src="./public/img/product4.png" class="card-img-top" alt="Product">
                             <div class="card-body">
-                                <p class="card-text">Pottery Mug with Dark Brown Raw Stone Clay, 11 Ounce Coffee Cup with Carved</p>
+                                <p class="card-text">Pottery Mug with Dark Brown Raw Stone Clay, 11 Ounce Coffee Cup
+                                    with Carved</p>
                             </div>
                         </div>
                     </a>
@@ -112,7 +111,8 @@
                         <div class="card h-100">
                             <img src="./public/img/product5.png" class="card-img-top" alt="Product">
                             <div class="card-body">
-                                <p class="card-text">Close out Lot of Imperfect Dishes, Creamy White and Ocher Glazes</p>
+                                <p class="card-text">Close out Lot of Imperfect Dishes, Creamy White and Ocher Glazes
+                                </p>
                             </div>
                         </div>
                     </a>
