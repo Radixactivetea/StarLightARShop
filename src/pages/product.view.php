@@ -22,18 +22,14 @@
         <div class="container">
             <div class="row gx-4 gx-lg-5 align-items-start">
                 <div class="col-md-6 sticky"><img class="card-img-top mb-5 mb-md-0"
-                        src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
-                        alt="Product Item" /></div>
+                        src="/public/upload/product/<?= $product['image_url'] ?>" alt="Product Item" /></div>
                 <div class="col-md-6">
-                    <h2 class="fw-bolder">Shop item template</h2>
+                    <h2 class="fw-bolder"><?= $product['name'] ?></h2>
                     <div class="mb-5">
                         <!-- <span class="text-decoration-line-through">$45.00</span> -->
-                        <span>RM 40.00</span>
+                        <span>RM <?= $product['price'] ?></span>
                     </div>
-                    <p class="fs-6 fw-light">Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium at
-                        dolorem
-                        quidem modi. Nam sequi consequatur obcaecati excepturi alias magni, accusamus eius blanditiis
-                        delectus ipsam minima ea iste laborum vero?</p>
+                    <p class="fs-6 fw-light"><?= $product['description'] ?></p>
                     <div class="d-flex">
                         <div class="quantity me-3">
                             <button class="minus" aria-label="Decrease">&minus;</button>
@@ -149,17 +145,19 @@
             <h4 class="mb-4">Just for You</h4>
             <div class="col">
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-                    <a href="/shop/1" class="col text-decoration-none">
-                        <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
-                            <img src="https://tailwindui.com/plus/img/ecommerce-images/category-page-04-image-card-01.jpg"
-                                alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                                class="card-img-top"   />
-                            <div class="card-body">
-                                <h5 class="card-title text-sm text-gray-700">Earthen Bottle</h5>
-                                <p class="card-text text-lg font-weight-bold text-gray-900">$48</p>
+                    <?php foreach ($products as $products): ?>
+                        <a href="/shop/<?= $products['product_id'] ?>" class="col text-decoration-none">
+                            <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
+                                <img src="/public/upload/product/<?= $products['image_url'] ?>"
+                                    alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                                    class="card-img-top"   />
+                                <div class="card-body">
+                                    <h5 class="card-title text-sm text-gray-700"><?= $products['name'] ?></h5>
+                                    <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $products['price'] ?></p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    <?php endforeach ?>
                     <!-- more related product (limit to 4) -->
                 </div>
             </div>
