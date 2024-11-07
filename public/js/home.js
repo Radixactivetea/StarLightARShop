@@ -1,7 +1,7 @@
 const myCarouselElement = document.querySelector('#promotion')
 
 const carousel = new bootstrap.Carousel(myCarouselElement, {
-  interval: 2500,
+  interval: 2700,
   touch: true,
   pause: "hover"
 })

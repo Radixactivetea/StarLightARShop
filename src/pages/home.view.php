@@ -24,8 +24,9 @@
 
             <?php foreach ($promotion as $index => $announcement): ?>
                 <div class="carousel-item <?= $index === 0 ? 'active' : '' ?>">
-                    <div title="<?= $announcement['description'] ?>" class="d-block w-100"><?= $announcement['name'] ?>
+                    <div class="d-block w-100"><?= $announcement['name'] ?>
                     </div>
+                    <div class="fw-light"><?= $announcement['description'] ?></div>
                 </div>
             <?php endforeach ?>
 
@@ -33,7 +34,8 @@
     </div>
 
     <div class="collection container">
-        <img class="collection-img" src="./public/upload/<?= $collection['image_url'] ?>"  alt="collection image"/>
+        <img class="collection-img" src="/public/upload/product/<?= $collection['image_url'] ?>"
+            alt="collection image" />
         <div class="collection-desc">
             <p class="">New Collection</p>
             <h2 class="product-title"><?= $collection['name'] ?></h2>
@@ -65,18 +67,22 @@
         </div>
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
+
                 <?php foreach ($new_product as $new_product): ?>
                     <li class="glide__slide">
                         <a href="/shop/<?= $new_product['product_id'] ?>">
                             <div class="card h-100">
-                                <img src="./public/upload/<?= $new_product['image_url'] ?>" alt="new product image" class="card-img-top" alt="Product">
+                                <img src="/public/upload/product/<?= $new_product['image_url'] ?>" alt="new product image"
+                                    class="card-img-top" alt="Product">
                                 <div class="card-body">
                                     <p class="card-text"><?= $new_product['name'] ?></p>
+                                    <div class="fw-light">RM <?= $new_product['price'] ?></div>
                                 </div>
                             </div>
                         </a>
                     </li>
                 <?php endforeach ?>
+
             </ul>
         </div>
         <div class="col d-flex justify-content-center">
@@ -107,36 +113,17 @@
         </div>
         <div class="glide__track" data-glide-el="track">
             <ul class="glide__slides">
-                <li class="glide__slide">
-                    <div class="catergory-card card">
-                        <img src="./public/img/product.png" class="card-img-top" alt="...">
-                        <button>Oil Dispenser</button>
-                    </div>
-                </li>
-                <li class="glide__slide">
-                    <div class="catergory-card card">
-                        <img src="./public/img/bowl.png" class="card-img-top" alt="...">
-                        <button>Bowl</button>
-                    </div>
-                </li>
-                <li class="glide__slide">
-                    <div class="catergory-card card">
-                        <img src="./public/img/mug.png" class="card-img-top" alt="...">
-                        <button>Mug</button>
-                    </div>
-                </li>
-                <li class="glide__slide">
-                    <div class="catergory-card card">
-                        <img src="./public/img/plate.png" class="card-img-top" alt="...">
-                        <button>Plate</button>
-                    </div>
-                </li>
-                <li class="glide__slide">
-                    <div class="catergory-card card">
-                        <img src="./public/img/vase.png" class="card-img-top" alt="...">
-                        <button>Vase</button>
-                    </div>
-                </li>
+
+                <?php foreach ($category as $category): ?>
+                    <li class="glide__slide">
+                        <a href="/shop/<?= strtolower($category['name']) ?>" class="catergory-card card">
+                            <img src="/public/upload/category/<?= $category['image_url'] ?>"
+                                class="card-img-top object-fit-cover" alt="category">
+                            <button><?= $category['name'] ?></button>
+                        </a>
+                    </li>
+                <?php endforeach ?>
+
             </ul>
         </div>
     </div>
