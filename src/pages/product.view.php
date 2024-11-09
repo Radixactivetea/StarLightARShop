@@ -43,22 +43,33 @@
                         </button>
                     </div>
                     <div class="accordion accordion-flush mt-5">
-                        <div class="accordion-item border-top border-primary-subtle">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                                    aria-controls="panelsStayOpen-collapseOne">
-                                    Augmented Reality
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                                <div class="accordion-body fw-light ">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
-                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
-                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+
+                        <?php if ($product['has_AR'] == 1) { ?>
+                            <div class="accordion-item border-top border-primary-subtle">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                        Augmented Reality
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                                    <div class="accordion-body fw-light ">
+                                        Experience our pottery collection like never before with Augmented Reality! Our AR
+                                        feature lets you visualize each piece in your own space, so you can see colors,
+                                        textures, and size as if it’s right in front of you. Try it now—just click the
+                                        button below and bring our pottery into your home today!
+                                    </div>
+                                    <a href="/AR" class="text-primary"><svg xmlns="http://www.w3.org/2000/svg" height="32"
+                                            fill="currentColor" viewBox="0 0 640 512">
+                                            <path
+                                                d="M576 64L64 64C28.7 64 0 92.7 0 128L0 384c0 35.3 28.7 64 64 64l120.4 0c24.2 0 46.4-13.7 57.2-35.4l32-64c8.8-17.5 26.7-28.6 46.3-28.6s37.5 11.1 46.3 28.6l32 64c10.8 21.7 33 35.4 57.2 35.4L576 448c35.3 0 64-28.7 64-64l0-256c0-35.3-28.7-64-64-64zM96 240a64 64 0 1 1 128 0A64 64 0 1 1 96 240zm384-64a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
+                                        </svg></a>
+
                                 </div>
                             </div>
-                        </div>
+                        <?php } ?>
+
                         <div class="accordion-item border-top border-primary-subtle">
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
