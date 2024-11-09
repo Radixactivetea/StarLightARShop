@@ -36,6 +36,13 @@ class Database
 
     public function fetchAll()
     {
-        return $this->statement->fetchAll();
+        $result = $this->statement->fetchAll();
+        
+        if(! $result) {
+            header("Location: /404");
+            exit();
+        }
+
+        return $result;
     }
 }
