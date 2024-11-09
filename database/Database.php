@@ -22,21 +22,11 @@ class Database
         return $this;
     }
 
-    public function get()
-    {
-        return $this->statement->fetch();
-    }
-
-    public function getAll()
-    {
-        return $this->statement->fetchAll();
-    }
-
     public function fetch()
     {
         $result = $this->statement->fetch();
-        
-        if(! $result) {
+
+        if (!$result) {
             header("Location: /404");
             exit();
         }
@@ -46,6 +36,13 @@ class Database
 
     public function fetchAll()
     {
-        return $this->statement->fetchAll();
+        $result = $this->statement->fetchAll();
+
+        if (!$result) {
+            header("Location: /404");
+            exit();
+        }
+
+        return $result;
     }
 }
