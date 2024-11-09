@@ -75,41 +75,69 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
                                     aria-controls="panelsStayOpen-collapseTwo">
-                                    Description
+                                    Dimensions
                                 </button>
                             </h2>
                             <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
                                 <div class="accordion-body fw-light ">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
-                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
-                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+                                    <div class="d-flex flex-wrap">
+
+                                        <?php foreach ($dimensions as $dimension): ?>
+                                            <div class="w-50 pb-3">
+
+                                                <?php if (!empty($dimension['name'])): ?>
+                                                    <h6 class="ms-0 mb-1"><?= htmlspecialchars($dimension['name']) ?></h6>
+                                                <?php endif; ?>
+
+                                                <?php if (!empty($dimension['diameter'])): ?>
+                                                    <div>Diameter: <?= htmlspecialchars($dimension['diameter']) ?> cm</div>
+                                                <?php endif; ?>
+
+                                                <?php if (!empty($dimension['height'])): ?>
+                                                    <div>Height: <?= htmlspecialchars($dimension['height']) ?> cm</div>
+                                                <?php endif; ?>
+
+                                                <?php if (!empty($dimension['weight'])): ?>
+                                                    <div>Weight: <?= htmlspecialchars($dimension['weight']) ?> kg</div>
+                                                <?php endif; ?>
+
+                                                <?php if (!empty($dimension['capacity'])): ?>
+                                                    <div>Capacity: <?= htmlspecialchars($dimension['capacity']) ?> l</div>
+                                                <?php endif; ?>
+                                                
+                                            </div>
+                                        <?php endforeach; ?>
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="accordion-item border-top border-primary-subtle">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseThree">
-                                    Reviews
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
-                                <div class="accordion-body fw-light ">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam fugit
-                                    facere dignissimos non recusandae aliquam possimus harum repellat pariatur
-                                    reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque. Dignissimos?
+                            <div class="accordion-item border-top border-primary-subtle">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseThree">
+                                        Reviews
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                    <div class="accordion-body fw-light ">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam
+                                        fugit
+                                        facere dignissimos non recusandae aliquam possimus harum repellat pariatur
+                                        reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque.
+                                        Dignissimos?
+                                    </div>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#ReviewSection" aria-expanded="false"
+                                        aria-controls="ReviewSection">
+                                        Full Reviews
+                                    </button>
                                 </div>
-                                <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#ReviewSection" aria-expanded="false" aria-controls="ReviewSection">
-                                    Full Reviews
-                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- Review section -->
