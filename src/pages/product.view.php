@@ -33,7 +33,8 @@
                     <div class="d-flex">
                         <div class="quantity me-3">
                             <button class="minus" aria-label="Decrease">&minus;</button>
-                            <input type="number" class="input-box" value="1" min="1" max="10">
+                            <input type="number" class="input-box" value="1" min="1"
+                                max="<?= $product['stock_level'] ?>">
                             <button class="plus" aria-label="Increase">&plus;</button>
                         </div>
                         <button class="btn btn-outline-primary flex-shrink-0" type="button">
@@ -153,7 +154,8 @@
                                     class="card-img-top"   />
                                 <div class="card-body">
                                     <h5 class="card-title text-sm text-gray-700"><?= $products['name'] ?></h5>
-                                    <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $products['price'] ?></p>
+                                    <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $products['price'] ?>
+                                    </p>
                                 </div>
                             </div>
                         </a>

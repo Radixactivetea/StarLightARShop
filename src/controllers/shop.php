@@ -1,12 +1,40 @@
 <?php
 
 
-$config = require ('config.php');
+$config = require('config.php');
 $db = new Database($config['database']);
 
-$products = $db->query('SELECT * FROM product')->fetchAll();
+$selectedCategories = isset($_POST['categories']) ? array_map('intval', $_POST['categories']) : [];
+$priceSort = isset($_POST['price_sort']) && in_array($_POST['price_sort'], ['low_high', 'high_low']) ? $_POST['price_sort'] : 'low_high';
 
-$category = $db->query('SELECT * FROM category')->fetchAll();
+$isChecked = false;
+
+$product_query = "SELECT p.* FROM product p 
+                    JOIN product_category pc ON p.product_id = pc.product_id 
+                    WHERE p.stock_level > 0";
+
+
+
+if (!empty($selectedCategories)) {
+
+    $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
+
+    $product_query .= " AND pc.category_id IN ($placeholders)";
+}
+
+if ($priceSort == 'low_high') {
+    $product_query .= " ORDER BY p.price ASC";
+} elseif ($priceSort == 'high_low') {
+    $product_query .= " ORDER BY p.price DESC";
+}
+
+
+$products = $db->query($product_query, $selectedCategories)->fetchAll();
+
+$category = $db->query('SELECT DISTINCT c.* FROM category c 
+                                JOIN product_category pc ON c.category_id = pc.category_id 
+                                JOIN product p ON p.product_id = pc.product_id 
+                                WHERE p.stock_level > 0;')->fetchAll();
 
 
 require 'src/pages/shop.view.php';

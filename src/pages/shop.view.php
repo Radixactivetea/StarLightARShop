@@ -17,56 +17,70 @@
     <?php require "src/components/nav.php"; ?>
 
     <div class="main-grid container mt-5">
-        <div class="filter-bar px-3">
+        <div class="filter-bar px-3 mb-2">
             <h5>Filter By</h5>
-            <div class="accordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
-                            aria-controls="panelsStayOpen-collapseOne">
-                            Category
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
-                        <div class="accordion-body">
-                            <div class="btn-group category-checkbox" role="group"
-                                aria-label="Basic checkbox toggle button group">
+            <form action="/shop" method="POST">
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                Category
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <form action="/shop" method="POST">
+                                    <div class="btn-group category-checkbox" role="group"
+                                        aria-label="Basic checkbox toggle button group">
 
-                                <?php foreach ($category as $category): ?>
-                                    <input type="checkbox" class="btn-check" id="<?= $category['name'] ?>"
-                                        autocomplete="off">
-                                    <label class="btn btn-outline-primary category-btn"
-                                        for="<?= $category['name'] ?>"><?= $category['name'] ?></label>
-                                <?php endforeach ?>
+                                        <?php foreach ($category as $cat): ?>
+                                            <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>"
+                                                class="btn-check" id="category-<?= $cat['category_id'] ?>"
+                                                autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
 
+                                            <label class="btn btn-outline-primary category-btn"
+                                                for="category-<?= $cat['category_id'] ?>">
+                                                <?= htmlspecialchars($cat['name']) ?>
+                                            </label>
+                                        <?php endforeach; ?>
+
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                            aria-controls="panelsStayOpen-collapseTwo">
-                            Price
-                        </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                        <div class="accordion-body">
-                            <div class="btn-group category-checkbox" role="group"
-                                aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
-                                    checked>
-                                <label class="btn btn-outline-primary category-btn" for="btnradio1">Low - High</label>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                aria-controls="panelsStayOpen-collapseTwo">
+                                Price
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <div class="btn-group category-checkbox" role="group"
+                                    aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" name="price_sort" value="low_high"
+                                        id="btnradio1" autocomplete="off" <?php if ($priceSort == 'low_high')
+                                            echo 'checked'; ?>>
+                                    <label class="btn btn-outline-primary category-btn" for="btnradio1">Low -
+                                        High</label>
 
-                                <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-                                <label class="btn btn-outline-primary category-btn" for="btnradio2">High - Low</label>
+                                    <input type="radio" class="btn-check" name="price_sort" value="high_low"
+                                        id="btnradio2" autocomplete="off" <?php if ($priceSort == 'high_low')
+                                            echo 'checked'; ?>>
+                                    <label class="btn btn-outline-primary category-btn" for="btnradio2">High -
+                                        Low</label>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <button type="submit" class="btn btn-primary ms-3">Filter</button>
                 </div>
-            </div>
+            </form>
         </div>
         <div class="shop-content mb-5">
             <div class="col">
