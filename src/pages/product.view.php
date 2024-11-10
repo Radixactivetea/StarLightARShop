@@ -102,7 +102,7 @@
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($dimension['capacity'])): ?>
-                                                    <div>Capacity: <?= htmlspecialchars($dimension['capacity']) ?> l</div>
+                                                    <div>Capacity: <?= htmlspecialchars($dimension['capacity']) ?> &#8467;</div>
                                                 <?php endif; ?>
                                                 
                                             </div>
