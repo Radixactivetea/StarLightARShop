@@ -19,7 +19,7 @@
     <div class="main-grid container mt-5">
         <div class="filter-bar px-3 mb-2">
             <h5>Filter By</h5>
-            <form action="/shop" method="POST">
+            <form action="/shop" method="GET">
                 <div class="accordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
@@ -31,23 +31,21 @@
                         </h2>
                         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
                             <div class="accordion-body">
-                                <form action="/shop" method="POST">
-                                    <div class="btn-group category-checkbox" role="group"
-                                        aria-label="Basic checkbox toggle button group">
+                                <div class="btn-group category-checkbox" role="group"
+                                    aria-label="Basic checkbox toggle button group">
 
-                                        <?php foreach ($category as $cat): ?>
-                                            <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>"
-                                                class="btn-check" id="category-<?= $cat['category_id'] ?>"
-                                                autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
+                                    <?php foreach ($category as $cat): ?>
+                                        <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>"
+                                            class="btn-check" id="category-<?= $cat['category_id'] ?>" autocomplete="off"
+                                            <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
 
-                                            <label class="btn btn-outline-primary category-btn"
-                                                for="category-<?= $cat['category_id'] ?>">
-                                                <?= htmlspecialchars($cat['name']) ?>
-                                            </label>
-                                        <?php endforeach; ?>
+                                        <label class="btn btn-outline-primary category-btn"
+                                            for="category-<?= $cat['category_id'] ?>">
+                                            <?= htmlspecialchars($cat['name']) ?>
+                                        </label>
+                                    <?php endforeach; ?>
 
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,6 +61,7 @@
                             <div class="accordion-body">
                                 <div class="btn-group category-checkbox" role="group"
                                     aria-label="Basic radio toggle button group">
+
                                     <input type="radio" class="btn-check" name="price_sort" value="low_high"
                                         id="btnradio1" autocomplete="off" <?php if ($priceSort == 'low_high')
                                             echo 'checked'; ?>>
@@ -74,6 +73,7 @@
                                             echo 'checked'; ?>>
                                     <label class="btn btn-outline-primary category-btn" for="btnradio2">High -
                                         Low</label>
+
                                 </div>
                             </div>
                         </div>

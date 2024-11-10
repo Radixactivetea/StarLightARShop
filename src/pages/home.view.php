@@ -116,7 +116,8 @@
 
                 <?php foreach ($category as $category): ?>
                     <li class="glide__slide">
-                        <a href="/shop/<?= strtolower($category['name']) ?>" class="catergory-card card">
+                        <a href="/shop?categories%5B%5D=<?= $category['category_id'] ?>&price_sort=low_high"
+                            class="catergory-card card">
                             <img src="/public/upload/category/<?= $category['image_url'] ?>"
                                 class="card-img-top object-fit-cover" alt="category">
                             <button><?= $category['name'] ?></button>

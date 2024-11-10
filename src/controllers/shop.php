@@ -4,8 +4,10 @@
 $config = require('config.php');
 $db = new Database($config['database']);
 
-$selectedCategories = isset($_POST['categories']) ? array_map('intval', $_POST['categories']) : [];
-$priceSort = isset($_POST['price_sort']) && in_array($_POST['price_sort'], ['low_high', 'high_low']) ? $_POST['price_sort'] : 'low_high';
+
+
+$selectedCategories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
+$priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_high', 'high_low']) ? $_GET['price_sort'] : 'low_high';
 
 $isChecked = false;
 
