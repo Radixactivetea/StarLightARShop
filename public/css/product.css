@@ -1,8 +1,8 @@
 @media (min-width: 768px) {
   .sticky {
-      position: sticky;
-      top: 83px;
-      z-index: 1;
+    position: sticky;
+    top: 83px;
+    z-index: 1;
   }
 }
 
@@ -56,4 +56,28 @@
   --bs-accordion-body-padding-y: 16px;
   --bs-accordion-btn-padding-x: 0px;
   --bs-accordion-btn-padding-y: 8px;
+}
+
+.rating-bar .progress {
+  height: 8px;
+}
+
+.rating-number {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.rating-star {
+  color: gold;
+}
+
+.btn-review {
+  background-color: #5A5DF1;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn-all-reviews {
+  color: #5A5DF1;
+  font-weight: bold;
 }

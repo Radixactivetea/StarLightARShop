@@ -26,6 +26,20 @@ class Database
     {
         $result = $this->statement->fetch();
 
+        return $result;
+    }
+
+    public function fetchAll()
+    {
+        $result = $this->statement->fetchAll();
+
+        return $result;
+    }
+
+    public function get()
+    {
+        $result = $this->statement->fetch();
+
         if (!$result) {
             header("Location: /404");
             exit();
@@ -34,7 +48,7 @@ class Database
         return $result;
     }
 
-    public function fetchAll()
+    public function getAll()
     {
         $result = $this->statement->fetchAll();
 

@@ -104,7 +104,7 @@
                                                 <?php if (!empty($dimension['capacity'])): ?>
                                                     <div>Capacity: <?= htmlspecialchars($dimension['capacity']) ?> &#8467;</div>
                                                 <?php endif; ?>
-                                                
+
                                             </div>
                                         <?php endforeach; ?>
 
@@ -121,17 +121,54 @@
                                 </h2>
                                 <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
                                     <div class="accordion-body fw-light ">
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur veniam
-                                        fugit
-                                        facere dignissimos non recusandae aliquam possimus harum repellat pariatur
-                                        reiciendis, ducimus totam ad laborum repudiandae suscipit dolor atque.
-                                        Dignissimos?
+                                        <div class="px-2">
+
+                                            <?php foreach ($percentages as $percent): ?>
+                                                <div class="rating-bar d-flex align-items-center mb-3">
+                                                    <span class="me-2"><?= $percent['rating'] ?>
+                                                        <span class="rating-star">★</span>
+                                                    </span>
+                                                    <div class="progress flex-grow-1 me-2">
+                                                        <div class="progress-bar bg-primary"
+                                                            style="width: <?= $percent['percentage'] ?>%;">
+                                                        </div>
+                                                    </div>
+                                                    <span class="text-end"
+                                                        style="width: 24px;"><?= $percent['rating_count'] ?>
+                                                    </span>
+                                                </div>
+                                            <?php endforeach ?>
+
+                                        </div>
+                                        <!-- Average rating display -->
+                                        <div class="px-2">
+                                            <div class="p-4 rounded" style="background-color: rgba(175, 143, 111, 0.3)">
+                                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                                    <div>
+                                                        <div class="rating-number">
+                                                            <?= $totalAndAverage['average_rating'] ?? 0 ?>
+                                                        </div>
+                                                        <div>
+                                                            <span class="">★★★★★</span>
+                                                            <span
+                                                                class="text-muted"><?= $totalAndAverage['total_reviews'] ?>
+                                                                Ratings</span>
+                                                        </div>
+                                                    </div>
+
+                                                    <?php if (!is_null($totalAndAverage['average_rating'])) { ?>
+                                                        <button class="btn btn-primary" type="button"
+                                                            data-bs-toggle="collapse" data-bs-target="#ReviewSection"
+                                                            aria-expanded="false" aria-controls="ReviewSection">
+                                                            See All Reviews
+                                                        </button>
+                                                    <?php } ?>
+
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#ReviewSection" aria-expanded="false"
-                                        aria-controls="ReviewSection">
-                                        Full Reviews
-                                    </button>
+
                                 </div>
                             </div>
                         </div>
@@ -152,30 +189,39 @@
                     <h6 class="mb-0">Rating</h6>
                 </div>
             </div>
-            <div class="row py-3 border-bottom border-primary-subtle">
-                <div class="col-12 col-lg-10">
-                    <div class="d-flex flex-column flex-sm-row gap-3">
-                        <img src="https://pagedone.io/asset/uploads/1704364459.png" alt="Profile Image"
-                            class="rounded-circle object-fit-cover" style="width: 8rem; height: 8rem;">
-                        <div>
-                            <p class="fw-medium fs-5 mb-2 text-dark">Robert Karmazov</p>
-                            <div class="d-flex d-lg-none align-items-center gap-2 mb-4">
-                                <!-- for icon review -->
+            <?php foreach ($showReview as $review): ?>
+                <div class="row py-3 border-bottom border-primary-subtle">
+                    <div class="col-12 col-lg-10">
+                        <div class="d-flex flex-column flex-sm-row gap-3">
+                            <img src="https://pagedone.io/asset/uploads/1704364459.png" alt="Profile Image"
+                                class="rounded-circle object-fit-cover" style="width: 8rem; height: 8rem;">
+                            <div>
+                                <p class="fw-medium fs-5 mb-2 text-dark">Robert Karmazov</p>
+                                <div class="d-flex d-lg-none align-items-center gap-2 mb-4">
+                                    <!-- for icon review -->
+                                    <span class="rating-star">
+                                        <?php for ($stars = 0; $stars < $review['rating']; $stars++) { ?>
+                                            ★
+                                        <?php } ?>
+                                    </span>
+                                </div>
+                                <p class="fw-normal fs-6 text-secondary mb-4"> <?= $review['review'] ?> </p>
+                                <p class="fw-medium fs-6 text-secondary mb-0"> <?= $review['date'] ?> </p>
                             </div>
-                            <p class="fw-normal fs-6 text-secondary mb-4">Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Quisquam, ea rerum natus exercitationem molestias laborum fuga
-                                veritatis sint, quaerat sunt fugiat corporis rem quo. Assumenda doloribus cumque atque
-                                mollitia qui.</p>
-                            <p class="fw-medium fs-6 text-secondary mb-0">Nov 01, 2023</p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-2 d-none d-lg-block">
+                        <div class="d-flex align-items-center gap-2 mb-4 h-100">
+                            <!-- for icon review -->
+                            <span class="rating-star">
+                                <?php for ($stars = 0; $stars < $review['rating']; $stars++) { ?>
+                                    ★
+                                <?php } ?>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-lg-2 d-none d-lg-block">
-                    <div class="d-flex align-items-center gap-2 mb-4">
-                        <!-- for icon review -->
-                    </div>
-                </div>
-            </div>
+            <?php endforeach ?>
         </div>
     </section>
 
