@@ -189,6 +189,7 @@
                     <h6 class="mb-0">Rating</h6>
                 </div>
             </div>
+
             <?php foreach ($showReview as $review): ?>
                 <div class="row py-3 border-bottom border-primary-subtle">
                     <div class="col-12 col-lg-10">
@@ -222,6 +223,7 @@
                     </div>
                 </div>
             <?php endforeach ?>
+
         </div>
     </section>
 
