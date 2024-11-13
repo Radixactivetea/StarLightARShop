@@ -18,6 +18,10 @@
   --scrollbar-thumb-hover: #555;
 }
 
+.btn-close {
+  --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(175, 143, 111, 0.3);
+}
+
 .btn-primary {
   --bs-btn-color: #ffffff;
   --bs-btn-bg: #AF8F6F;
