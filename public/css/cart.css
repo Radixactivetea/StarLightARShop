@@ -1,0 +1,75 @@
+.cart-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.cart-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-summary {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+}
+
+.order-total {
+    font-weight: 700;
+}
+
+.checkout-btn {
+    background-color: #4f46e5;
+    color: white;
+}
+
+.btn-position {
+    position: absolute;
+    top: 22px;
+    right: 0;
+}
+
+.quantity {
+    display: flex;
+    border: 1px solid #AF8F6f;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity button {
+    background-color: transparent;
+    color: #AF8F6f;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 30px;
+    height: auto;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.quantity button:hover {
+    background-color: #AF8F6f;
+    color: white;
+}
+
+.input-box {
+    background-color: transparent;
+    width: 40px;
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Hide the number input spin buttons */
+.input-box::-webkit-inner-spin-button,
+.input-box::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.input-box[type="number"] {
+    appearance: textfield;
+}
