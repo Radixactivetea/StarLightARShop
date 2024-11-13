@@ -9,38 +9,7 @@
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <!-- cart style -->
-    <style>
-        .cart-title {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-
-        .cart-item {
-            padding: 1rem 0;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .order-summary {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-        }
-
-        .order-total {
-            font-weight: 700;
-        }
-
-        .checkout-btn {
-            background-color: #4f46e5;
-            color: white;
-        }
-
-        .btn-position {
-            position: absolute;
-            top: 22px;
-            right: 0;
-        }
-    </style>
+     <link rel="stylesheet" href="/public/css/cart.css">
 </head>
 
 <body>
@@ -48,7 +17,7 @@
     <div class="container my-5">
         <div class="d-flex w-100 justify-content-between border-bottom mb-1">
             <h1 class="cart-title">Shopping Cart</h1>
-            <button type="button" class="btn-close" aria-label="Close"></button>
+            <button type="button" class="btn-close align-self-center" aria-label="Close"></button>
         </div>
 
         <div class="row">
@@ -62,8 +31,10 @@
                         <p class="text-muted">Sienna | Large</p>
                         <p class="text-success mb-0">In stock</p>
                     </div>
-                    <div class="me-3">
-                        <input type="number" class="form-control w-50" value="1" min="1">
+                    <div class="quantity me-3">
+                        <button class="minus" aria-label="Decrease">&minus;</button>
+                        <input type="number" class="input-box" value="1" min="1" max="10">
+                        <button class="plus" aria-label="Increase">&plus;</button>
                     </div>
                     <p class="fw-bold mb-0">$32.00</p>
                     <button type="button" class="btn-close btn-position" aria-label="Close"></button>
@@ -123,6 +94,11 @@
         </div>
     </div>
 
+    <!-- bootstap and popper -->
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script src="/public/js/product.js"></script>
 </body>
 
 </html>
