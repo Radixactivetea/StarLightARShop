@@ -237,14 +237,14 @@
             <h4 class="mb-4">Just for You</h4>
             <div class="col">
                 <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3">
-                    <?php foreach ($products as $products): ?>
-                        <a href="/shop/<?= $products['product_id'] ?>" class="col text-decoration-none">
+                    <?php foreach ($products as $product): ?>
+                        <a href="/shop/<?= $product['product_id'] ?>" class="col text-decoration-none">
                             <div class="card h-100 shadow-sm overflow-hidden rounded-lg">
-                                <img src="/public/upload/product/<?= $products['image_url'] ?>"
+                                <img src="/public/upload/product/<?= $product['image_url'] ?>"
                                     alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
                                     class="card-img-top"   />
                                 <div class="card-body">
-                                    <h5 class="card-title text-sm text-gray-700"><?= $products['name'] ?></h5>
+                                    <h5 class="card-title text-sm text-gray-700"><?= $product['name'] ?></h5>
                                     <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $products['price'] ?>
                                     </p>
                                 </div>
