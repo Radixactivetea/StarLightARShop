@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Light Pottery Shop</title>
+    <title><?= $product['name'] ?></title>
     <!-- bootstap css & override -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
