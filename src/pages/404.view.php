@@ -10,6 +10,10 @@
 </head>
 
 <body>
+
+    <!-- loading page -->
+    <?php require("src/components/loading.php") ?>
+    
     <div id="main">
         <div class="fof">
             <h1>Error 404</h1>

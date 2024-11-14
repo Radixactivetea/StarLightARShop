@@ -13,6 +13,10 @@
 </head>
 
 <body>
+    
+    <!-- loading page -->
+    <?php require("src/components/loading.php") ?>
+    
     <!-- navigator -->
     <?php require "src/components/nav.php"; ?>
 

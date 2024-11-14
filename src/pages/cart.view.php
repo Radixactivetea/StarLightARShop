@@ -14,17 +14,22 @@
 
 <body>
 
+    <!-- loading page -->
+    <?php require("src/components/loading.php") ?>
+
     <div class="container my-5">
         <div class="d-flex w-100 justify-content-between border-bottom border-primary-subtle mb-1">
             <h2 class="fw-bold">Shopping Cart</h2>
-            <button type="button" class="btn-close align-self-center" aria-label="Close" onclick="history.back()"></button>
+            <button type="button" class="btn-close align-self-center" aria-label="Close"
+                onclick="history.back()"></button>
         </div>
 
         <div class="row">
             <!-- Cart Items Section -->
             <div class="col-md-8">
                 <div class="py-3 border-bottom border-primary-subtle d-flex align-items-center position-relative">
-                    <img src="/public/upload/product/Stoneware Coffee Cup.png" class="me-3" width="100px" height="100px" alt="Basic Tee Sienna">
+                    <img src="/public/upload/product/Stoneware Coffee Cup.png" class="me-3" width="100px" height="100px"
+                        alt="Basic Tee Sienna">
                     <div class="flex-grow-1">
                         <h5 class="mb-0">Basic Tee</h5>
                         <p class="text-muted">Sienna | Large</p>
@@ -71,6 +76,7 @@
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <script src="/public/js/product.js"></script>
+
 </body>
 
 </html>
