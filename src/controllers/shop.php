@@ -21,12 +21,16 @@ $product_query = "SELECT p.* FROM product p
 if (!empty($selectedCategories)) {
 
     $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
+    
     $product_query .= " AND pc.category_id IN ($placeholders)";
 }
 
 if ($priceSort == 'low_high') {
+    
     $product_query .= " ORDER BY p.price ASC";
+
 } elseif ($priceSort == 'high_low') {
+    
     $product_query .= " ORDER BY p.price DESC";
 }
 
