@@ -22,6 +22,14 @@ class Database
         return $this;
     }
 
+    public function executeQuery($query, $params = [])
+    {
+        $this->statement = $this->connection->prepare($query);
+
+        return $this->statement->execute($params);
+    }
+
+
     public function fetch()
     {
         $result = $this->statement->fetch();

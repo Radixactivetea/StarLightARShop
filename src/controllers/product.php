@@ -42,8 +42,11 @@ $totalAndAverage = $db->query('SELECT COUNT(*) AS total_reviews,
 
 // Update data
 foreach ($ratings as $row) {
+
     $rating = $row['rating'];
+
     $percentages[$rating]['rating_count'] = $row['rating_count'];
+
     $percentages[$rating]['percentage'] = $row['percentage'];
 }
 

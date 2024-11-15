@@ -16,6 +16,9 @@
   --scrollbar-bg: #f1f1f1;
   --scrollbar-thumb: #888;
   --scrollbar-thumb-hover: #555;
+  --bs-focus-ring-width: 0.1rem;
+  --bs-focus-ring-opacity: 0.25;
+  --bs-focus-ring-color: rgba(175, 143, 111, 0.3);
 }
 
 .btn-close {
