@@ -21,6 +21,25 @@
   --bs-focus-ring-color: rgba(175, 143, 111, 0.3);
 }
 
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-bg);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 10px;
+  border: 2px solid var(--scrollbar-bg);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
 .btn-close {
   --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(175, 143, 111, 0.3);
 }
@@ -87,6 +106,27 @@
   --bs-btn-disabled-border-color: #74512D;
 }
 
+.btn {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+}
+
+.btn-success:hover {
+  background-color: #4CAF50;
+}
+
+.btn-danger:hover {
+  background-color: #E53935;
+}
+
+.btn-success,
+.btn-danger {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
 .accordion {
   --bs-accordion-border-color: none;
   --bs-accordion-btn-focus-box-shadow: none;
@@ -99,26 +139,38 @@
   transform: var(--bs-accordion-btn-icon-transform);
 }
 
+.form-control {
+  border-color: rgba(175, 143, 111, 0.3);
+  color: var(--bs-primary);
+}
+
+.form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.1rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+textarea.form-control {
+  resize: none;
+}
+
+.input-group-text {
+  background-color: var(--bs-primary);
+  color: white;
+  border-color: var(--bs-primary);
+}
+
 body {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-bg);
 }
 
-::-webkit-scrollbar {
-  width: 8px;
+/* Hide the number input spin buttons */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--scrollbar-bg);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb);
-  border-radius: 10px;
-  border: 2px solid var(--scrollbar-bg);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: var(--scrollbar-thumb-hover);
+input[type=number] {
+  -moz-appearance: textfield;
 }

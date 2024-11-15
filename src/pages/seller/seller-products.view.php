@@ -9,28 +9,6 @@
     <!-- bootstap css & override -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
-    <style>
-        .btn {
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-        }
-
-        .btn-success:hover {
-            background-color: #4CAF50;
-        }
-
-        .btn-danger:hover {
-            background-color: #E53935;
-        }
-
-        .btn-success,
-        .btn-danger {
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-    </style>
 </head>
 
 <body>
