@@ -11,7 +11,8 @@ get('/cart', '../src/controllers/cart.php');
 
 get('/seller/manage-products', '../src/controllers/seller/seller-products.php');
 get('/seller/manage-products/form', '../src/controllers/seller/seller-product-form.php');
-post('/seller/delete', '../src/controllers/seller/seller-products.php');
+post('/seller/manage-products', '../src/controllers/seller/seller-products.php');
+post('/seller/manage-products', '../src/controllers/seller/seller-products.php');
 
 
 

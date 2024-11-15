@@ -141,7 +141,6 @@
 
 .form-control {
   border-color: rgba(175, 143, 111, 0.3);
-  color: var(--bs-primary);
 }
 
 .form-control:focus {
