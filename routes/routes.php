@@ -6,6 +6,7 @@ get('/', '../src/controllers/home.php');
 get('/shop', '../src/controllers/shop.php');
 get('/shop/$id', '../src/controllers/product.php');
 get('/cart', '../src/controllers/cart.php');
+get('/AR', '../src/controllers/ar.php');
 
 
 
