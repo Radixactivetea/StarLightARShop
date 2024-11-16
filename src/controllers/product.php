@@ -23,7 +23,7 @@ $product = $db->query('SELECT * FROM product WHERE product_id = :id', ['id' => $
 
 $products = $db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
 
-$dimensions = $db->query('SELECT * FROM dimensions WHERE product_id = :id', ['id' => $id])->fetchAll();
+$dimensions = $db->query('SELECT * FROM dimensions WHERE dimension_id = :id', ['id' => $product['dimension_id']])->fetchAll();
 
 $showReview = $db->query('SELECT * FROM `review&rating` WHERE product_id = :id', ['id' => $id])->fetchAll();
 
