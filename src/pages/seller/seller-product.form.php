@@ -55,6 +55,20 @@
                 and
                 capacity (in liters).
             </p>
+            <?php foreach ($category as $cat): ?>
+                <div class="col-md-3">
+                    <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>" class="btn-check"
+                        id="category-<?= $cat['category_id'] ?>" autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
+
+                    <label class="btn btn-outline-primary category-btn" for="category-<?= $cat['category_id'] ?>">
+                        <?= htmlspecialchars($cat['name']) ?>
+                    </label>
+                </div>
+            <?php endforeach; ?>
+            <p class="text-muted m-0 mt-5">The dimensions we need are diameter (in cm), height (in cm), weight (in kg),
+                and
+                capacity (in liters).
+            </p>
             <div class="col-md-3">
                 <label for="diameter" class="form-label">Diameter (cm)</label>
                 <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1">

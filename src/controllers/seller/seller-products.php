@@ -6,7 +6,6 @@ $config = require('config.php');
 $db = new Database($config['database']);
 
 
-
 // Handle form submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -39,6 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $img_url = $_POST['image_url'];
         $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT);
         $stock_level = filter_var($_POST['stock_level'], FILTER_VALIDATE_INT);
+        $diameter = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
+        $height = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
+        $weight = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
+        $capacity = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
+        $selectedCategories = $_POST['categories'];
 
         $createProduct = $db->executeQuery(
             'INSERT INTO `product` (`name`, `description`, `price`, `stock_level`, `image_url`) 
@@ -53,6 +57,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
 
         if ($createProduct) {
+
+            $getID = $db->query('SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1')->fetch();
+
+            $setDimension = $db->executeQuery('INSERT INTO dimensions (product_id, diameter, height, weight, capacity)
+            VALUES (:product_id, :diameter, :height, :weight, :capacity)',
+                [
+                    'product_id' => $getID['product_id'],
+                    'diameter' => $diameter,
+                    'height' => $height,
+                    'weight' => $weight,
+                    'capacity' => $capacity
+                ]
+            );
+
+
+            foreach ($selectedCategories as $cat):
+                $setCategory = $db->executeQuery('INSERT INTO product_category (product_id, category_id) 
+                VALUES (:product_id, :category_id)', 
+                [
+                    'product_id' => $getID['product_id'],
+                    'category_id' => $cat,
+                ]);
+            endforeach;
 
             header("Location: /seller/manage-products?status=success");
 
@@ -71,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch products
 $getProducts = $db->query('SELECT * FROM product')->fetchAll();
-
 
 
 require 'src/pages/seller/seller-products.view.php';

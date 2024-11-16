@@ -14,7 +14,7 @@ $priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_h
 
 $isChecked = false;
 
-$product_query = "SELECT p.* FROM product p 
+$product_query = "SELECT DISTINCT p.* FROM product p 
     JOIN product_category pc ON p.product_id = pc.product_id 
     WHERE p.stock_level > 0";
 
