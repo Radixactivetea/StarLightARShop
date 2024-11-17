@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $img_url = $_POST['image_url'];
         $price = filter_var($_POST['price'], FILTER_VALIDATE_FLOAT);
         $stock_level = filter_var($_POST['stock_level'], FILTER_VALIDATE_INT);
-        $diameter = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
-        $height = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
-        $weight = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
-        $capacity = filter_var($_POST['stock_level'], FILTER_VALIDATE_FLOAT);
+        $diameter = filter_var($_POST['diameter'], FILTER_VALIDATE_FLOAT);
+        $height = filter_var($_POST['height'], FILTER_VALIDATE_FLOAT);
+        $weight = filter_var($_POST['weight'], FILTER_VALIDATE_FLOAT);
+        $capacity = filter_var($_POST['capacity'], FILTER_VALIDATE_FLOAT);
         $selectedCategories = $_POST['categories'];
 
         $createProduct = $db->executeQuery(
