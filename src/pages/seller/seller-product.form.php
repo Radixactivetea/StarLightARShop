@@ -27,7 +27,7 @@
         <p class="text-muted m-0 mb-2">We'll need information about the name, description, pricing, dimensions, and an
             image of
             the product.</p>
-        <form class="row g-3" action="/seller/manage-products" method="POST">
+        <form class="row g-3" action="/seller/manage-products" method="POST" enctype="multipart/form-data">
             <div class="col-md-12">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
@@ -60,7 +60,7 @@
                     <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>" class="btn-check"
                         id="category-<?= $cat['category_id'] ?>" autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
 
-                    <label class="btn btn-outline-primary category-btn" for="category-<?= $cat['category_id'] ?>">
+                    <label class="btn btn-outline-primary category-btn w-100" for="category-<?= $cat['category_id'] ?>">
                         <?= htmlspecialchars($cat['name']) ?>
                     </label>
                 </div>

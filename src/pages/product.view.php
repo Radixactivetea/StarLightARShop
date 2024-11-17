@@ -245,7 +245,7 @@
                                     class="card-img-top"   />
                                 <div class="card-body">
                                     <h5 class="card-title text-sm text-gray-700"><?= $product['name'] ?></h5>
-                                    <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $products['price'] ?>
+                                    <p class="card-text text-lg font-weight-bold text-gray-900">RM <?= $product['price'] ?>
                                     </p>
                                 </div>
                             </div>
