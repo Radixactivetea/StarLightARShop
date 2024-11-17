@@ -19,24 +19,26 @@ $percentages = [
 
 
 // Querry
-$product = $db->query('SELECT * FROM product WHERE product_id = :id', ['id' => $id])->get();
+$product = $db->find('product', ['product_id' => $id]);
 
 $products = $db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
 
-$dimensions = $db->query('SELECT * FROM dimensions WHERE product_id = :id', ['id' => $product['product_id']])->fetchAll();
+$dimensions =$db->findAll('dimensions', ['product_id' => $product['product_id']]);
 
 $showReview = $db->query('SELECT * FROM `review&rating` WHERE product_id = :id', ['id' => $id])->fetchAll();
 
 $ratings = $db->query('SELECT rating, COUNT(*) AS rating_count, (COUNT(*) / (SELECT COUNT(*) 
     FROM `review&rating` WHERE product_id = :id)) * 100 AS percentage
     FROM `review&rating` WHERE product_id = :id
-    GROUP BY rating ORDER BY rating DESC;', ['id' => $id]
-    )->fetchAll();
+    GROUP BY rating ORDER BY rating DESC;',
+    ['id' => $id]
+)->fetchAll();
 
 $totalAndAverage = $db->query('SELECT COUNT(*) AS total_reviews,
     ROUND(AVG(rating), 1) AS average_rating
-    FROM `review&rating` WHERE product_id = :id;', ['id' => $id]
-    )->fetch();
+    FROM `review&rating` WHERE product_id = :id;',
+    ['id' => $id]
+)->fetch();
 
 
 
