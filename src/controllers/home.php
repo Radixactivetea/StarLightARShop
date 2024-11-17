@@ -13,7 +13,7 @@ $promotion = $db->findAll('promotion');
 $collection = $db->find('product', ['product_id' => 2]);
 
 $new_product = $db->findAll('product', [], [
-    'orderBy' => 'product_id', 
+    'orderBy' => 'product_id DESC', 
     'limit' => 7
 ]);
 
