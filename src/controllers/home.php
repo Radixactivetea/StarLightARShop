@@ -8,11 +8,14 @@ $db = new Database($config['database']);
 
 
 // Querry
-$promotion = $db->query('SELECT * FROM promotion')->fetchAll();
+$promotion = $db->findAll('promotion');
 
-$collection = $db->query('SELECT * FROM product WHERE product_id = 2')->fetch();
+$collection = $db->find('product', ['product_id' => 2]);
 
-$new_product = $db->query('SELECT * FROM product ORDER BY product_id DESC LIMIT 7;')->fetchAll();
+$new_product = $db->findAll('product', [], [
+    'orderBy' => 'product_id', 
+    'limit' => 7
+]);
 
 $category = $db->query('SELECT DISTINCT c.* FROM category c 
     JOIN product_category pc ON c.category_id = pc.category_id 
