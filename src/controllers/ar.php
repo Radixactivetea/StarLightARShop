@@ -7,7 +7,7 @@ $db = new Database($config['database']);
 
 
 // Query
-$getAr = $db->query('SELECT * FROM ar WHERE ar_id = :id', ['id' => $id])->get();
+$getAr = $db->find('ar', ['ar_id' => $id]);
 
 
 require 'src/pages/ar.view.php';
