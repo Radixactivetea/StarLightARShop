@@ -1,6 +1,8 @@
 <?php
 
 
+use Core\Database;
+
 // Connect to the database
 $config = require('config.php');
 $db = new Database($config['database']);

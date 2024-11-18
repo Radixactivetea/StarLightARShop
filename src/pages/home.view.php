@@ -18,7 +18,7 @@
 <body>
 
     <!-- loading page -->
-    <?php require("src/components/loading.php") ?>
+    <?php require "src/components/loading.php" ?>
     
     <!-- navigator -->
     <?php include "src/components/nav.php"; ?>

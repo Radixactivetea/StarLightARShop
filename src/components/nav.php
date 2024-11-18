@@ -1,3 +1,5 @@
+<?php use function Core\urlis; ?>
+
 <link rel="stylesheet" href="/public/css/nav.css">
 <link rel="stylesheet" href="/public/css/Navbar-Centered-Brand-icons.css">
 
