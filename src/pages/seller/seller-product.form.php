@@ -27,16 +27,23 @@
         <p class="text-muted m-0 mb-2">We'll need information about the name, description, pricing, dimensions, and an
             image of
             the product.</p>
-        <form class="row g-3" action="/seller/manage-products" method="POST" enctype="multipart/form-data">
+        <form class="row g-3 needs-validation" action="/seller/manage-products" method="POST"
+            enctype="multipart/form-data" novalidate>
             <div class="col-md-12">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
+                <div class="invalid-feedback">
+                    Please enter a product's name.
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">RM</span>
                     <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" required>
+                    <div class="invalid-feedback">
+                        Please enter a product's price.
+                    </div>
                 </div>
             </div>
             <div class="col-md-6">
@@ -45,11 +52,17 @@
                     <span class="input-group-text">Total</span>
                     <input type="number" class="form-control" id="stock_level" name="stock_level" min="0" step="1"
                         required>
+                    <div class="invalid-feedback">
+                        Please enter a product's price.
+                    </div>
                 </div>
             </div>
             <div class="col-12">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                <div class="invalid-feedback">
+                    Please enter a product's description.
+                </div>
             </div>
             <p class="text-muted m-0 mt-5">The dimensions we need are diameter (in cm), height (in cm), weight (in kg),
                 and
@@ -71,24 +84,39 @@
             </p>
             <div class="col-md-3">
                 <label for="diameter" class="form-label">Diameter (cm)</label>
-                <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1">
+                <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1" required>
+                <div class="invalid-feedback">
+                    Please enter a product's diameter.
+                </div>
             </div>
             <div class="col-md-3">
                 <label for="height" class="form-label">Height (cm)</label>
-                <input type="number" class="form-control" id="height" name="height" min="0" step="0.1">
+                <input type="number" class="form-control" id="height" name="height" min="0" step="0.1" required>
+                <div class="invalid-feedback">
+                    Please enter a product's height.
+                </div>
             </div>
             <div class="col-md-3">
                 <label for="weight" class="form-label">Weight (kg)</label>
-                <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01">
+                <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01" required> 
+                <div class="invalid-feedback">
+                    Please enter a product's weight.
+                </div>
             </div>
             <div class="col-md-3">
                 <label for="capacity" class="form-label">Capacity (l)</label>
-                <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01">
+                <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01" required>
+                <div class="invalid-feedback">
+                    Please enter a product's capacity.
+                </div>
             </div>
             <div class="col-md-6">
                 <label for="image" class="form-label">Image</label>
                 <input type="file" class="form-control form-control-file" id="image_url" name="image_url"
                     accept="image/*" required>
+                <div class="invalid-feedback">
+                    Please enter image of the product.
+                </div>
             </div>
             <div class="col-12">
                 <a href="/seller/manage-products" class="btn btn-primary">Back</a>
@@ -101,7 +129,22 @@
     <!-- bootstap and popper -->
     <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script>
+        // Bootstrap form validation
+        (function () {
+            'use strict'
+            const forms = document.querySelectorAll('.needs-validation')
+            Array.from(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 </body>
 
 </html>
