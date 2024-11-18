@@ -11,11 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['delete-product-id'])) {
 
-        $deleteProduct = $db->executeQuery(
+        $deleteProduct = $db->delete('product', [
+            'product_id' => $_POST['delete-product-id']
+        ]);
 
-            'DELETE FROM product WHERE product_id = :id',
-            ['id' => $_POST['delete-product-id']]
-        );
 
         if ($deleteProduct) {
 
@@ -42,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $weight = filter_var($_POST['weight'], FILTER_VALIDATE_FLOAT);
         $capacity = filter_var($_POST['capacity'], FILTER_VALIDATE_FLOAT);
         $selectedCategories = $_POST['categories'];
-
         $targetDir = "public/upload/product/";
         $fileName = basename($_FILES['image_url']['name']);
         $targetFilePath = $targetDir . $fileName;
@@ -61,9 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
 
-        $createProduct = $db->executeQuery(
-            'INSERT INTO `product` (`name`, `description`, `price`, `stock_level`, `image_url`) 
-            VALUES (:name, :description, :price, :stock_level, :image_url)',
+        $createProduct = $db->insert(
+            'product',
             [
                 'name' => $name,
                 'description' => $description,
@@ -75,12 +72,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($createProduct) {
 
-            $getID = $db->query('SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1')->fetch();
+            $getID = $createProduct;
 
-            $setDimension = $db->executeQuery('INSERT INTO dimensions (product_id, diameter, height, weight, capacity)
-            VALUES (:product_id, :diameter, :height, :weight, :capacity)',
+            $setDimension = $db->insert(
+                'dimensions',
                 [
-                    'product_id' => $getID['product_id'],
+                    'product_id' => $getID,
                     'diameter' => $diameter,
                     'height' => $height,
                     'weight' => $weight,
@@ -88,12 +85,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]
             );
 
-
             foreach ($selectedCategories as $cat):
-                $setCategory = $db->executeQuery('INSERT INTO product_category (product_id, category_id) 
-                VALUES (:product_id, :category_id)',
+
+                $setCategory = $db->insert(
+                    'product_category',
                     [
-                        'product_id' => $getID['product_id'],
+                        'product_id' => $getID,
                         'category_id' => $cat,
                     ]
                 );
