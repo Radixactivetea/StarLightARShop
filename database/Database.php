@@ -135,24 +135,58 @@ class Database
         return $this->connection->lastInsertId();
     }
 
-    public function update($table, $id, $data)
+    public function update($table, $identifier, $data, $primaryKey = 'id')
     {
+        // Ensure there is data to update
+        if (empty($data)) {
+            throw new InvalidArgumentException("Data array cannot be empty.");
+        }
+
+        // Build the SET part of the query
         $fields = array_map(fn($field) => "{$field} = :{$field}", array_keys($data));
 
+        // Construct the SQL query
         $query = "UPDATE {$table} 
-                 SET " . implode(', ', $fields) . " 
-                 WHERE id = :id";
+              SET " . implode(', ', $fields) . " 
+              WHERE {$primaryKey} = :primaryKey";
 
-        $data['id'] = $id;
+        // Add the identifier to the parameters
+        $data['primaryKey'] = $identifier;
+
+        // Execute the query
         return $this->query($query, $data);
     }
 
-    public function delete($table, $id)
+    public function delete($table, $conditions = [])
     {
-        return $this->query(
-            "DELETE FROM {$table} WHERE id = :id",
-            ['id' => $id]
-        );
+        // Start building the base query
+        $query = "DELETE FROM {$table}";
+        $params = [];
+
+        // If conditions are provided, add them to the query
+        if (!empty($conditions)) {
+            $where = [];
+
+            foreach ($conditions as $key => $value) {
+                // Handle different operators
+                if (is_array($value)) {
+                    // Format: ['column' => ['>', 100]]
+                    $operator = $value[0];
+                    $actualValue = $value[1];
+                    $where[] = "{$key} {$operator} :{$key}";
+                    $params[$key] = $actualValue;
+                } else {
+                    // Default equals operator
+                    $where[] = "{$key} = :{$key}";
+                    $params[$key] = $value;
+                }
+            }
+
+            $query .= " WHERE " . implode(' AND ', $where);
+        }
+
+        // Execute the query with the parameters
+        return $this->query($query, $params);
     }
 
     public function findOrFail($table, $conditions = [], $columns = '*')
