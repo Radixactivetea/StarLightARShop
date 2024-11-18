@@ -148,6 +148,18 @@
   box-shadow: none;
 }
 
+.form-control.is-invalid:focus,
+.was-validated .form-control:invalid:focus {
+  border-color: var(--bs-form-invalid-border-color);
+  box-shadow: none;
+}
+
+.form-control.is-valid:focus,
+.was-validated .form-control:valid:focus {
+  border-color: var(--bs-form-valid-border-color);
+  box-shadow: none;
+}
+
 textarea.form-control {
   resize: none;
 }
