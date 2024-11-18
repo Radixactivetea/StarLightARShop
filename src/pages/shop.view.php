@@ -23,7 +23,7 @@
     <div class="main-grid container mt-5">
         <div class="filter-bar px-3 mb-2">
             <h5>Filter By</h5>
-            <form action="/shop" method="GET">
+            <form method="GET">
                 <div class="accordion">
                     <div class="accordion-item">
                         <h2 class="accordion-header">
