@@ -1,6 +1,13 @@
 <?php
 
 
+namespace Core;
+
+use PDO;
+use PDOException;
+use Exception;
+use InvalidArgumentException;
+
 class Database
 {
     private $connection;
