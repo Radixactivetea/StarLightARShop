@@ -11,6 +11,7 @@ get('/cart', '../src/controllers/cart.php');
 get('/login', '../src/controllers/login.php');
 post('/login', '../src/controllers/login.php');
 get('/verify', '../src/controllers/verify.php');
+post('/verify', '../src/controllers/verify.php');
 get('/register', '../src/controllers/register.php');
 post('/register', '../src/controllers/register.php');
 

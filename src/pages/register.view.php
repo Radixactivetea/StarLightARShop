@@ -61,10 +61,10 @@
     <!-- loading page -->
     <?php require("src/components/loading.php") ?>
 
-    <div class="form-container">
+    <div class="mx-auto p-3" style="max-width: 450px;">
         <!-- Logo Container -->
-        <div class="logo-container">
-            <a class="navbar-brand d-flex align-items-center" href="/"><img src="/public/img/logo.png"></a>
+        <div class="d-flex">
+            <a class="navbar-brand" href="/"><img src="/public/img/logo.png"></a>
         </div>
 
         <h4 class="mb-3">Now let's make you a StarLight Pottery Member.</h4>

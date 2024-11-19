@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($getUser){
 
         // Email exists, prompt for password
-        header("Location: /password?email=$email");
+        header("Location: /verify?email=$email");
         exit;
     } else {
 
