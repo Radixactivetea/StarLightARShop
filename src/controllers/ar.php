@@ -1,5 +1,6 @@
 <?php
 
+use Core\Database;
 
 // Connect database
 $config = require('config.php');
