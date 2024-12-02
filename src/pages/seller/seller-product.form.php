@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <label for="image" class="form-label">Image</label>
+                <label for="image_url" class="form-label">Image</label>
                 <input type="file" class="form-control form-control-file" id="image_url" name="image_url"
                     accept="image/*" required>
                 <div class="invalid-feedback">
