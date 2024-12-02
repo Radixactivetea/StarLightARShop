@@ -15,7 +15,7 @@
 <body>
     
     <!-- loading page -->
-    <?php require("src/components/loading.php") ?>
+    <?php require "src/components/loading.php" ?>
     
     <!-- navigator -->
     <?php require "src/components/nav.php"; ?>
@@ -90,23 +90,23 @@
                                             <div class="w-50 pb-3">
 
                                                 <?php if (!empty($dimension['name'])): ?>
-                                                    <h6 class="ms-0 mb-1"><?= htmlspecialchars($dimension['name']) ?></h6>
+                                                    <h6 class="ms-0 mb-1"><?= $dimension['name'] ?></h6>
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($dimension['diameter'])): ?>
-                                                    <div>Diameter: <?= htmlspecialchars($dimension['diameter']) ?> cm</div>
+                                                    <div>Diameter: <?= $dimension['diameter'] ?> cm</div>
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($dimension['height'])): ?>
-                                                    <div>Height: <?= htmlspecialchars($dimension['height']) ?> cm</div>
+                                                    <div>Height: <?= $dimension['height'] ?> cm</div>
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($dimension['weight'])): ?>
-                                                    <div>Weight: <?= htmlspecialchars($dimension['weight']) ?> kg</div>
+                                                    <div>Weight: <?= $dimension['weight'] ?> kg</div>
                                                 <?php endif; ?>
 
                                                 <?php if (!empty($dimension['capacity'])): ?>
-                                                    <div>Capacity: <?= htmlspecialchars($dimension['capacity']) ?> &#8467;</div>
+                                                    <div>Capacity: <?= $dimension['capacity'] ?> &#8467;</div>
                                                 <?php endif; ?>
 
                                             </div>

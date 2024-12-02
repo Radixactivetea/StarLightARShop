@@ -12,5 +12,10 @@ $selectedCategories = [];
 
 $category = $db->query('SELECT * FROM category')->fetchAll();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-require 'src/pages/seller/seller-product.form.php';
+    dd($_POST);
+}
+
+
+require 'src/pages/seller/product-create.view.php';

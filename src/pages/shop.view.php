@@ -15,7 +15,7 @@
 <body>
     
     <!-- loading page -->
-    <?php require("src/components/loading.php") ?>
+    <?php require "src/components/loading.php" ?>
     
     <!-- navigator -->
     <?php require "src/components/nav.php"; ?>
@@ -45,7 +45,7 @@
 
                                         <label class="btn btn-outline-primary category-btn"
                                             for="category-<?= $cat['category_id'] ?>">
-                                            <?= htmlspecialchars($cat['name']) ?>
+                                            <?= $cat['name'] ?>
                                         </label>
                                     <?php endforeach; ?>
 

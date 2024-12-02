@@ -17,8 +17,7 @@ get('/register', '../src/controllers/register.php');
 post('/register', '../src/controllers/register.php');
 
 get('/seller/manage-products', '../src/controllers/seller/seller-products.php');
-get('/seller/manage-products/form', '../src/controllers/seller/seller-product-form.php');
-post('/seller/manage-products', '../src/controllers/seller/seller-products.php');
-post('/seller/manage-products', '../src/controllers/seller/seller-products.php');
+get('/product/create', '../src/controllers/seller/product-create.php');
+post('/product/create', '../src/controllers/seller/product-create.php');
 
 any('/404', '../src/pages/404.view.php');

@@ -14,14 +14,14 @@
 <body>
 
     <!-- loading page -->
-    <?php require("src/components/loading.php") ?>
+    <?php require "src/components/loading.php" ?>
 
     <!-- navigation -->
-    <?php require("src/components/seller-nav.php") ?>
+    <?php require "src/components/seller-nav.php" ?>
 
     <div class="container my-4">
         <div class="w-100 d-flex justify-content-end">
-            <a href="/seller/manage-products/form" class="btn btn-primary my-2">
+            <a href="/product/create" class="btn btn-primary my-2">
                 Add New
             </a>
         </div>
