@@ -27,14 +27,12 @@ if (!empty($selectedCategories)) {
     $product_query .= " AND pc.category_id IN ($placeholders)";
 }
 
-if ($priceSort == 'low_high') {
+$product_query .= match ($priceSort) {
+    'low_high' => " ORDER BY p.price ASC",
+    'high_low' => " ORDER BY p.price DESC",
+    default => "",
+};
 
-    $product_query .= " ORDER BY p.price ASC";
-
-} elseif ($priceSort == 'high_low') {
-
-    $product_query .= " ORDER BY p.price DESC";
-}
 
 
 
