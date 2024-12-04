@@ -38,13 +38,9 @@
                             <p class="fw-light m-0">Stock Level : <?= $product['stock_level'] ?></p>
                         </div>
                     </div>
-                    <!-- Button Container with Center Alignment -->
                     <div class="ms-3">
-                        <!-- Update Button (No changes here) -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                            data-bs-target="#update-product">Update</button>
+                        <a href="/product/update" class="btn btn-success">Update</a>
 
-                        <!-- Delete Button triggers modal with product ID -->
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#delete-product-modal" data-id="<?= $product['product_id'] ?>">Delete</button>
                     </div>
