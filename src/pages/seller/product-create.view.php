@@ -8,9 +8,6 @@
     <!-- bootstap css & override -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
-
-    <link rel="stylesheet" href="/public/css/cart.css">
-
 </head>
 
 <body>
@@ -22,73 +19,113 @@
     <?php require "src/components/seller-nav.php" ?>
 
     <div class="container p-5">
+
+        <?php if (!empty($transactionError)): ?>
+            <div class="alert alert-danger d-flex justify-content-between">
+                <?= htmlspecialchars($transactionError) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
+
         <h1 class="mb-4">Pottery Product</h1>
         <p class="text-muted m-0 ">Please provide the following details about your pottery product:</p>
         <p class="text-muted m-0 mb-2">We'll need information about the name, description, pricing, dimensions, and an
-            image of
-            the product.</p>
+            image of the product.</p>
+
         <form class="row g-3" method="POST" enctype="multipart/form-data" novalidate>
+
             <div class="col-md-12">
                 <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control" id="name" name="name" required>
+                <input type="text" class="form-control" id="name" name="name" value="<?= $_POST['name'] ?? '' ?>"
+                    required>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['name'] ?? '' ?></div>
             </div>
+
             <div class="col-md-6">
                 <label for="price" class="form-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">RM</span>
-                    <input type="number" class="form-control" id="price" name="price" min="0" step="0.01" required>
+                    <input type="number" class="form-control" id="price" name="price" min="0" step="0.01"
+                        value="<?= $_POST['price'] ?? '' ?>" required>
                 </div>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['price'] ?? ''; ?></div>
             </div>
+
             <div class="col-md-6">
                 <label for="stock_level" class="form-label">Stock</label>
                 <div class="input-group">
                     <span class="input-group-text">Total</span>
-                    <input type="number" class="form-control" id="stock_level" name="stock_level" min="0" step="1"
-                        required>
+                    <input type="number" class="form-control" id="stock" name="stock" min="0" step="1"
+                        value="<?= $_POST['stock'] ?? '' ?>" required>
                 </div>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['stock'] ?? ''; ?></div>
             </div>
+
             <div class="col-12">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                <textarea class="form-control" id="description" name="description" rows="3"
+                    required><?= $_POST['description'] ?? ''; ?></textarea>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['description'] ?? ''; ?></div>
             </div>
+
             <p class="text-muted m-0 mt-5">The dimensions we need are diameter (in cm), height (in cm), weight (in kg),
                 and
                 capacity (in liters).
             </p>
+            <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['categories'] ?? ''; ?></div>
+
             <?php foreach ($category as $cat): ?>
                 <div class="col-md-3">
                     <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>" class="btn-check"
                         id="category-<?= $cat['category_id'] ?>" autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
-
                     <label class="btn btn-outline-primary category-btn w-100" for="category-<?= $cat['category_id'] ?>">
                         <?= $cat['name'] ?>
                     </label>
                 </div>
             <?php endforeach; ?>
+
             <p class="text-muted m-0 mt-5">The dimensions we need are diameter (in cm), height (in cm), weight (in kg),
                 and
                 capacity (in liters).
             </p>
+
             <div class="col-md-3">
                 <label for="diameter" class="form-label">Diameter (cm)</label>
-                <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1" required>
+                <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1"
+                    value="<?= $_POST['diameter'] ?? '' ?>" required>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['diameter'] ?? ''; ?></div>
             </div>
+
             <div class="col-md-3">
                 <label for="height" class="form-label">Height (cm)</label>
-                <input type="number" class="form-control" id="height" name="height" min="0" step="0.1" required>
+                <input type="number" class="form-control" id="height" name="height" min="0" step="0.1"
+                    value="<?= $_POST['height'] ?? '' ?>" required>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['height'] ?? ''; ?></div>
             </div>
             <div class="col-md-3">
                 <label for="weight" class="form-label">Weight (kg)</label>
-                <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01" required>
+                <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01"
+                    value="<?= $_POST['weight'] ?? '' ?>" required>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['weight'] ?? ''; ?></div>
             </div>
             <div class="col-md-3">
                 <label for="capacity" class="form-label">Capacity (l)</label>
-                <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01" required>
+                <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01"
+                    value="<?= $_POST['capacity'] ?? '' ?>" required>
+                <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['capacity'] ?? ''; ?></div>
             </div>
+
             <div class="col-md-6">
                 <label for="image_url" class="form-label">Image</label>
-                <input type="file" class="form-control form-control-file" id="image_url" name="image_url"
-                    accept="image/*" required>
+                <input type="file" class="form-control form-control-file" id="image_url" name="image_url" required>
+
+                <?php if (!empty($imageErrors)): ?>
+                    <?php foreach ($imageErrors as $error): ?>
+                        <div class="mt-1 text-danger" style="font-size: 10px;"><?= $error ?></div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
             <div class="col-12">
                 <a href="/seller/manage-products" class="btn btn-primary">Back</a>
@@ -101,22 +138,6 @@
     <!-- bootstap and popper -->
     <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script>
-        // Bootstrap form validation
-        (function () {
-            'use strict'
-            const forms = document.querySelectorAll('.needs-validation')
-            Array.from(forms).forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-        })()
-    </script>
 </body>
 
 </html>

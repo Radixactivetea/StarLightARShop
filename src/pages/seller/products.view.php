@@ -26,26 +26,11 @@
             </a>
         </div>
 
-        <?php
-        $status = $_GET['status'] ?? null;
-
-        if ($status === 'success'): ?>
-            <div class="alert alert-success d-flex justify-content-between">
-                Process successfully.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php elseif ($status === 'fail'): ?>
-            <div class="alert alert-danger  d-flex justify-content-between">
-                Failed. Please try again.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-
         <?php foreach ($getProducts as $product): ?>
             <div class="card mb-2">
                 <div class="card-body d-flex align-items-center justify-content-between">
                     <img src="/public/upload/product/<?= $product['image_url'] ?>" class="me-3" width="100px" height="100px"
-                        alt="Basic Tee Sienna">
+                        alt="<?= $product['name'] ?>">
                     <div class="col d-flex flex-column">
                         <h4 class="card-title"><?= $product['name'] ?> </h4>
                         <div class="mt-auto">
@@ -82,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form action="/seller/manage-products" method="POST" id="delete-form">
+                    <form method="POST" id="delete-form">
                         <input type="hidden" name="delete-product-id" id="delete-product-id">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>

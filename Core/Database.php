@@ -32,6 +32,26 @@ class Database
         }
     }
 
+    public function transaction(callable $callback)
+    {
+        try {
+            // Begin the transaction
+            $this->connection->beginTransaction();
+
+            // Call the callback function, passing the database instance
+            $callback($this);
+
+            // If no exception is thrown, commit the transaction
+            $this->connection->commit();
+        } catch (Exception $e) {
+            // Rollback if any exception occurs
+            $this->connection->rollBack();
+
+            // Re-throw the exception to be handled outside
+            throw $e;
+        }
+    }
+
     public function query($query, $params = [])
     {
         try {
