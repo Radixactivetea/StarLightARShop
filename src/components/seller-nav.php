@@ -41,6 +41,7 @@
 <!-- Seller Navigation Bar -->
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(175, 143, 111, 0.3);">
     <div class="container">
+        <a class="d-flex align-items-center me-2" href="/"><img width="50px" src="/public/img/logo.png"></a>
         <a href="/" class="navbar-brand">StarLight Pottery</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sellerNavbar"
             aria-controls="sellerNavbar" aria-expanded="false" aria-label="Toggle navigation">
