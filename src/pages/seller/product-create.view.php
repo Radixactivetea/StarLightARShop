@@ -20,13 +20,7 @@
 
     <div class="container p-5">
 
-        <?php if (!empty($transactionError)): ?>
-            <div class="alert alert-danger d-flex justify-content-between">
-                <?= htmlspecialchars($transactionError) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        <?php endif; ?>
-
+        <?= displayAlert() ?>
 
         <h1 class="mb-4">Pottery Product</h1>
         <p class="text-muted m-0 ">Please provide the following details about your pottery product:</p>

@@ -37,30 +37,75 @@ function redirect($url, $statusCode = 302)
     }
 }
 
-function setFlashMessage($key, $message, $type = 'info')
+function setFlashMessage($key, $value, $type = 'info')
 {
+    if (session_status() == PHP_SESSION_NONE) {
+
+        session_start();
+    }
+
     $_SESSION['flash_messages'][$key] = [
-        'message' => $message,
+        'message' => $value,
         'type' => $type
     ];
 }
 
-function getFlashMessage($key = null)
+function getFlashMessage($key)
 {
-    if ($key === null) {
-        // Get all messages
-        $messages = $_SESSION['flash_messages'] ?? [];
-        unset($_SESSION['flash_messages']);
-        return $messages;
+    if (session_status() == PHP_SESSION_NONE) {
+
+        session_start();
     }
-    
-    // Get specific message
-    $message = $_SESSION['flash_messages'][$key] ?? null;
-    
-    // Clear the message after retrieval
-    if ($message !== null) {
+
+    if (isset($_SESSION['flash_messages'][$key])) {
+
+        $message = $_SESSION['flash_messages'][$key];
+
         unset($_SESSION['flash_messages'][$key]);
+
+        return $message;
     }
-    
-    return $message;
+
+    return null;
+}
+
+function displayAlert($message = null, $type = 'info')
+{
+    // If no message is provided, try to get from flash messages
+    if ($message === null) {
+
+        $flashMessage = getFlashMessage('status');
+
+        if ($flashMessage !== null && is_array($flashMessage)) {
+            
+            $message = $flashMessage['message'];
+            
+            $type = $flashMessage['type'];
+        }
+    }
+
+    // If still no message, return empty string
+    if (empty($message)) {
+        return '';
+    }
+
+    // Determine alert class based on type or message content
+    $alertClass = match($type) {
+        'success' => 'alert-success',
+        'error' => 'alert-danger',
+        'warning' => 'alert-warning',
+        'info' => 'alert-info',
+        default => strpos(strtolower($message), 'success') !== false 
+            ? 'alert-success' 
+            : 'alert-danger'
+    };
+
+    // Generate the alert HTML
+    return sprintf(
+        '<div class="alert %s alert-dismissible fade show" role="alert">%s
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>',
+        $alertClass,
+        htmlspecialchars($message)
+    );
 }

@@ -3,7 +3,7 @@
 use Core\Database;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     // Connect Database
     $config = require 'config.php';
     $db = new Database($config['database']);
@@ -12,17 +12,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
 
     $getUser = $db->find('user', ['email' => $email]);
-    
-    if ($getUser){
 
-        // Email exists, prompt for password
-        header("Location: /verify?email=$email");
-        exit;
+    if ($getUser) {
+
+        redirect("/verify?email={$email}");
+
     } else {
 
-        // Email doesn't exist, redirect to register page
-        header("Location: /register?email=$email");
-        exit;
+        redirect("/register?email={$email}");
+        
     }
 }
 

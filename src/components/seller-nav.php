@@ -49,16 +49,16 @@
         <div class="collapse navbar-collapse" id="sellerNavbar">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
+                    <a class="nav-link" href="/manage/products">Products</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/orders">Orders</a>
+                    <a class="nav-link" href="/manage/orders">Orders</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/review&rating">Reviews & Ratings</a>
+                    <a class="nav-link" href="/manage/review&rating">Reviews & Ratings</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/notifications">Notifications</a>
+                    <a class="nav-link" href="/manage/notifications">Notifications</a>
                 </li>
                 <!-- Profile Dropdown Icon -->
                 <li class="nav-item dropdown">

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 use Core\Database;
 
@@ -13,24 +13,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST['delete-product-id'])) {
 
-        $deleteProduct = $db->delete('product', [
-            'product_id' => $_POST['delete-product-id']
-        ]);
+        $product = $db->find('product', ['product_id' => $_POST['delete-product-id']]);
 
+        if ($product) {
 
-        if ($deleteProduct) {
+            $imagePath = "public/upload/product/{$product['image_url']}";
 
-            header("Location: /products?status=success");
+            if (file_exists($imagePath)) {
 
-            exit;
+                unlink($imagePath);
 
-        } else {
+            }
 
-            header("Location: /products?status=fail");
+            $deleteProduct = $db->delete('product', [
+                'product_id' => $_POST['delete-product-id']
+            ]);
 
-            exit;
+            if ($deleteProduct) {
+
+                setFlashMessage('status', 'Product deleted successfully', 'success');
+
+            } else {
+
+                setFlashMessage('status', 'There is something wrong. Product not deleted!', 'error');
+            }
         }
 
+        redirect('/manage/products');
     }
 }
 

@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 
 use Core\Database;
 use Core\FormValidator;
@@ -81,8 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
 
-            header("Location: /products?status=success");
-            exit;
+            setFlashMessage('status', 'Product created successfully!', 'success');
+
+            redirect('/manage/products');
 
         } catch (Exception $e) {
 
@@ -90,6 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             but there seems to be an issue with creating the new pottery product. Please try again.";
             error_log("Product creation error: " . $e->getMessage());
 
+            setFlashMessage('status', $transactionError, 'error');
+
+            redirect('/product/create');
         }
 
     } else {
@@ -97,7 +101,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors = $validator->getErrors();
 
         $imageErrors = $fileValidator->getErrors();
-
     }
 }
 

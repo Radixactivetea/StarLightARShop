@@ -26,6 +26,8 @@
             </a>
         </div>
 
+        <?= displayAlert() ?>
+
         <?php foreach ($getProducts as $product): ?>
             <div class="card mb-2">
                 <div class="card-body d-flex align-items-center justify-content-between">
