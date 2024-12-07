@@ -37,31 +37,30 @@ function redirect($url, $statusCode = 302)
     }
 }
 
-function setFlashMessage($key, $value)
+function setFlashMessage($key, $message, $type = 'info')
 {
-    if (session_status() == PHP_SESSION_NONE) {
-        
-        session_start();
-    }
-
-    $_SESSION['flash_messages'][$key] = $value;
+    $_SESSION['flash_messages'][$key] = [
+        'message' => $message,
+        'type' => $type
+    ];
 }
 
-function getFlashMessage($key)
+function getFlashMessage($key = null)
 {
-    if (session_status() == PHP_SESSION_NONE) {
-
-        session_start();
+    if ($key === null) {
+        // Get all messages
+        $messages = $_SESSION['flash_messages'] ?? [];
+        unset($_SESSION['flash_messages']);
+        return $messages;
     }
-
-    if (isset($_SESSION['flash_messages'][$key])) {
-
-        $message = $_SESSION['flash_messages'][$key];
-
+    
+    // Get specific message
+    $message = $_SESSION['flash_messages'][$key] ?? null;
+    
+    // Clear the message after retrieval
+    if ($message !== null) {
         unset($_SESSION['flash_messages'][$key]);
-
-        return $message;
     }
-
-    return null;
+    
+    return $message;
 }
