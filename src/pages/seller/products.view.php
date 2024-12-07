@@ -41,7 +41,7 @@
                         </div>
                     </div>
                     <div class="ms-3">
-                        <a href="/product/update" class="btn btn-success">Update</a>
+                        <a href="/product/update/<?= $product['product_id'] ?>" class="btn btn-success">Update</a>
 
                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                             data-bs-target="#delete-product-modal" data-id="<?= $product['product_id'] ?>">Delete</button>
