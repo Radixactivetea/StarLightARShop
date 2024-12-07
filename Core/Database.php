@@ -221,7 +221,10 @@ class Database
         $result = $this->find($table, $conditions, $columns);
 
         if (!$result) {
-            throw new Exception("Record not found in {$table}");
+
+            header("Location: /404");
+
+            exit;
         }
 
         return $result;

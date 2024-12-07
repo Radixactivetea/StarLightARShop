@@ -8,7 +8,7 @@ $db = new Database($config['database']);
 
 
 // Query
-$getAr = $db->find('ar', ['ar_id' => $id]);
+$getAr = $db->findOrFail('ar', ['ar_id' => $id]);
 
 
 require 'src/pages/ar.view.php';
