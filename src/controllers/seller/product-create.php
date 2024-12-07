@@ -81,7 +81,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             });
 
-            setFlashMessage('status', 'Product created successfully!', 'success');
+            setFlashMessage(
+                'status',
+                'Product created successfully!',
+                'success'
+            );
 
             redirect('/manage/products');
 
@@ -91,7 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             but there seems to be an issue with creating the new pottery product. Please try again.";
             error_log("Product creation error: " . $e->getMessage());
 
-            setFlashMessage('status', $transactionError, 'error');
+            setFlashMessage(
+                'status',
+                $transactionError,
+                'error'
+            );
 
             redirect('/product/create');
         }

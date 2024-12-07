@@ -31,11 +31,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($deleteProduct) {
 
-                setFlashMessage('status', 'Product deleted successfully', 'success');
+                setFlashMessage(
+                    'status',
+                    'Product deleted successfully',
+                    'success'
+                );
 
             } else {
 
-                setFlashMessage('status', 'There is something wrong. Product not deleted!', 'error');
+                setFlashMessage(
+                    'status',
+                    'There is something wrong. Product not deleted!',
+                    'error'
+                );
             }
         }
 
