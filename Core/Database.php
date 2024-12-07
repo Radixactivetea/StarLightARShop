@@ -222,9 +222,7 @@ class Database
 
         if (!$result) {
 
-            header("Location: /404");
-
-            exit;
+            redirect('/404', 404);
         }
 
         return $result;

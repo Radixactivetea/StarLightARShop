@@ -21,7 +21,7 @@ $percentages = [
 
 
 // Querry
-$product = $db->find('product', ['product_id' => $id]);
+$product = $db->findOrFail('product', ['product_id' => $id]);
 
 $products = $db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
 

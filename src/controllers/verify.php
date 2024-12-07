@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         // Password is correct, log the user in
         if($getUser['user_type'] === 2){
 
-            header("Location: /seller/manage-products");
-            exit;
+            redirect('/products');
+            
         }
     } else {
         // Incorrect password
