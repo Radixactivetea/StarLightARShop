@@ -116,4 +116,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $category = $db->query('SELECT * FROM category')->fetchAll();
 
 
-require 'src/pages/seller/product-create.view.php';
+require 'src/pages/seller/product-form.view.php';

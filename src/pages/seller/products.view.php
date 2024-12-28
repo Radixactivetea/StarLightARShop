@@ -31,7 +31,7 @@
         <?= displayAlert() ?>
 
         <div class="main-grid mt-3">
-            <div class="filter-bar px-3 mb-2">
+            <div class="filter-bar px-3 mb-2" style="top: 4rem;">
                 <h5>Filter By</h5>
                 <form method="GET">
                     <div class="accordion">
