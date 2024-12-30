@@ -2,37 +2,45 @@
 
 function get($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	if (get_request_method() == 'GET') {
 		route($route, $path_to_include);
 	}
 }
 function post($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	if (get_request_method() == 'POST') {
 		route($route, $path_to_include);
 	}
 }
 function put($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+	if (get_request_method() == 'PUT') {
 		route($route, $path_to_include);
 	}
 }
 function patch($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'PATCH') {
+	if (get_request_method() == 'PATCH') {
 		route($route, $path_to_include);
 	}
 }
 function delete($route, $path_to_include)
 {
-	if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
+	if (get_request_method() == 'DELETE') {
 		route($route, $path_to_include);
 	}
 }
 function any($route, $path_to_include)
 {
 	route($route, $path_to_include);
+}
+function get_request_method()
+{
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method === 'POST' && isset($_POST['_method'])) {
+        $method = strtoupper($_POST['_method']);
+    }
+    return $method;
 }
 function route($route, $path_to_include)
 {
