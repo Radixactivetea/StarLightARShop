@@ -24,7 +24,7 @@ function patch($route, $path_to_include)
 		route($route, $path_to_include);
 	}
 }
-function delete($route, $path_to_include)
+function destroy($route, $path_to_include)
 {
 	if (get_request_method() == 'DELETE') {
 		route($route, $path_to_include);

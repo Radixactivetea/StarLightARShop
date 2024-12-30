@@ -17,7 +17,7 @@ get('/register', '../src/controllers/register.php');
 post('/register', '../src/controllers/register.php');
 
 get('/manage/products', '../src/controllers/seller/products-show.php');
-post('/manage/products', '../src/controllers/seller/products-show.php');
+destroy('/manage/products', '../src/controllers/seller/products-show.php');
 get('/product/create', '../src/controllers/seller/product-create.php');
 post('/product/create', '../src/controllers/seller/product-create.php');
 

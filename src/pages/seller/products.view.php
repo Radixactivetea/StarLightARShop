@@ -144,6 +144,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <form method="POST" id="delete-form">
                         <input type="hidden" name="delete-product-id" id="delete-product-id">
+                        <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
