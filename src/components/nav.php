@@ -22,7 +22,7 @@
 </nav>
 <nav class="navbar navbar-expand-lg bg-body" style="padding: 0px;">
     <div class="container">
-        <a class="navbar-brand d-flex align-items-center" href="/"><img src="/public/img/logo.png"></a>
+        <a class="navbar-brand d-flex align-items-center" href="/"><img src="/public/img/logo-transparent.png"></a>
         <div id="navcol-4" class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
             aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
