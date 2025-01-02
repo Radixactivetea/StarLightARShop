@@ -1,81 +1,112 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 <style>
-    .navbar-nav .nav-link {
-        transition: all 0.3s ease;
-        margin: 0 5px;
-    }
-
-    .navbar-nav .nav-link:hover {
+    .sidebar {
+        width: 260px;
         background-color: #AF8F6F;
-        color: white;
-        border-radius: 5px;
-        padding: 8px 12px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        min-height: 100vh;
+        padding: 14px;
+        position: sticky;
+        align-self: start;
+        top: 0;
     }
 
-    .dropdown-menu {
-        border: 1px solid #AF8F6F;
+    .sidebar .nav-link {
+        color: #ffffff;
+        padding: 12px 20px;
+        margin: 2px 0;
         border-radius: 8px;
-        padding: 0;
-        overflow: hidden;
+        display: flex;
+        align-items: center;
+        gap: 12px;
     }
 
-    .dropdown-item {
-        color: #AF8F6F;
-        padding: 10px 15px;
-        transition: all 0.3s ease;
+    .sidebar .nav-link:hover {
+        background-color: #46392C;
+        color: #ffffff;
     }
 
-    .dropdown-item:hover {
-        background-color: #AF8F6F;
-        color: #fff;
+    .sidebar .nav-link.active {
+        background-color: #46392C;
+        color: #ffffff;
     }
 
-    /* Divider style */
-    .dropdown-divider {
-        margin: 0;
-        border-color: #AF8F6F;
+    .logo {
+        display: flex;
+        color: #ffffff;
+        font-size: 1.2rem;
+        font-weight: bold;
+        padding: 20px;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .section-title {
+        color: #6c757d;
+        font-size: 0.8rem;
+        padding: 20px 20px 10px;
+        text-transform: uppercase;
+    }
+
+    .badge-notification {
+        background-color: #ff4081;
+        color: white;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 0.8rem;
     }
 </style>
 
 <!-- Seller Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(175, 143, 111, 0.3);">
-    <div class="container">
-        <a class="d-flex align-items-center me-2" href="/"><img width="50px" src="/public/img/logo-transparent.png"></a>
-        <a href="/" class="navbar-brand">StarLight Pottery</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sellerNavbar"
-            aria-controls="sellerNavbar" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="sellerNavbar">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="/manage/products">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/manage/orders">Orders</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/manage/review&rating">Reviews & Ratings</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/manage/notifications">Notifications</a>
-                </li>
-                <!-- Profile Dropdown Icon -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-circle"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
-                        <li>
-                            <hr class="dropdown-divider" />
-                        </li>
-                        <li><a class="dropdown-item" href="/logout">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+<div class="sidebar">
+    <div class="logo">
+        <a class="" href="/"><img width="50px" src="/public/img/logo.png"></a>
+        <div>
+            STARLIGHT POTTERY
         </div>
     </div>
-</nav>
+
+    <div class="section-title text-muted">MAIN MENU</div>
+
+    <nav class="nav flex-column">
+        <a class="nav-link <?= urlis('/dashboard') ? 'active' : '' ?>" href="/dashboard">
+            <i class="bi bi-grid"></i>
+            Dashboard
+        </a>
+        <a class="nav-link <?= urlis('/products') ? 'active' : '' ?>" href="/products">
+            <i class="bi bi-box"></i>
+            Products
+        </a>
+        <a class="nav-link <?= urlis('/orders') ? 'active' : '' ?>" href="/orders">
+            <i class="bi bi-list"></i>
+            Orders
+        </a>
+        <a class="nav-link <?= urlis('/review&rating') ? 'active' : '' ?>" href="/review&rating">
+            <i class="bi bi-star"></i>
+            Review & Rating
+        </a>
+        <a class="nav-link <?= urlis('/messages') ? 'active' : '' ?>" href="/messages">
+            <i class="bi bi-chat"></i>
+            Messages
+        </a>
+    </nav>
+
+    <div class="section-title mt-4 text-muted">HELP & SUPPORT</div>
+
+    <nav class="nav flex-column">
+        <a class="nav-link" href="/help&center">
+            <i class="bi bi-question-circle"></i>
+            Help & Center
+        </a>
+        <a class="nav-link" href="/settings">
+            <i class="bi bi-gear"></i>
+            Settings
+        </a>
+    </nav>
+
+    <nav class="nav flex-column mt-4">
+        <a class="nav-link" href="/log-out">
+            <i class="bi bi-box-arrow-left"></i>
+            Log Out
+        </a>
+    </nav>
+</div>

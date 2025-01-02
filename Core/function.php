@@ -102,7 +102,7 @@ function displayAlert($message = null, $type = 'info')
 
     // Generate the alert HTML
     return sprintf(
-        '<div class="alert %s alert-dismissible fade show" role="alert">%s
+        '<div class="alert %s alert-dismissible fade show ms-3" role="alert">%s
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>',
         $alertClass,

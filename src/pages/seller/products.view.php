@@ -18,116 +18,119 @@
     <!-- loading page -->
     <?php require "src/components/loading.php" ?>
 
-    <!-- navigation -->
-    <?php require "src/components/seller-nav.php" ?>
+    <div class="grid-layout">
+        <!-- navigation -->
+        <?php require "src/components/seller-nav.php" ?>
 
-    <div class="container my-4">
-        <div class="w-100 d-flex justify-content-end">
-            <a href="/product/create" class="btn btn-primary my-2">
-                Add New
-            </a>
-        </div>
-
-        <?= displayAlert() ?>
-
-        <div class="main-grid mt-3">
-            <div class="filter-bar px-3 mb-2" style="top: 4rem;">
-                <h5>Filter By</h5>
-                <form method="GET">
-                    <div class="accordion">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseOne">
-                                    Category
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                    <div class="btn-group category-checkbox" role="group"
-                                        aria-label="Basic checkbox toggle button group">
-
-                                        <?php foreach ($category as $cat): ?>
-                                            <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>"
-                                                class="btn-check" id="category-<?= $cat['category_id'] ?>"
-                                                autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
-
-                                            <label class="btn btn-outline-primary category-btn"
-                                                for="category-<?= $cat['category_id'] ?>">
-                                                <?= $cat['name'] ?>
-                                            </label>
-                                        <?php endforeach; ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
-                                    aria-controls="panelsStayOpen-collapseTwo">
-                                    Price
-                                </button>
-                            </h2>
-                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
-                                <div class="accordion-body">
-                                    <div class="btn-group category-checkbox" role="group"
-                                        aria-label="Basic radio toggle button group">
-
-                                        <input type="radio" class="btn-check" name="price_sort" value="low_high"
-                                            id="btnradio1" autocomplete="off" <?php if ($priceSort == 'low_high')
-                                                echo 'checked'; ?>>
-                                        <label class="btn btn-outline-primary category-btn" for="btnradio1">Low -
-                                            High</label>
-
-                                        <input type="radio" class="btn-check" name="price_sort" value="high_low"
-                                            id="btnradio2" autocomplete="off" <?php if ($priceSort == 'high_low')
-                                                echo 'checked'; ?>>
-                                        <label class="btn btn-outline-primary category-btn" for="btnradio2">High -
-                                            Low</label>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary ms-3">Filter</button>
-                    </div>
-                </form>
+        <div class="my-4 main-content me-4">
+            <div class="w-100 d-flex justify-content-end">
+                <a href="/product/create" class="btn btn-primary my-2">
+                    Add New
+                </a>
             </div>
-            <div class="shop-content mb-5">
-                <div class="col">
-                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                        <?php foreach ($getProducts as $product): ?>
-                            <div>
-                                <div class="card h-100 shadow-sm overflow-hidden rounded-lg position-relative">
-                                    <img src="/public/upload/product/<?= $product['image_url'] ?>" class="me-3 card-img-top"
-                                        alt="<?= $product['name'] ?>">
-                                    <div class="card-body">
-                                        <div class="col d-flex flex-column">
-                                            <h4 class="card-title"><?= $product['name'] ?> </h4>
-                                            <div class="mt-auto">
-                                                <p class="fw-light m-0">Price : RM <?= $product['price'] ?></p>
-                                                <p class="fw-light m-0">Stock Level : <?= $product['stock_level'] ?></p>
-                                            </div>
+
+            <?= displayAlert() ?>
+
+            <div class="main-grid mt-3">
+                <div class="filter-bar px-3 mb-2" style="top: 4rem;">
+                    <h5>Filter By</h5>
+                    <form method="GET">
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseOne">
+                                        Category
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="btn-group category-checkbox" role="group"
+                                            aria-label="Basic checkbox toggle button group">
+
+                                            <?php foreach ($category as $cat): ?>
+                                                <input type="checkbox" name="categories[]"
+                                                    value="<?= $cat['category_id'] ?>" class="btn-check"
+                                                    id="category-<?= $cat['category_id'] ?>" autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
+
+                                                <label class="btn btn-outline-primary category-btn"
+                                                    for="category-<?= $cat['category_id'] ?>">
+                                                    <?= $cat['name'] ?>
+                                                </label>
+                                            <?php endforeach; ?>
+
                                         </div>
                                     </div>
-                                    <div class="mt-2 me-2 position-absolute top-0 end-0">
-                                        <a href="/product/update/<?= $product['product_id'] ?>"
-                                            class="btn btn-success ">Update</a>
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#delete-product-modal"
-                                            data-id="<?= $product['product_id'] ?>">Delete</button>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                                        aria-controls="panelsStayOpen-collapseTwo">
+                                        Price
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <div class="btn-group category-checkbox" role="group"
+                                            aria-label="Basic radio toggle button group">
+
+                                            <input type="radio" class="btn-check" name="price_sort" value="low_high"
+                                                id="btnradio1" autocomplete="off" <?php if ($priceSort == 'low_high')
+                                                    echo 'checked'; ?>>
+                                            <label class="btn btn-outline-primary category-btn" for="btnradio1">Low -
+                                                High</label>
+
+                                            <input type="radio" class="btn-check" name="price_sort" value="high_low"
+                                                id="btnradio2" autocomplete="off" <?php if ($priceSort == 'high_low')
+                                                    echo 'checked'; ?>>
+                                            <label class="btn btn-outline-primary category-btn" for="btnradio2">High -
+                                                Low</label>
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach ?>
+                            <button type="submit" class="btn btn-primary ms-3">Filter</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="shop-content mb-5">
+                    <div class="col">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            <?php foreach ($getProducts as $product): ?>
+                                <div>
+                                    <div class="card h-100 shadow-sm overflow-hidden rounded-lg position-relative">
+                                        <img src="/public/upload/product/<?= $product['image_url'] ?>"
+                                            class="me-3 card-img-top" alt="<?= $product['name'] ?>">
+                                        <div class="card-body">
+                                            <div class="col d-flex flex-column">
+                                                <h4 class="card-title"><?= $product['name'] ?> </h4>
+                                                <div class="mt-auto">
+                                                    <p class="fw-light m-0">Price : RM <?= $product['price'] ?></p>
+                                                    <p class="fw-light m-0">Stock Level : <?= $product['stock_level'] ?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 me-2 position-absolute top-0 end-0">
+                                            <a href="/product/update/<?= $product['product_id'] ?>"
+                                                class="btn btn-success ">Update</a>
+                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                                data-bs-target="#delete-product-modal"
+                                                data-id="<?= $product['product_id'] ?>">Delete</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach ?>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 
     <div class="modal fade" id="delete-product-modal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
         aria-hidden="true">
