@@ -59,7 +59,7 @@
 <!-- Seller Navigation Bar -->
 <div class="sidebar">
     <div class="logo">
-        <a class="" href="/"><img width="50px" src="/public/img/logo.png"></a>
+        <a class="" href="/dashboard"><img width="50px" src="/public/img/logo.png"></a>
         <div>
             STARLIGHT POTTERY
         </div>
