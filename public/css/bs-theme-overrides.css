@@ -139,6 +139,11 @@
   transform: var(--bs-accordion-btn-icon-transform);
 }
 
+.modal {
+  --bs-modal-header-border-color: var(--bs-primary-border-subtle);
+  --bs-modal-footer-border-color: var(--bs-primary-border-subtle);
+}
+
 .form-control {
   border-color: rgba(175, 143, 111, 0.3);
 }
@@ -194,4 +199,18 @@ input[type=number] {
     "sidebar main-content";
   /* Assign names to grid areas */
   min-height: 100vh;
+}
+
+.table {
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--bs-secondary-border-subtle);
+}
+
+.table td {
+  padding: 24px 8px;
+}
+
+.table td,
+.table th {
+  color: var(--bs-secondary);
 }
