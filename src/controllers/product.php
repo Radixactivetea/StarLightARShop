@@ -25,9 +25,9 @@ $product = $db->findOrFail('product', ['product_id' => $id]);
 
 $products = $db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
 
-$dimensions =$db->findAll('dimensions', ['product_id' => $product['product_id']]);
+$dimensions = $db->findAll('dimensions', ['product_id' => $product['product_id']]);
 
-$showReview = $db->query('SELECT * FROM `review&rating` WHERE product_id = :id', ['id' => $id])->fetchAll();
+$showReview = $db->query('SELECT *, DATE_FORMAT(`date`, "%d %M %Y") AS `formatted_date` FROM `review&rating` WHERE product_id = :id ORDER BY `date` DESC;', ['id' => $id])->fetchAll();
 
 $ratings = $db->query('SELECT rating, COUNT(*) AS rating_count, (COUNT(*) / (SELECT COUNT(*) 
     FROM `review&rating` WHERE product_id = :id)) * 100 AS percentage

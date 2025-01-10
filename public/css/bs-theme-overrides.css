@@ -127,6 +127,13 @@
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
+.link-primary:focus,
+.link-primary:hover {
+  color: RGBA(175, 143, 111, var(--bs-link-opacity, 1)) !important;
+  -webkit-text-decoration-color: RGBA(175, 143, 111, var(--bs-link-underline-opacity, 1)) !important;
+  text-decoration-color: RGBA(175, 143, 111, var(--bs-link-underline-opacity, 1)) !important;
+}
+
 .accordion {
   --bs-accordion-border-color: none;
   --bs-accordion-btn-focus-box-shadow: none;
