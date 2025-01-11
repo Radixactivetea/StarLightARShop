@@ -79,11 +79,11 @@
                         </thead>
                         <tbody>
 
-                            <?php foreach ($getAllOrders as $order): ?>
+                            <?php foreach ($getAllOrders as $index => $order): ?>
                                 <tr>
                                     <td>
                                         <a href="/order/<?= $order['order_id'] ?>"
-                                            class="btn btn-primary"><?= $order['order_id'] ?>
+                                            class="btn btn-primary">#<?= substr($order['order_id'], 0, 6) ?>
                                         </a>
                                     </td>
                                     <td>
