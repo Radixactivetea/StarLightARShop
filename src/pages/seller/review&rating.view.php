@@ -31,8 +31,9 @@
                 <div class="card mb-2 rounded-2">
                     <div class="card-header">
                         <small class="text-muted">
-                            <?= htmlspecialchars($review['username']) ?> | Order ID: <a href="#"
-                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">1202622346520228</a>
+                            <?= htmlspecialchars($review['username']) ?> | Order ID:
+                                <a href="/order/<?= $review['order_id'] ?>"
+                                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><?= $review['order_id'] ?></a>
                         </small>
                     </div>
                     <div class="card-body">
@@ -68,7 +69,10 @@
                             <!-- Seller Reply -->
                             <div class="d-flex align-items-center justify-content-center" style="width: 20%;">
                                 <button type="button" data-bs-toggle="modal" data-bs-target="#replyModal"
-                                    class="btn btn-outline-secondary btn-sm" <?= !empty($review['response']) ? 'disabled' : ''; ?>>Reply</button>
+                                    data-id="<?= $review['review_id'] ?>" class="btn btn-outline-secondary btn-sm"
+                                    <?= !empty($review['response']) ? 'disabled' : ''; ?>>
+                                    Reply
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -83,16 +87,21 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title ps-1" id="trackingModalLabel">Reply</h5>
+                    <h5 class="modal-title ps-1" id="replyModalLabel">Reply</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <input type="text" id="trackingNumberInput" class="form-control">
-                </div>
-                <div class="modal-footer border-top-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveTrackingBtn">Send</button>
-                </div>
+                <form method="POST">
+                    <div class="modal-body">
+                        <input type="text" id="replyReviewInput" name="replyReviewInput" class="form-control"
+                            placeholder="Write your reply">
+                        <!-- Hidden input to store review ID -->
+                        <input type="hidden" id="reviewIdInput" name="review_id">
+                    </div>
+                    <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="saveReplyBtn">Send</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -100,6 +109,23 @@
     <!-- bootstap and popper -->
     <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Listen for the modal being shown
+            const replyModal = document.getElementById('replyModal');
+            replyModal.addEventListener('show.bs.modal', (event) => {
+                // Get the button that triggered the modal
+                const button = event.relatedTarget;
+
+                // Extract the review ID from the data attribute
+                const reviewId = button.getAttribute('data-id');
+
+                // Set the hidden input field in the modal with the review ID
+                const reviewIdInput = document.getElementById('reviewIdInput');
+                reviewIdInput.value = reviewId;
+            });
+        });
+    </script>
 </body>
 
 </html>

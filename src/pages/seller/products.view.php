@@ -131,7 +131,6 @@
         </div>
     </div>
 
-
     <div class="modal fade" id="delete-product-modal" tabindex="-1" aria-labelledby="deleteProductModalLabel"
         aria-hidden="true">
         <div class="modal-dialog">

@@ -48,9 +48,9 @@
             <div class="rounded-3 p-3" style="background-color: rgba(175, 143, 111, 0.3);">
                 <div class="d-flex justify-content-between align-items-center mb-4 text-primary">
                     <h5 class="mb-0">Recent Invoices</h5>
-                    <div class="d-flex gap-2">
+                    <!-- <div class="d-flex gap-2">
                         <button class="btn btn-primary">Filter</button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="table-responsive">
@@ -66,19 +66,35 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td><a href="#" class="btn btn-primary">#065499</a></td>
-                                <td>
-                                    <div class="d-flex align-items-center gap-2">
-                                        Eren Yaeger
-                                    </div>
-                                </td>
-                                <td>21/07/2022 08:21</td>
-                                <td><span class="status-pill status-paid">Paid</span></td>
-                                <td>RM 101</td>
-                                <td><button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                        data-bs-target="#trackingModal">Add Tracking</button></td>
-                            </tr>
+
+                            <?php foreach ($getAllOrders as $order): ?>
+                                <tr>
+                                    <td>
+                                        <a href="/order/<?= $order['order_id'] ?>"
+                                            class="btn btn-primary"><?= $order['order_id'] ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <?= $order['username'] ?>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <?= $order['formatted_date'] ?>     <?= $order['formatted_time'] ?>
+                                    </td>
+                                    <td>
+                                        <span class="status-pill status-paid"><?= $order['order_status'] ?></span>
+                                    </td>
+                                    <td>
+                                        RM <?= $order['total_price'] ?>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
+                                            data-bs-target="#trackingModal">Add Tracking</button>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+
                         </tbody>
                     </table>
                 </div>
