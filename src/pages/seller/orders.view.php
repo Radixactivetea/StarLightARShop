@@ -9,17 +9,19 @@
     <!-- bootstap css & override -->
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         .status-pill {
-            padding: 4px 12px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 14px;
+            font-weight: 500;
             display: inline-block;
         }
 
         .status-paid {
-            background-color: #e8f5f3;
-            color: #0c6b58;
+            background-color: #def7ec;
+            color: #03543f;
         }
 
         .status-pending {
@@ -27,9 +29,19 @@
             color: #92400e;
         }
 
-        .status-overdue {
-            background-color: #fee2e2;
-            color: #991b1b;
+        .status-cancelled {
+            background-color: #fde2e2;
+            color: #9b1c1c;
+        }
+
+        .status-processing {
+            background-color: #e1effe;
+            color: #1e429f;
+        }
+
+        .status-shipped {
+            background-color: #e5edff;
+            color: #42389d;
         }
     </style>
 </head>
@@ -83,15 +95,29 @@
                                         <?= $order['formatted_date'] ?>     <?= $order['formatted_time'] ?>
                                     </td>
                                     <td>
-                                        <span class="status-pill status-paid"><?= $order['order_status'] ?></span>
+                                        <span class="status-pill <?= $order['status_class'] ?>">
+                                            <?= $order['order_status'] ?>
+                                        </span>
                                     </td>
                                     <td>
                                         RM <?= $order['total_price'] ?>
                                     </td>
                                     <td>
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal"
-                                            data-bs-target="#trackingModal">Add Tracking</button>
+                                        <?php if (!empty($order['has_tracking'])): ?>
+                                            <!-- Display tracking number as muted text -->
+                                            <span class="text-muted"><?= htmlspecialchars($order['tracking_number']) ?></span>
+                                        <?php elseif (strtolower($order['order_status']) === 'paid'): ?>
+                                            <!-- Show "Add Tracking Number" button for orders with status "Paid" -->
+                                            <button class="btn btn-primary ms-5" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#trackingModal" title="Add Tracking Number">
+                                                <i class="bi bi-truck"></i>
+                                            </button>
+                                        <?php else: ?>
+                                            <!-- Leave cell empty for other statuses -->
+                                            <span class="text-muted ms-5">N/A</span>
+                                        <?php endif; ?>
                                     </td>
+
                                 </tr>
                             <?php endforeach; ?>
 
@@ -111,8 +137,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="text" id="trackingNumberInput" class="form-control"
-                        placeholder="Enter Tracking Number">
+                    <input type="text" id="trackingNumberInput" class="form-control">
                 </div>
                 <div class="modal-footer border-top-0">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

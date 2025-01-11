@@ -17,5 +17,20 @@ FROM `orders` o
 LEFT JOIN `user` u ON o.user_id = u.user_id
 ORDER BY o.date DESC;')->fetchAll();
 
+foreach ($getAllOrders as &$order) {
+    $statusClass = match (strtolower($order['order_status'])) {
+        'paid' => 'status-paid',
+        'cancelled' => 'status-cancelled',
+        'processing' => 'status-processing',
+        'shipped' => 'status-shipped',
+        default => 'status-pending'
+    };
+    $order['status_class'] = $statusClass;
+
+    // Button state logic
+    $order['can_add_tracking'] = (strtolower($order['order_status']) === 'paid' && empty($order['tracking_number']));
+    $order['has_tracking'] = !empty($order['tracking_number']);
+}
+unset($order);
 
 require 'src/pages/seller/orders.view.php';
