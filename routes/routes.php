@@ -23,6 +23,6 @@ post('/product/create', '../src/controllers/seller/product-create.php');
 get('/orders', '../src/controllers/seller/orders.php');
 
 get('/review&rating', '../src/controllers/seller/review&rating.php');
-post('/review&rating', '../src/controllers/seller/review&rating.php');
+post('/review&rating', '../src/controllers/seller/review&rating-update.php');
 
 any('/404', '../src/pages/404.view.php');
