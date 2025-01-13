@@ -62,6 +62,6 @@ $total_price = $total_cart + $tax + $shippingCost;
 
 
 // FOR TESTING
-clearTestSession();
+clearSession();
 
 require 'src/pages/cart.view.php';

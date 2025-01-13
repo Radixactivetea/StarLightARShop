@@ -117,7 +117,7 @@ function displayAlert($message = null, $type = 'info')
     );
 }
 
-function clearTestSession()
+function clearSession()
 {
     initSession();
 
