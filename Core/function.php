@@ -117,21 +117,6 @@ function displayAlert($message = null, $type = 'info')
     );
 }
 
-
-
-// THIS IS FOR TESTING 
-function simulateLogin($username, $role = 'customer')
-{
-    initSession();
-
-    // Simulate user session data
-    $_SESSION['user_id'] = $username;
-    $_SESSION['role'] = $role;
-
-    // Optionally return the simulated session for verification
-    return $_SESSION;
-}
-
 function clearTestSession()
 {
     initSession();
