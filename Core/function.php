@@ -37,6 +37,13 @@ function redirect($url, $statusCode = 302)
     }
 }
 
+function initSession()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
 function setFlashMessage($key, $value, $type = 'info')
 {
     if (session_status() == PHP_SESSION_NONE) {
@@ -77,9 +84,9 @@ function displayAlert($message = null, $type = 'info')
         $flashMessage = getFlashMessage('status');
 
         if ($flashMessage !== null && is_array($flashMessage)) {
-            
+
             $message = $flashMessage['message'];
-            
+
             $type = $flashMessage['type'];
         }
     }
@@ -90,14 +97,14 @@ function displayAlert($message = null, $type = 'info')
     }
 
     // Determine alert class based on type or message content
-    $alertClass = match($type) {
+    $alertClass = match ($type) {
         'success' => 'alert-success',
         'error' => 'alert-danger',
         'warning' => 'alert-warning',
         'info' => 'alert-info',
-        default => strpos(strtolower($message), 'success') !== false 
-            ? 'alert-success' 
-            : 'alert-danger'
+        default => strpos(strtolower($message), 'success') !== false
+        ? 'alert-success'
+        : 'alert-danger'
     };
 
     // Generate the alert HTML
@@ -108,4 +115,27 @@ function displayAlert($message = null, $type = 'info')
         $alertClass,
         htmlspecialchars($message)
     );
+}
+
+
+
+// THIS IS FOR TESTING 
+function simulateLogin($username, $role = 'customer')
+{
+    initSession();
+
+    // Simulate user session data
+    $_SESSION['user_id'] = $username;
+    $_SESSION['role'] = $role;
+
+    // Optionally return the simulated session for verification
+    return $_SESSION;
+}
+
+function clearTestSession()
+{
+    initSession();
+
+    session_unset();
+    session_destroy();
 }

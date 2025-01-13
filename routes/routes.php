@@ -20,7 +20,9 @@ get('/products', '../src/controllers/seller/products-show.php');
 destroy('/products', '../src/controllers/seller/products-show.php');
 get('/product/create', '../src/controllers/seller/product-create.php');
 post('/product/create', '../src/controllers/seller/product-create.php');
+
 get('/orders', '../src/controllers/seller/orders.php');
+post('/orders', '../src/controllers/seller/order-update.php');
 
 get('/review&rating', '../src/controllers/seller/review&rating.php');
 post('/review&rating', '../src/controllers/seller/review&rating-update.php');

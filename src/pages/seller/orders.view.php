@@ -109,7 +109,8 @@
                                         <?php elseif (strtolower($order['order_status']) === 'paid'): ?>
                                             <!-- Show "Add Tracking Number" button for orders with status "Paid" -->
                                             <button class="btn btn-primary ms-5" type="button" data-bs-toggle="modal"
-                                                data-bs-target="#trackingModal" title="Add Tracking Number">
+                                                data-bs-target="#trackingModal" data-id="<?= $order['order_id'] ?>"
+                                                title="Add Tracking Number">
                                                 <i class="bi bi-truck"></i>
                                             </button>
                                         <?php else: ?>
@@ -136,13 +137,18 @@
                     <h5 class="modal-title ps-1" id="trackingModalLabel">Enter Tracking Number</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <input type="text" id="trackingNumberInput" class="form-control">
-                </div>
-                <div class="modal-footer border-top-0">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary" id="saveTrackingBtn">Save Tracking</button>
-                </div>
+                <form method="POST" class="needs-validation" novalidate>
+                    <div class="modal-body">
+                        <input type="text" id="trackingNumberInput" name="trackingNumberInput" class="form-control"
+                            required>
+                        <div class="invalid-feedback ms-2" style="font-size: 10px;">Tracking number is required.</div>
+                        <input type="hidden" id="trackingIdInput" name="order_id">
+                    </div>
+                    <div class="modal-footer border-top-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="sumbit" class="btn btn-primary" id="saveTrackingBtn">Save Tracking</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -150,6 +156,44 @@
     <!-- bootstap and popper -->
     <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
     <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Listen for the modal being shown
+            const replyModal = document.getElementById('trackingModal');
+            replyModal.addEventListener('show.bs.modal', (event) => {
+                // Get the button that triggered the modal
+                const button = event.relatedTarget;
+
+                // Extract the review ID from the data attribute
+                const reviewId = button.getAttribute('data-id');
+
+                // Set the hidden input field in the modal with the order ID
+                const reviewIdInput = document.getElementById('trackingIdInput');
+                reviewIdInput.value = reviewId;
+            });
+        });
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 </body>
 
 </html>
