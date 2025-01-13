@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'success'
             );
 
-            redirect('/manage/products');
+            redirect('/products');
 
         } catch (Exception $e) {
 
