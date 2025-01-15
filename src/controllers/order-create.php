@@ -12,4 +12,4 @@ $auth->checkLogin();
 $auth->checkRole('customer');
 
 
-require 'src/pages/order-detail.view.php';
+require 'src/pages/order-checkout.view.php';
