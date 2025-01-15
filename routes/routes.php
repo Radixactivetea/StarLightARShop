@@ -6,7 +6,10 @@ require_once 'router.php';
 get('/', '../src/controllers/home.php');
 get('/shop', '../src/controllers/shop.php');
 get('/shop/$id', '../src/controllers/product.php');
+
 get('/cart', '../src/controllers/cart.php');
+post('/cart', '../src/controllers/cart-update.php');
+
 get('/AR/$id', '../src/controllers/ar.php');
 
 get('/login', '../src/controllers/login.php');
@@ -23,6 +26,7 @@ post('/product/create', '../src/controllers/seller/product-create.php');
 
 get('/orders', '../src/controllers/seller/orders.php');
 post('/orders', '../src/controllers/seller/order-update.php');
+post('/place-order', '../src/controllers/order-create.php');
 
 get('/review&rating', '../src/controllers/seller/review&rating.php');
 post('/review&rating', '../src/controllers/seller/review&rating-update.php');

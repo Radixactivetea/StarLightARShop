@@ -30,7 +30,9 @@
             <div class="col-md-8">
 
                 <?php foreach ($getAllCartList as $item): ?>
-                    <div class="py-3 border-bottom border-primary-subtle d-flex align-items-center position-relative">
+                    <div class="py-3 border-bottom border-primary-subtle d-flex align-items-center position-relative"
+                        data-product-id="<?= $item['product_id'] ?>">
+
                         <img src="/public/upload/product/<?= $item['image_url'] ?>" class="me-3" width="100px"
                             height="100px" alt="<?= $item['name'] ?>">
                         <div class="flex-grow-1">
@@ -43,12 +45,13 @@
                                 <?php } else { ?>
                                     <span class="text-danger">Out of stock</span>
                                 <?php } ?>
-                                 
+
                             </p>
                         </div>
                         <div class="quantity me-5">
                             <button class="minus" aria-label="Decrease">&minus;</button>
-                            <input type="number" class="input-box" value="<?= $item['quantity'] ?>" min="1" max="<?= $item['stock_level'] ?>">
+                            <input type="number" class="input-box" value="<?= $item['quantity'] ?>" min="1"
+                                max="<?= $item['stock_level'] ?>">
                             <button class="plus" aria-label="Increase">&plus;</button>
                         </div>
                         <p class="fw-bold mb-0 ms-5">RM <?= $item['price'] ?></p>
@@ -60,36 +63,60 @@
 
             <!-- Order Summary Section -->
             <div class="col-md-4 pt-3">
-                <div class="order-summary p-4 rounded custom-bg">
+                <form class="order-summary p-4 rounded custom-bg" method="POST" action="/place-order"
+                    onsubmit="updateFormData()">
                     <h5>Order Summary</h5>
+
+                    <!-- Subtotal -->
                     <div class="d-flex justify-content-between my-2">
-                        <span>Subtotal</span>
-                        <span>RM <?= number_format($total_cart, 2) ?></span>
+                        <span id="subtotal-label">Subtotal</span>
+                        <span id="subtotal-value">RM <?= number_format($total_cart, 2) ?></span>
+                        <input type="hidden" name="subtotal" id="subtotal" value="<?= $total_cart ?>">
                     </div>
+
+                    <!-- Shipping -->
                     <div class="d-flex justify-content-between my-2">
-                        <span>Shipping estimate</span>
-                        <span>RM <?= number_format($shippingCost, 2) ?></span>
+                        <span id="shipping-label">Shipping estimate</span>
+                        <span id="shipping-value">RM <?= number_format($shippingCost, 2) ?></span>
+                        <input type="hidden" name="shipping" id="shipping" value="<?= $shippingCost ?>">
                     </div>
+
+                    <!-- Tax -->
                     <div class="d-flex justify-content-between my-2">
-                        <span>Tax estimate (2%)</span>
-                        <span>RM <?= number_format($tax, 2) ?></span>
+                        <span id="tax-label">Tax estimate (2%)</span>
+                        <span id="tax-value">RM <?= number_format($tax, 2) ?></span>
+                        <input type="hidden" name="tax" id="tax" value="<?= $tax ?>">
                     </div>
+
+                    <!-- Total -->
                     <div class="d-flex justify-content-between my-2 fw-bold">
-                        <span>Order total</span>
-                        <span>RM <?= number_format($total_price, 2) ?></span>
+                        <span id="total-label">Order total</span>
+                        <span id="total-value">RM <?= number_format($total_price, 2) ?></span>
+                        <input type="hidden" name="total" id="total" value="<?= $total_price ?>">
                     </div>
-                    <button class="btn btn-primary w-100 mt-3">Checkout</button>
-                </div>
+
+                    <!-- Checkout Button -->
+                    <button type="submit" class="btn btn-primary w-100 mt-3">Checkout</button>
+                </form>
             </div>
         </div>
+
+        <!-- bootstap and popper -->
+        <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <script src="/public/js/cart-update-handler.js"></script>
+        <script>
+            // This function updates the hidden input fields with the latest values from the spans before form submission.
+            function updateFormData() {
+                // Update the hidden input fields with the latest text from the span elements
+                document.getElementById('subtotal').value = document.getElementById('subtotal-value').textContent.replace('RM ', '');
+                document.getElementById('shipping').value = document.getElementById('shipping-value').textContent.replace('RM ', '');
+                document.getElementById('tax').value = document.getElementById('tax-value').textContent.replace('RM ', '');
+                document.getElementById('total').value = document.getElementById('total-value').textContent.replace('RM ', '');
+            }
+        </script>
     </div>
-
-    <!-- bootstap and popper -->
-    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
-    <script src="/public/js/product.js"></script>
-
 </body>
 
 </html>
