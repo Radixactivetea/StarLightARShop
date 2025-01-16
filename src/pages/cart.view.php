@@ -27,14 +27,14 @@
             <button type="button" class="btn-close align-self-center" aria-label="Close" onclick="goBack()"></button>
         </div>
 
-        <?php if (!empty($getAllCartList)): ?>
+        <?php if (!empty($cartItems)): ?>
 
             <div class="row">
                 <!-- Cart Items Section -->
                 <div class="col-md-8">
 
 
-                    <?php foreach ($getAllCartList as $item): ?>
+                    <?php foreach ($cartItems as $item): ?>
                         <div class="py-3 border-bottom border-primary-subtle d-flex align-items-center position-relative"
                             data-product-id="<?= $item['product_id'] ?>">
 
@@ -73,8 +73,8 @@
                         <!-- Subtotal -->
                         <div class="d-flex justify-content-between my-2">
                             <span id="subtotal-label">Subtotal</span>
-                            <span id="subtotal-value">RM <?= number_format($total_cart, 2) ?></span>
-                            <input type="hidden" name="subtotal" id="subtotal" value="<?= $total_cart ?>">
+                            <span id="subtotal-value">RM <?= number_format($cartTotal, 2) ?></span>
+                            <input type="hidden" name="subtotal" id="subtotal" value="<?= $cartTotal ?>">
                         </div>
 
                         <!-- Shipping -->
@@ -94,8 +94,8 @@
                         <!-- Total -->
                         <div class="d-flex justify-content-between my-2 fw-bold">
                             <span id="total-label">Order total</span>
-                            <span id="total-value">RM <?= number_format($total_price, 2) ?></span>
-                            <input type="hidden" name="total" id="total" value="<?= $total_price ?>">
+                            <span id="total-value">RM <?= number_format($totalPrice, 2) ?></span>
+                            <input type="hidden" name="total" id="total" value="<?= $totalPrice ?>">
                         </div>
 
                         <!-- Checkout Button -->

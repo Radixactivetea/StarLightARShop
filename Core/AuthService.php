@@ -9,9 +9,7 @@ class AuthService
     private function ensureSessionStarted()
     {
         if (session_status() === PHP_SESSION_NONE) {
-
             session_start();
-
         }
     }
 
@@ -22,13 +20,10 @@ class AuthService
         $user = $this->getUserFromDatabase($email);
 
         if ($user && password_verify($password, $user['password'])) {
-
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['user_id'];
-
             $_SESSION['username'] = $user['username'];
-
             $_SESSION['role'] = $user['role'];
 
             return true;
@@ -50,7 +45,6 @@ class AuthService
         $this->ensureSessionStarted();
 
         session_unset();
-
         session_destroy();
     }
 
@@ -59,20 +53,20 @@ class AuthService
         $this->ensureSessionStarted();
 
         if (!isset($_SESSION['user_id'])) {
-
-            redirect('/login');
-
+            return false;
         }
+
+        return true;
     }
 
     public function checkRole($requiredRole)
     {
-        $this->checkLogin();
+        $this->ensureSessionStarted();
 
         if ($_SESSION['role'] !== $requiredRole) {
-
-            redirect('/404');
-
+            return false;
         }
+
+        return true;
     }
 }

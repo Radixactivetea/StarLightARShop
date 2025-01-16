@@ -1,17 +1,19 @@
 <?php
 
 
+use Src\Controllers\CartController;
 use src\Controllers\Home;
 use Src\Controllers\Shop;
+use Src\Controllers\Product;
 
 require_once 'router.php';
 
 get('/', function () { $controller = new Home(); $controller->index();});
 get('/shop', function () { $controller = new Shop(); $controller->index();});
-get('/shop/$id', '../src/controllers/product.php');
-post('/shop/$id', '../src/controllers/cart-add.php');
+get('/shop/$id', function ($id) { $controller = new Product(); $controller->show($id);});
+post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});
 
-get('/cart', '../src/controllers/cart.php');
+get('/cart', function () { $controller = new CartController(); $controller->viewCart();});
 post('/cart-update', '../src/controllers/cart-update.php');
 post('/cart', '../src/controllers/cart.php');
 
