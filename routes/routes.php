@@ -1,9 +1,11 @@
 <?php
 
 
+use src\Controllers\Home;
+
 require_once 'router.php';
 
-get('/', '../src/controllers/home.php');
+get('/', function () { $controller = new Home(); $controller->index();});
 get('/shop', '../src/controllers/shop.php');
 get('/shop/$id', '../src/controllers/product.php');
 post('/shop/$id', '../src/controllers/cart-add.php');
