@@ -27,6 +27,8 @@ class AuthService
 
             $_SESSION['user_id'] = $user['user_id'];
 
+            $_SESSION['username'] = $user['username'];
+
             $_SESSION['role'] = $user['role'];
 
             return true;
