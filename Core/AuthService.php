@@ -15,17 +15,19 @@ class AuthService
         }
     }
 
-    public function login($username, $password)
+    public function login($email, $password)
     {
         $this->ensureSessionStarted();
 
-        $user = $this->getUserFromDatabase($username);
+        $user = $this->getUserFromDatabase($email);
 
         if ($user && password_verify($password, $user['password'])) {
 
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['user_id'];
+
+            $_SESSION['username'] = $user['username'];
 
             $_SESSION['role'] = $user['role'];
 
@@ -35,12 +37,12 @@ class AuthService
         return false;
     }
 
-    private function getUserFromDatabase($username)
+    private function getUserFromDatabase($email)
     {
         $config = require 'config.php';
         $db = new Database($config['database']);
 
-        return $db->find('user', ['username' => $username]);
+        return $db->find('user', ['email' => $email]);
     }
 
     public function logout()
