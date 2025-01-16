@@ -74,6 +74,7 @@
 </head>
 
 <body>
+    <?php displayAlert(); ?>
     <form class="container checkout-container py-5 needs-validation" method="POST" novalidate>
         <div class="row g-4">
             <!-- Checkout Steps -->

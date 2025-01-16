@@ -12,8 +12,13 @@ $auth = new AuthService;
 $auth->checkLogin();
 $auth->checkRole('customer');
 
-if (!isset($_SESSION['csrf_token'])) {
+$token = $_GET['token'] ?? '';
+$sessionToken = $_SESSION['checkout_token'] ?? '';
+
+if (empty($sessionToken) || !hash_equals($sessionToken, $token)) {
+
     redirect('/cart');
+    
 }
 
 $getCartItem = $db->query("SELECT 

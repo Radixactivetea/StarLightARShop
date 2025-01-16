@@ -237,4 +237,33 @@ class Database
     {
         return $this->statement->fetchAll();
     }
+
+    public function generateUniqueOrderId()
+    {
+        $maxAttempts = 10; // Prevent infinite loops
+        $attempt = 0;
+
+        do {
+            // Generate a random 16-digit number
+            // Using mt_rand() for better randomization
+            $orderId = mt_rand(1000000000000000, 9999999999999999);
+
+            // Check if this ID already exists
+            $exists = $this->find('orders', ['order_id' => $orderId]);
+
+            $attempt++;
+
+            // If we found a unique ID or reached max attempts, break the loop
+            if (!$exists || $attempt >= $maxAttempts) {
+                break;
+            }
+        } while (true);
+
+        // If we couldn't generate a unique ID after max attempts
+        if ($attempt >= $maxAttempts && $exists) {
+            throw new Exception("Could not generate unique order ID after {$maxAttempts} attempts");
+        }
+
+        return $orderId;
+    }
 }
