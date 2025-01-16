@@ -35,18 +35,19 @@
                         <span>RM <?= $product['price'] ?></span>
                     </div>
                     <p class="fs-6 fw-light"><?= $product['description'] ?></p>
-                    <div class="d-flex">
+                    <form method="POST" class="d-flex">
                         <div class="quantity me-3">
-                            <button class="minus" aria-label="Decrease">&minus;</button>
-                            <input type="number" class="input-box" value="1" min="1"
+                            <button type="button" class="minus" aria-label="Decrease">&minus;</button>
+                            <input type="number" name="quantity" class="input-box form-control" value="1" min="1"
                                 max="<?= $product['stock_level'] ?>">
-                            <button class="plus" aria-label="Increase">&plus;</button>
+                            <button type="button" class="plus" aria-label="Increase">&plus;</button>
                         </div>
-                        <button class="btn btn-outline-primary flex-shrink-0" type="button">
+                        <input type="hidden" name="product_id" value="<?= $product['product_id'] ?>">
+                        <button class="btn btn-outline-primary flex-shrink-0" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
-                    </div>
+                    </form>
                     <div class="accordion accordion-flush mt-5">
 
                         <?php if ($product['has_AR'] == 1) { ?>

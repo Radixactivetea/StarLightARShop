@@ -6,6 +6,7 @@ require_once 'router.php';
 get('/', '../src/controllers/home.php');
 get('/shop', '../src/controllers/shop.php');
 get('/shop/$id', '../src/controllers/product.php');
+post('/shop/$id', '../src/controllers/cart-add.php');
 
 get('/cart', '../src/controllers/cart.php');
 post('/cart-update', '../src/controllers/cart-update.php');
