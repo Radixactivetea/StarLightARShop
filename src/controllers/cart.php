@@ -7,7 +7,6 @@ $config = require 'config.php';
 $db = new Database($config['database']);
 
 $auth = new AuthService;
-$auth->login('JohnD', 'Userthree123');
 
 $auth->checkLogin();
 $auth->checkRole('customer');
@@ -63,10 +62,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Store cart data in session
     $_SESSION['cart_data'] = [
         'items' => $getAllCartList,
-        'subtotal' => $total_cart,
-        'tax' => $tax,
-        'shipping' => $shippingCost,
-        'total' => $total_price
+        'subtotal' => number_format($total_cart, 2),
+        'tax' => number_format($tax, 2),
+        'shipping' => number_format($shippingCost, 2),
+        'total' => number_format($total_price, 2),
     ];
 
     // Generate CSRF token
@@ -76,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-    redirect('/checkout?token=' .  $_SESSION['checkout_token']);
+    redirect('/checkout?token=' . $_SESSION['checkout_token']);
 }
 
 require 'src/pages/cart.view.php';

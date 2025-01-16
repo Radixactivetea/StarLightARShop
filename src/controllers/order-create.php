@@ -31,9 +31,10 @@ if ($validator->passes()) {
 
     try {
 
-        $db->transaction(function ($db) use ($orderDetail, $orderItems) {
+        $orderId = $db->generateUniqueOrderId();
 
-            $orderId = $db->generateUniqueOrderId();
+        $db->transaction(function ($db) use ($orderDetail, $orderItems, $orderId) {
+
 
             $db->insert(
                 'orders',
@@ -73,7 +74,7 @@ if ($validator->passes()) {
 
         unset($_SESSION['cart_data']);
         unset($_SESSION['checkout_token']);
-        redirect('/payment');
+        redirect("/payment?order={$orderId}");
 
     } catch (Exception $e) {
 

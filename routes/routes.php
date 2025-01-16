@@ -14,6 +14,7 @@ post('/cart', '../src/controllers/cart.php');
 get('/checkout', '../src/controllers/checkout.php');
 post('/checkout', '../src/controllers/order-create.php');
 
+get('/payment', '../src/controllers/payment.php');
 post('/payment', '../src/controllers/payment.php');
 
 get('/AR/$id', '../src/controllers/ar.php');

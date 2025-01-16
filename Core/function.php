@@ -1,5 +1,7 @@
 <?php
 
+use Core\AuthService;
+
 
 function dd($value)
 {
@@ -123,4 +125,24 @@ function clearSession()
 
     session_unset();
     session_destroy();
+}
+
+function dummyLogin($role)
+{
+    $auth = new AuthService;
+
+    $credentials = [
+        'customer' => ['email' => 'userThree@gmail.com', 'password' => 'Userthree123'],
+        'admin' => ['email' => 'wsirajddn@gmail.com', 'password' => 'Pokerface#21'],
+        'seller' => ['email' => 'seller@gmail.com', 'password' => 'Seller123'],
+    ];
+
+    if (isset($credentials[$role])) {
+        $email = $credentials[$role]['email'];
+        $password = $credentials[$role]['password'];
+        return $auth->login($email, $password);
+    }
+
+    // Return false if the role is not recognized
+    return false;
 }
