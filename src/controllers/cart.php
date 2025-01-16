@@ -12,6 +12,8 @@ $auth->login('JohnD', 'Userthree123');
 $auth->checkLogin();
 $auth->checkRole('customer');
 
+$products = $db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
+
 // Fetch cart items
 $getAllCartList = $db->query("SELECT 
     ci.cart_id,
