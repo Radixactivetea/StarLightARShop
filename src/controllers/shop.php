@@ -1,50 +1,54 @@
 <?php
 
+namespace Src\Controllers;
 
-use Core\Database;
+class Shop extends Controller {
 
-// Connect database
-$config = require 'config.php';
-$db = new Database($config['database']);
+    public function index() {
+        // Initialization
+        $selectedCategories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
+        $priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_high', 'high_low']) ? $_GET['price_sort'] : 'low_high';
 
+        // Fetch products and categories
+        $products = $this->getProducts($selectedCategories, $priceSort);
+        $categories = $this->getCategories();
 
+        // Pass data to the view
+        echo $this->view('shop', [
+            'products' => $products,
+            'categories' => $categories,
+            'selectedCategories' => $selectedCategories,
+            'priceSort' => $priceSort
+        ]);
+    }
 
-// Initialization
-$selectedCategories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
+    private function getProducts(array $selectedCategories, string $priceSort): array {
+        // Product query
+        $product_query = "SELECT DISTINCT p.* FROM product p 
+            JOIN product_category pc ON p.product_id = pc.product_id 
+            WHERE p.stock_level > 0";
 
-$priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_high', 'high_low']) ? $_GET['price_sort'] : 'low_high';
+        if (!empty($selectedCategories)) {
+            $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
+            $product_query .= " AND pc.category_id IN ($placeholders)";
+        }
 
-$isChecked = false;
+        $product_query .= match ($priceSort) {
+            'low_high' => " ORDER BY p.price ASC",
+            'high_low' => " ORDER BY p.price DESC",
+            default => "",
+        };
 
-$product_query = "SELECT DISTINCT p.* FROM product p 
-    JOIN product_category pc ON p.product_id = pc.product_id 
-    WHERE p.stock_level > 0";
+        return $this->db->query($product_query, $selectedCategories)->fetchAll();
+    }
 
-if (!empty($selectedCategories)) {
+    private function getCategories(): array {
+        // Category query
+        $category_query = 'SELECT DISTINCT c.* FROM category c 
+            JOIN product_category pc ON c.category_id = pc.category_id 
+            JOIN product p ON p.product_id = pc.product_id 
+            WHERE p.stock_level > 0;';
 
-    $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
-
-    $product_query .= " AND pc.category_id IN ($placeholders)";
+        return $this->db->query($category_query)->fetchAll();
+    }
 }
-
-$product_query .= match ($priceSort) {
-    'low_high' => " ORDER BY p.price ASC",
-    'high_low' => " ORDER BY p.price DESC",
-    default => "",
-};
-
-
-
-
-// Querry
-$products = $db->query($product_query, $selectedCategories)->fetchAll();
-
-$category = $db->query('SELECT DISTINCT c.* FROM category c 
-    JOIN product_category pc ON c.category_id = pc.category_id 
-    JOIN product p ON p.product_id = pc.product_id 
-    WHERE p.stock_level > 0;')->fetchAll();
-
-
-
-// Load page
-require 'src/pages/shop.view.php';

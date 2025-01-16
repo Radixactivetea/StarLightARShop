@@ -2,11 +2,12 @@
 
 
 use src\Controllers\Home;
+use Src\Controllers\Shop;
 
 require_once 'router.php';
 
 get('/', function () { $controller = new Home(); $controller->index();});
-get('/shop', '../src/controllers/shop.php');
+get('/shop', function () { $controller = new Shop(); $controller->index();});
 get('/shop/$id', '../src/controllers/product.php');
 post('/shop/$id', '../src/controllers/cart-add.php');
 

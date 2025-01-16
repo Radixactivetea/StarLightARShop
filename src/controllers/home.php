@@ -3,6 +3,7 @@
 namespace src\Controllers;
 
 class Home extends Controller {
+    
     public function index() {
         $promotion = $this->db->findAll('promotion');
         $collection = $this->db->find('product', ['product_id' => 2]);
