@@ -28,7 +28,7 @@ foreach ($getAllOrders as &$order) {
     $order['status_class'] = $statusClass;
 
     // Button state logic
-    $order['can_add_tracking'] = (strtolower($order['order_status']) === 'paid' && empty($order['tracking_number']));
+    $order['can_add_tracking'] = strtolower($order['order_status']) === 'paid' && empty($order['tracking_number']);
     $order['has_tracking'] = !empty($order['tracking_number']);
 }
 unset($order);

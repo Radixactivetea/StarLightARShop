@@ -63,7 +63,7 @@
 
             <!-- Order Summary Section -->
             <div class="col-md-4 pt-3">
-                <form class="order-summary p-4 rounded custom-bg" method="POST" action="/place-order"
+                <form class="order-summary p-4 rounded custom-bg" method="POST" action="/cart"
                     onsubmit="updateFormData()">
                     <h5>Order Summary</h5>
 

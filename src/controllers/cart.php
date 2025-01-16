@@ -1,5 +1,4 @@
 <?php
-
 use Core\Database;
 use Core\AuthService;
 
@@ -8,13 +7,10 @@ $config = require 'config.php';
 $db = new Database($config['database']);
 
 $auth = new AuthService;
-
-// FOR TESTING
-$auth->login('userthree', 'Userthree123');
-
 $auth->checkLogin();
 $auth->checkRole('customer');
 
+// Fetch cart items
 $getAllCartList = $db->query("SELECT 
     ci.cart_id,
     ci.user_id,
@@ -37,9 +33,11 @@ JOIN
 WHERE
     user_id = :id
 GROUP BY 
-    ci.cart_id, ci.user_id, ci.product_id, ci.quantity, p.name, p.stock_level, p.price, p.image_url;", ['id' => $_SESSION['user_id']])->fetchAll();
+    ci.cart_id, ci.user_id, ci.product_id, ci.quantity, p.name, p.stock_level, p.price, p.image_url;",
+    ['id' => $_SESSION['user_id']]
+)->fetchAll();
 
-
+// Calculate totals
 $getCartTotal = $db->query("SELECT 
     SUM(p.price * ci.quantity) AS total_price
 FROM 
@@ -52,15 +50,27 @@ WHERE
 )->fetch();
 
 $total_cart = $getCartTotal['total_price'];
-
-// Calculate the 2% tax
 $tax = $total_cart * 0.02;
-
 $shippingCost = 5;
-
 $total_price = $total_cart + $tax + $shippingCost;
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    // Store cart data in session
+    $_SESSION['cart_data'] = [
+        'items' => $getAllCartList,
+        'subtotal' => $total_cart,
+        'tax' => $tax,
+        'shipping' => $shippingCost,
+        'total' => $total_price
+    ];
 
+    // Generate CSRF token
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
 
+    redirect('/checkout');
+}
 
 require 'src/pages/cart.view.php';

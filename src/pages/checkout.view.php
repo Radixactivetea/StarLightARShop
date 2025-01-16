@@ -21,7 +21,7 @@
         }
 
         .card {
-            border: none;
+            border: 1px solid rgba(175, 143, 111, 0.2);
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
             background-color: rgba(175, 143, 111, 0.1)
@@ -40,7 +40,7 @@
         }
 
         .payment-option {
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--bs-focus-ring-color);
             border-radius: 8px;
             padding: 1rem;
             margin-bottom: 1rem;
@@ -49,13 +49,13 @@
         }
 
         .payment-option:hover {
-            border-color: #0d6efd;
-            background-color: #f8f9ff;
+            border-color: var(--bs-secondary);
+            background-color: rgba(175, 143, 111, 0.2);
         }
 
         .payment-option.selected {
-            border-color: #0d6efd;
-            background-color: #f8f9ff;
+            border-color: var(--bs-secondary);
+            background-color: rgba(175, 143, 111, 0.2);
         }
 
         .step-number {
@@ -74,7 +74,7 @@
 </head>
 
 <body>
-    <div class="container checkout-container py-5">
+    <form class="container checkout-container py-5 needs-validation" method="POST" novalidate>
         <div class="row g-4">
             <!-- Checkout Steps -->
             <div class="col-lg-8">
@@ -88,24 +88,20 @@
                         <div class="table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                    <tr class="border-bottom border-primary">
-                                        <td>
-                                            <h6 class="mb-1">Wireless Headphones Pro</h6>
-                                        </td>
-                                        <td class="text-star" style="font-size: 0.8rem;">
-                                            X 5
-                                        </td>
-                                        <td class="text-end">RM 129.99</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <h6 class="mb-1">Wireless Headphones Pro</h6>
-                                        </td>
-                                        <td class="text-star" style="font-size: 0.8rem;">
-                                            X 5
-                                        </td>
-                                        <td class="text-end">RM 129.99</td>
-                                    </tr>
+
+                                    <?php foreach ($getCartItem as $index => $item): ?>
+                                        <tr
+                                            class="<?= $index === array_key_last($getCartItem) ? '' : 'border-bottom border-primary' ?>">
+                                            <td>
+                                                <h6 class="mb-1"><?= $item['name'] ?></h6>
+                                            </td>
+                                            <td class="text-star" style="font-size: 0.8rem;">
+                                                X <?= $item['quantity'] ?>
+                                            </td>
+                                            <td class="text-end">RM <?= $item['total_price'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+
                                 </tbody>
                             </table>
                         </div>
@@ -120,15 +116,17 @@
                             <h5 class="mb-0">Payment Method</h5>
                         </div>
                         <div class="payment-option selected">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" id="credit-card" checked>
+                            <div class="form-check d-flex align-items-center">
+                                <input class="form-check-input me-2" type="radio" name="payment" id="credit-card"
+                                    value="Card" checked>
                                 <label class="form-check-label" for="credit-card">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <span>Credit Card</span>
-                                        <div>
-                                            <img src="/api/placeholder/40/25" alt="Visa" class="me-2">
-                                            <img src="/api/placeholder/40/25" alt="Mastercard" class="me-2">
-                                            <img src="/api/placeholder/40/25" alt="Amex">
+                                        <div class="payment-method-img mx-3">
+                                            <img src="/public/img/Visa_Brandmark_Blue_RGB_2021.png"
+                                                style="witdh: 40px; height: 20px;" alt="Visa" class="me-2">
+                                            <img src="/public/img/Mastercard-logo.svg.png"
+                                                style="witdh: 50px; height: 30px;" alt="Mastercard" class="me-2">
                                         </div>
                                     </div>
                                 </label>
@@ -149,11 +147,25 @@
                         </div>
                         <div class="payment-option">
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="payment" id="paypal">
+                                <input class="form-check-input" type="radio" name="payment" id="paypal" value="Paypal">
                                 <label class="form-check-label" for="paypal">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <span>PayPal</span>
-                                        <img src="/api/placeholder/80/25" alt="PayPal">
+                                        <span class="me-2">PayPal</span>
+                                        <img src="/public/img/paypal.png" style="witdh: 40px; height: 20px;"
+                                            alt="PayPal">
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="payment-option">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="payment" id="applepay"
+                                    value="Applepay">
+                                <label class="form-check-label" for="paypal">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="me-2">Apple Pay</span>
+                                        <img src="/public/img/Apple_pay_logo.svg.png" style="witdh: 40px; height: 20px;"
+                                            alt="PayPal">
                                     </div>
                                 </label>
                             </div>
@@ -170,30 +182,47 @@
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="First Name">
+                                <input type="text" class="form-control" placeholder="Your Name" name="name"
+                                    value="<?= htmlspecialchars($customerAddress['full_name'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    Your name reply is required.
+                                </div>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" placeholder="Last Name">
+                                <input type="text" class="form-control" placeholder="Phone Number" name="phone_number"
+                                    value="<?= htmlspecialchars($customerAddress['phone_number'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    Your phone number is required.
+                                </div>
                             </div>
                             <div class="col-12">
-                                <input type="text" class="form-control" placeholder="Street Address">
-                            </div>
-                            <div class="col-12">
-                                <input type="text" class="form-control" placeholder="Apartment, suite, etc. (optional)">
+                                <input type="text" class="form-control" placeholder="Street Address"
+                                    name="street_address"
+                                    value="<?= htmlspecialchars($customerAddress['street_address'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    Your address is required.
+                                </div>
                             </div>
                             <div class="col-md-5">
-                                <input type="text" class="form-control" placeholder="City">
+                                <input type="text" class="form-control" placeholder="State" name="state"
+                                    value="<?= htmlspecialchars($customerAddress['state'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    State is required.
+                                </div>
                             </div>
                             <div class="col-md-4">
-                                <select class="form-select">
-                                    <option selected>Select State</option>
-                                    <option>New York</option>
-                                    <option>California</option>
-                                    <option>Texas</option>
-                                </select>
+                                <input type="text" class="form-control" placeholder="City" name="city"
+                                    value="<?= htmlspecialchars($customerAddress['city'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    City is required.
+                                </div>
                             </div>
                             <div class="col-md-3">
-                                <input type="text" class="form-control" placeholder="ZIP">
+                                <input type="text" class="form-control" placeholder="Post Code" name="post_code"
+                                    value="<?= htmlspecialchars($customerAddress['post_code'] ?? '') ?>" required>
+                                <div class="invalid-feedback ms-2" style="font-size: 10px;">
+                                    required.
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -207,27 +236,28 @@
                         <h5 class="mb-4">Order Summary</h5>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Subtotal</span>
-                            <span>$429.98</span>
+                            <span>RM <?= $_SESSION['cart_data']['subtotal'] ?></span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Shipping</span>
-                            <span>$9.99</span>
+                            <span>RM <?= $_SESSION['cart_data']['shipping'] ?></span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span>Tax</span>
-                            <span>$38.70</span>
+                            <span>RM <?= $_SESSION['cart_data']['tax'] ?></span>
                         </div>
                         <hr>
                         <div class="d-flex justify-content-between mb-4">
                             <strong>Total</strong>
-                            <strong>$478.67</strong>
+                            <strong>RM <?= $_SESSION['cart_data']['total'] ?></strong>
+                            <input type="hidden" name="total" value="<?= $_SESSION['cart_data']['total'] ?>">
                         </div>
 
                         <div class="mb-3">
-                            <input type="text" class="form-control" placeholder="Promo Code">
+                            <input type="text" class="form-control" placeholder="Promo Code" name="promo_code">
                         </div>
 
-                        <button class="btn btn-primary w-100">Place Order</button>
+                        <button class="btn btn-primary w-100" type="submit">Place Order</button>
 
                         <div class="text-center mt-3">
                             <small class="text-muted">
@@ -239,9 +269,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+    <!-- bootstap and popper -->
+    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <script>
         document.querySelectorAll('.payment-option').forEach(option => {
             option.addEventListener('click', function () {
@@ -253,6 +286,27 @@
                 radio.checked = true;
             });
         });
+    </script>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
     </script>
 </body>
 

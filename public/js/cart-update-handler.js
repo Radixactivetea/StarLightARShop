@@ -38,7 +38,7 @@ document.querySelectorAll('.quantity').forEach(quantityControl => {
 
 // Function to update cart quantity
 function updateCartQuantity(productId, quantity) {
-    fetch('/cart', {
+    fetch('/cart-update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
