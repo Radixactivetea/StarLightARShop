@@ -11,7 +11,6 @@ class AuthMiddleware
         $this->auth = new AuthService();
     }
 
-    // This method handles login checks
     public function handleLogin()
     {
         if (!$this->auth->checkLogin()) {
@@ -21,13 +20,21 @@ class AuthMiddleware
         }
     }
 
-    // This method handles role checks
     public function handleRole($requiredRole)
     {
         if (!$this->auth->checkRole($requiredRole)) {
 
             redirect('/404');
 
+        }
+    }
+
+    public function handleRestrictedRoles(array $restrictedRoles)
+    {
+        $redirectLocation = $this->auth->restrictRoles($restrictedRoles);
+
+        if ($redirectLocation) {
+            redirect($redirectLocation);
         }
     }
 

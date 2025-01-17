@@ -2,6 +2,7 @@
 
 namespace Src\Controllers;
 
+use Core\AuthService;
 use Core\FormValidator;
 use Exception;
 
@@ -49,18 +50,26 @@ class UserAuthController extends Controller
             $this->handleValidationError('/login', $validator->getErrors());
         }
 
+        clearErrors();
+
         $email = $this->sanitizeInput($_POST['email']);
 
         try {
             $user = $this->db->find('user', ['email' => $email]);
 
             if ($user) {
+
                 redirect("/verify?email=" . urlencode($email));
+
             } else {
+
                 redirect("/register?email=" . urlencode($email));
+
             }
         } catch (Exception $e) {
+
             $this->handleAuthError($e, '/login');
+
         }
     }
 
@@ -88,6 +97,8 @@ class UserAuthController extends Controller
             $this->handleValidationError('/register', $validator->getErrors());
 
         }
+
+        clearErrors();
 
         try {
 
@@ -141,6 +152,8 @@ class UserAuthController extends Controller
 
         }
 
+        clearErrors();
+
         try {
 
             $email = $this->sanitizeInput($_GET['email'] ?? '');
@@ -151,26 +164,29 @@ class UserAuthController extends Controller
 
             }
 
-            $user = $this->db->find('user', ['email' => $email]);
+            $auth = new AuthService();
 
-            if (!$user || !password_verify($_POST['password'], $user['password'])) {
+            $user = $auth->login($email, $_POST['password']);
 
-                throw new Exception('Invalid credentials');
-
-            }
-
-            // Start session and set user data
-            $this->initializeUserSession($user);
-
-            // Redirect based on user type
-            if ($user['user_type'] === 2) {
-                redirect('/products');
-            } else {
-                redirect('/dashboard');
+            switch ($user) {
+                case 'customer':
+                    redirect('/');
+                    break;
+                case 'staff':
+                    redirect('/dashboard');
+                    break;
+                case 'admin':
+                    redirect('/admin');
+                    break;
+                default:
+                    redirect('/404');
+                    break;
             }
 
         } catch (Exception $e) {
+
             $this->handleAuthError($e, '/verify');
+
         }
     }
 

@@ -26,7 +26,7 @@ class AuthService
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            return true;
+            return $_SESSION['role'];
         }
 
         return false;
@@ -68,5 +68,24 @@ class AuthService
         }
 
         return true;
+    }
+
+    public function restrictRoles(array $restrictedRoles)
+    {
+        $this->ensureSessionStarted();
+
+        $userRole = $_SESSION['role'] ?? null;
+
+        if (in_array($userRole, $restrictedRoles, true)) {
+
+            $redirectMap = [
+                'admin' => '/admin',
+                'staff' => '/dashboard'
+            ];
+
+            return $redirectMap[$userRole] ?? '/404';
+        }
+
+        return null;
     }
 }

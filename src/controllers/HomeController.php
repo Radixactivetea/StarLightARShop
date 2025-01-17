@@ -2,9 +2,23 @@
 
 namespace src\Controllers;
 
+use Core\AuthMiddleware;
+
 class HomeController extends Controller {
+
+    private $authMiddleware;
+
+    public function __construct() {
+
+        parent::__construct();
+
+        $this->authMiddleware = new AuthMiddleware();
+        
+        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+    }
     
     public function index() {
+
         $promotion = $this->db->findAll('promotion');
         $collection = $this->db->find('product', ['product_id' => 2]);
         
