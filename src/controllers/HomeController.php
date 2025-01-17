@@ -2,7 +2,7 @@
 
 namespace src\Controllers;
 
-class Home extends Controller {
+class HomeController extends Controller {
     
     public function index() {
         $promotion = $this->db->findAll('promotion');

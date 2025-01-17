@@ -2,7 +2,7 @@
 
 namespace Src\Controllers;
 
-class Shop extends Controller {
+class ShopController extends Controller {
 
     public function index() {
         // Initialization

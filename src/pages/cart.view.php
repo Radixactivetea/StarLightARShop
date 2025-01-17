@@ -58,7 +58,11 @@
                                 <button class="plus" aria-label="Increase">&plus;</button>
                             </div>
                             <p class="fw-bold mb-0 ms-5">RM <?= $item['price'] ?></p>
-                            <button type="button" class="btn-close btn-position" aria-label="Close"></button>
+                            <form method="POST">
+                                <button type="submit" class="btn-close btn-position" aria-label="Close"></button>
+                                <input type="hidden" name="product-id" value="<?= $item['product_id'] ?>">
+                                <input type="hidden" name="_method" value="DELETE">
+                            </form>
                         </div>
                     <?php endforeach; ?>
 

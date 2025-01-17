@@ -2,28 +2,32 @@
 
 
 use Src\Controllers\CartController;
-use src\Controllers\Home;
-use Src\Controllers\Shop;
-use Src\Controllers\Product;
+use Src\Controllers\CheckoutController;
+use src\Controllers\HomeController;
+use Src\Controllers\PaymentController;
+use Src\Controllers\ProductController;
+use Src\Controllers\ShopController;
+use Src\Controllers\ARController;
 
 require_once 'router.php';
 
-get('/', function () { $controller = new Home(); $controller->index();});
-get('/shop', function () { $controller = new Shop(); $controller->index();});
-get('/shop/$id', function ($id) { $controller = new Product(); $controller->show($id);});
+get('/', function () { $controller = new HomeController(); $controller->index();});
+get('/shop', function () { $controller = new ShopController(); $controller->index();});
+get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
 post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});
 
 get('/cart', function () { $controller = new CartController(); $controller->viewCart();});
-post('/cart-update', '../src/controllers/cart-update.php');
-post('/cart', '../src/controllers/cart.php');
+post('/cart-update', function () { $controller = new CartController(); $controller->updateCart();});
+destroy('/cart', function () { $controller = new CartController(); $controller->removeFromCart();});
+post('/cart', function () { $controller = new CartController(); $controller->moveToCheckOut();});
 
-get('/checkout', '../src/controllers/checkout.php');
-post('/checkout', '../src/controllers/order-create.php');
+get('/checkout', function () { $controller = new CheckoutController(); $controller->index();});
+post('/checkout', function () { $controller = new CheckoutController(); $controller->store();});
 
-get('/payment', '../src/controllers/payment.php');
-post('/payment', '../src/controllers/payment.php');
+get('/payment', function () { $controller = new PaymentController(); $controller->index();});
+post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
-get('/AR/$id', '../src/controllers/ar.php');
+get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 
 get('/login', '../src/controllers/login.php');
 post('/login', '../src/controllers/login.php');

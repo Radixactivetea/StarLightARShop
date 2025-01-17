@@ -18,6 +18,23 @@ class CartController extends Controller
         $this->authMiddleware->handle('customer');
     }
 
+    public function viewCart()
+    {
+        $cartItems = $this->fetchCartItems();
+        $products = $this->fetchSuggestProduct();
+        $cartTotal = $this->calculateCartTotal($cartItems);
+        $totalPrice = $this->calculateTotalPrice($cartTotal);
+
+        echo $this->view('cart', [
+            'cartItems' => $cartItems,
+            'products' => $products,
+            'cartTotal' => $cartTotal,
+            'totalPrice' => $totalPrice,
+            'tax' => $this->tax,
+            'shippingCost' => $this->shippingCost
+        ]);
+    }
+
     public function addToCart(int $productId)
     {
         $quantity = $_POST['quantity'];
@@ -31,12 +48,79 @@ class CartController extends Controller
         );
 
         if (empty($checkItemExist)) {
+
             $this->addItemToCart($productId, $quantity);
+
         } else {
+
             $this->updateCartItemQuantity($productId, $quantity);
+
         }
 
         $this->redirect("/shop/{$productId}");
+    }
+
+    public function updateCart()
+    {
+        $quantity = (int) $_POST['quantity'];
+        $productId = (int) $_POST['product_id'];
+
+        $this->updateCartItemQuantity($productId, $quantity);
+
+        $cartItems = $this->fetchCartItems();
+        $cartTotal = $this->calculateCartTotal($cartItems);
+        $totalPrice = $this->calculateTotalPrice($cartTotal);
+
+        header('Content-Type: application/json');
+
+        echo json_encode([
+            'success' => true,
+            'subtotal' => $cartTotal,
+            'tax' => $this->tax,
+            'total' => $totalPrice
+        ]);
+    }
+
+    public function removeFromCart()
+    {
+        $productId = $_POST['product-id'] ?? '';
+        // Logic to remove product from cart
+        $this->db->query(
+            'DELETE FROM cart_items WHERE user_id = :user_id AND product_id = :product_id',
+            ['user_id' => $_SESSION['user_id'], 'product_id' => $productId]
+        );
+
+        $this->redirect('/cart');
+    }
+
+    public function moveToCheckOut()
+    {
+        $cartItems = $this->fetchCartItems();
+        $cartTotal = $this->calculateCartTotal($cartItems);
+        $totalPrice = $this->calculateTotalPrice($cartTotal);
+
+        $this->storeCartDataInSession($cartItems, $cartTotal, $totalPrice);
+
+        $this->redirect('/checkout?token=' . $_SESSION['checkout_token']);
+    }
+
+    private function storeCartDataInSession($cartItems, $totalCart, $totalPrice)
+    {
+        $cartItems = $this->fetchCartItems();
+        $cartTotal = $this->calculateCartTotal($cartItems);
+        $totalPrice = $this->calculateTotalPrice($cartTotal);
+
+        $_SESSION['cart_data'] = [
+            'items' => $cartItems,
+            'subtotal' => number_format($totalCart, 2),
+            'tax' => number_format($totalCart * 0.02, 2),
+            'shipping' => number_format(5, 2),
+            'total' => number_format($totalPrice, 2),
+        ];
+
+        if (empty($_SESSION['checkout_token'])) {
+            $_SESSION['checkout_token'] = bin2hex(random_bytes(32));
+        }
     }
 
     private function addItemToCart(int $productId, int $quantity)
@@ -64,26 +148,6 @@ class CartController extends Controller
         );
     }
 
-    public function viewCart()
-    {
-        $cartItems = $this->fetchCartItems();
-        $cartTotal = $this->calculateCartTotal($cartItems);
-        $totalPrice = $this->calculateTotalPrice($cartTotal);
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $this->storeCartDataInSession($cartItems, $cartTotal, $totalPrice);
-            $this->redirectToCheckout();
-        }
-
-        echo $this->view('cart', [
-            'cartItems' => $cartItems,
-            'cartTotal' => $cartTotal,
-            'totalPrice' => $totalPrice,
-            'tax' => $this->tax,
-            'shippingCost' => $this->shippingCost
-        ]);
-    }
-
     private function fetchCartItems()
     {
         return $this->db->query("
@@ -98,56 +162,26 @@ class CartController extends Controller
         ", ['id' => $_SESSION['user_id']])->fetchAll();
     }
 
+    private function fetchSuggestProduct()
+    {
+        return $this->db->query('SELECT * FROM product ORDER BY RAND() LIMIT 4')->fetchAll();
+    }
+
     private function calculateCartTotal($cartItems)
     {
         $totalPrice = 0;
         foreach ($cartItems as $item) {
+
             $totalPrice += $item['total_price'];
         }
+
         return $totalPrice;
     }
 
     private function calculateTotalPrice($totalCart)
     {
         $this->tax = $totalCart * 0.02;
+
         return $totalCart + $this->tax + $this->shippingCost;
-    }
-
-    private function storeCartDataInSession($cartItems, $totalCart, $totalPrice)
-    {
-        $_SESSION['cart_data'] = [
-            'items' => $cartItems,
-            'subtotal' => number_format($totalCart, 2),
-            'tax' => number_format($totalCart * 0.02, 2),
-            'shipping' => number_format(5, 2),
-            'total' => number_format($totalPrice, 2),
-        ];
-
-        if (empty($_SESSION['checkout_token'])) {
-            $_SESSION['checkout_token'] = bin2hex(random_bytes(32));
-        }
-    }
-
-    private function redirectToCheckout()
-    {
-        $this->redirect('/checkout?token=' . $_SESSION['checkout_token']);
-    }
-
-    public function removeFromCart(int $productId)
-    {
-        // Logic to remove product from cart
-        $this->db->query(
-            'DELETE FROM cart_items WHERE user_id = :user_id AND product_id = :product_id',
-            ['user_id' => $_SESSION['user_id'], 'product_id' => $productId]
-        );
-
-        $this->redirect('/cart');
-    }
-
-    public function updateCart(int $productId, int $quantity)
-    {
-        // Update the quantity of an item in the cart
-        $this->updateCartItemQuantity($productId, $quantity);
-        $this->redirect('/cart');
     }
 }

@@ -4,7 +4,7 @@ namespace Src\Controllers;
 
 use Core\Database;
 
-class Product extends Controller
+class ProductController extends Controller
 {
     public function show(int $id)
     {

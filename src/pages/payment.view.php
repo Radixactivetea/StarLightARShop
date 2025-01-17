@@ -31,7 +31,7 @@
                     <i class="fas fa-check-circle text-success" style="font-size: 48px;"></i>
                     <h4 class="mt-3">Payment Successful!</h4>
                     <p class="text-muted">Your transaction has been completed successfully.</p>
-                    <p class="mb-0">Transaction ID: #123456789</p>
+                    <p class="mb-0">Transaction ID: <?= $orderDetails ?></p>
                     <button type="submit" class="btn btn-primary mt-3">Back to Home</button>
                 </div>
             </form>
