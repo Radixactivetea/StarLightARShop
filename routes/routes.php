@@ -8,6 +8,7 @@ use Src\Controllers\PaymentController;
 use Src\Controllers\ProductController;
 use Src\Controllers\ShopController;
 use Src\Controllers\ARController;
+use Src\Controllers\UserAuthController;
 
 require_once 'router.php';
 
@@ -29,12 +30,13 @@ post('/payment', function () { $controller = new PaymentController(); $controlle
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 
-get('/login', '../src/controllers/login.php');
-post('/login', '../src/controllers/login.php');
-get('/verify', '../src/controllers/verify.php');
-post('/verify', '../src/controllers/verify.php');
-get('/register', '../src/controllers/register.php');
-post('/register', '../src/controllers/register.php');
+get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
+post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});
+get('/register', function () { $controller = new UserAuthController(); $controller->showRegister();});
+post('/register', function () { $controller = new UserAuthController(); $controller->processRegistration();});
+get('/verify', function () { $controller = new UserAuthController(); $controller->showVerify();});
+post('/verify', function () { $controller = new UserAuthController(); $controller->processVerification();});
+get('/logout', function () { $controller = new UserAuthController(); $controller->logout();});
 
 get('/products', '../src/controllers/seller/products-show.php');
 destroy('/products', '../src/controllers/seller/products-show.php');

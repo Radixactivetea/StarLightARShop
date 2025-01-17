@@ -146,3 +146,45 @@ function dummyLogin($role)
     // Return false if the role is not recognized
     return false;
 }
+
+function old(string $key, $default = '')
+{
+    initSession();
+    if (isset($_SESSION['old'][$key])) {
+        $value = $_SESSION['old'][$key];
+        unset($_SESSION['old'][$key]);
+        return htmlspecialchars($value);
+    }
+    return $default;
+}
+
+function hasError(string $field): bool
+{
+    initSession();
+    return isset($_SESSION['errors'][$field]);
+}
+
+function getError(string $field): string
+{
+    initSession();
+    if (isset($_SESSION['errors'][$field])) {
+        $error = $_SESSION['errors'][$field];
+        unset($_SESSION['errors'][$field]);
+        return $error;
+    }
+    return '';
+}
+
+function clearErrors(): void
+{
+    initSession();
+    unset($_SESSION['errors']);
+    unset($_SESSION['old']);
+}
+
+function showError(string $field): void
+{
+    if (hasError($field)) {
+        echo '<p class="text-danger mt-1 ms-1" style="font-size: 10px;">' . getError($field) . '</p>';
+    }
+}

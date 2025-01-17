@@ -51,10 +51,11 @@
         <!-- Form -->
         <form class="needs-validation" method="POST" novalidate>
             <div class="mb-4">
-                <input type="email" class="form-control" placeholder="Email" name="email" id="email" required>
+                <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?= old('email') ?>" required>
                 <div class="invalid-feedback">
                     Require.
                 </div>
+                <?php showError('email') ?>
             </div>
 
             <!-- Terms Text -->

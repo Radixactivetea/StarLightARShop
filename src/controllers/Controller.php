@@ -14,6 +14,8 @@ abstract class Controller
         $config = require 'config.php';
 
         $this->db = new Database($config['database']);
+
+        $this->initSession();
     }
 
     protected function view($name, $data = [])
@@ -37,7 +39,14 @@ abstract class Controller
     protected function redirect($path)
     {
         header("Location: {$path}");
-        
+
         exit();
+    }
+
+    private function initSession()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start(); // Start the session if not already started
+        }
     }
 }
