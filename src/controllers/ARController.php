@@ -11,6 +11,10 @@ class ARController extends Controller
     public function __construct()
     {
         parent::__construct();
+
+        $this->authMiddleware = new AuthMiddleware();
+
+        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
     }
 
     public function index($id)
@@ -20,9 +24,10 @@ class ARController extends Controller
         echo $this->view('ar', ['getAr' => $getAr]);
     }
 
-    private function fetchAR($id) {
+    private function fetchAR($id)
+    {
 
         return $this->db->findOrFail('ar', ['ar_id' => $id]);
-        
+
     }
 }

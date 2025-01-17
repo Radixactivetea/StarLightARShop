@@ -4,35 +4,36 @@ namespace src\Controllers;
 
 use Core\AuthMiddleware;
 
-class HomeController extends Controller {
-
+class HomeController extends Controller
+{
     private $authMiddleware;
 
-    public function __construct() {
-
+    public function __construct()
+    {
         parent::__construct();
 
         $this->authMiddleware = new AuthMiddleware();
-        
+
         $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
     }
-    
-    public function index() {
+
+    public function index()
+    {
 
         $promotion = $this->db->findAll('promotion');
         $collection = $this->db->find('product', ['product_id' => 2]);
-        
+
         $new_product = $this->db->findAll('product', [], [
             'orderBy' => 'product_id DESC',
             'limit' => 7
         ]);
-        
+
         $category = $this->db->query('SELECT DISTINCT c.* FROM category c 
             JOIN product_category pc ON c.category_id = pc.category_id 
             JOIN product p ON p.product_id = pc.product_id 
             WHERE p.stock_level > 0;'
         )->fetchAll();
-        
+
         echo $this->view('home', [
             'promotion' => $promotion,
             'collection' => $collection,

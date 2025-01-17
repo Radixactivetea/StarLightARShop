@@ -2,9 +2,22 @@
 
 namespace Src\Controllers;
 
-class ShopController extends Controller {
+use Core\AuthMiddleware;
 
-    public function index() {
+class ShopController extends Controller
+{
+    private $authMiddleware;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->authMiddleware = new AuthMiddleware();
+
+        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+    }
+    public function index()
+    {
         // Initialization
         $selectedCategories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
         $priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_high', 'high_low']) ? $_GET['price_sort'] : 'low_high';
@@ -22,7 +35,8 @@ class ShopController extends Controller {
         ]);
     }
 
-    private function getProducts(array $selectedCategories, string $priceSort): array {
+    private function getProducts(array $selectedCategories, string $priceSort): array
+    {
         // Product query
         $product_query = "SELECT DISTINCT p.* FROM product p 
             JOIN product_category pc ON p.product_id = pc.product_id 
@@ -42,7 +56,8 @@ class ShopController extends Controller {
         return $this->db->query($product_query, $selectedCategories)->fetchAll();
     }
 
-    private function getCategories(): array {
+    private function getCategories(): array
+    {
         // Category query
         $category_query = 'SELECT DISTINCT c.* FROM category c 
             JOIN product_category pc ON c.category_id = pc.category_id 

@@ -2,10 +2,20 @@
 
 namespace Src\Controllers;
 
-use Core\Database;
-
+use Core\AuthMiddleware;
 class ProductController extends Controller
 {
+    private $authMiddleware;
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->authMiddleware = new AuthMiddleware();
+
+        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+    }
+
     public function show(int $id)
     {
         $product = $this->fetchProduct($id);
@@ -17,7 +27,7 @@ class ProductController extends Controller
         $showReview = $this->fetchReviews($id);
 
         $ratings = $this->fetchRatings($id);
-        
+
         $totalAndAverage = $this->fetchTotalAndAverage($id);
 
         $percentages = $this->processRatings($ratings);
