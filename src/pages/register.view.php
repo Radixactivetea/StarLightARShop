@@ -94,7 +94,7 @@
                 <div class="invalid-feedback">
                     Please enter your username.
                 </div>
-                <?php showError('username') ?>;
+                <?php showError('username') ?>
             </div>
 
             <!-- Name Fields -->
