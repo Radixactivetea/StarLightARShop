@@ -3,6 +3,8 @@
 namespace Src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
+use Exception;
 class ProductController extends Controller
 {
     private $authMiddleware;
@@ -41,6 +43,71 @@ class ProductController extends Controller
             'totalAndAverage'
         ));
     }
+
+    public function delete()
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_STAFF);
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/');
+        }
+
+        $productId = $_POST['delete-product-id'] ?? null;
+
+        if (!$productId || !is_numeric($productId)) {
+
+            setFlashMessage('status', 'Invalid product ID.', 'error');
+
+            redirect('/shop');
+        }
+
+        try {
+
+            $this->processDelete((int) $productId);
+
+        } catch (Exception $e) {
+
+            $this->handleProductError($e);
+
+        }
+
+    }
+
+    private function processDelete(int $id): void
+    {
+        $product = $this->fetchProduct($id);
+
+        if (!$product) {
+
+            throw new Exception('Product not found');
+
+        }
+
+        $this->deleteProductImage($product['image_url']);
+
+        $isDeleted = $this->db->delete('product', ['product_id' => $id]);
+
+        if (!$isDeleted) {
+            
+            throw new Exception('Failed to delete the product.');
+
+        }
+
+        setFlashMessage('status', 'Product deleted successfully.', 'success');
+        redirect('/shop');
+    }
+
+    private function deleteProductImage(string $imageUrl): void
+    {
+        $imagePath = "public/upload/product/{$imageUrl}";
+
+        if (file_exists($imagePath)) {
+
+            unlink($imagePath);
+
+        }
+    }
+
 
     private function fetchProduct(int $id)
     {
@@ -101,5 +168,18 @@ class ProductController extends Controller
         }
 
         return $percentages;
+    }
+
+    private function handleProductError(Exception $e): void
+    {
+        error_log("Order creation error: " . $e->getMessage());
+
+        setFlashMessage(
+            'status',
+            "We're sorry, but there was an issue processing your product. Please try again.",
+            'error'
+        );
+
+        redirect('/shop');
     }
 }

@@ -104,7 +104,7 @@
     </nav>
 
     <nav class="nav flex-column mt-4">
-        <a class="nav-link" href="/log-out">
+        <a class="nav-link" href="/logout">
             <i class="bi bi-box-arrow-left"></i>
             Log Out
         </a>
