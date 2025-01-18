@@ -202,7 +202,7 @@
                     <div class="col-12 col-lg-10">
                         <div class="d-flex flex-column flex-sm-row gap-3">
                             <img src="https://pagedone.io/asset/uploads/1704364459.png" alt="Profile Image"
-                                class="rounded-circle object-fit-cover" style="width: 8rem; height: 8rem;">
+                                class="rounded-circle object-fit-cover me-5" style="width: 8rem; height: 8rem;">
                             <div>
                                 <p class="fw-medium fs-5 mb-2 text-dark">Robert Karmazov</p>
                                 <div class="d-flex d-lg-none align-items-center gap-2 mb-4">

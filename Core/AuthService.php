@@ -6,12 +6,14 @@ use Core\Database;
 
 class AuthService
 {
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_STAFF = 'staff';
+    public const ROLE_CUSTOMER = 'customer';
+    public const ROLE_GUEST = 'guest';
     private function ensureSessionStarted()
     {
         if (session_status() === PHP_SESSION_NONE) {
-
             session_start();
-
         }
     }
 
@@ -22,16 +24,13 @@ class AuthService
         $user = $this->getUserFromDatabase($email);
 
         if ($user && password_verify($password, $user['password'])) {
-
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['user_id'];
-
             $_SESSION['username'] = $user['username'];
-
             $_SESSION['role'] = $user['role'];
 
-            return true;
+            return $_SESSION['role'];
         }
 
         return false;
@@ -50,7 +49,6 @@ class AuthService
         $this->ensureSessionStarted();
 
         session_unset();
-
         session_destroy();
     }
 
@@ -59,20 +57,40 @@ class AuthService
         $this->ensureSessionStarted();
 
         if (!isset($_SESSION['user_id'])) {
-
-            redirect('/login');
-
+            return false;
         }
+
+        return true;
     }
 
     public function checkRole($requiredRole)
     {
-        $this->checkLogin();
+        $this->ensureSessionStarted();
+        return $this->getCurrentUserRole() === $requiredRole;
+    }
 
-        if ($_SESSION['role'] !== $requiredRole) {
+    public function restrictRoles(array $restrictedRoles)
+    {
+        $this->ensureSessionStarted();
 
-            redirect('/404');
+        $userRole = $this->getCurrentUserRole();
 
+        if (in_array($userRole, $restrictedRoles, true)) {
+            
+            $redirectMap = [
+                self::ROLE_ADMIN => '/admin',
+                self::ROLE_STAFF => '/dashboard'
+            ];
+
+            return $redirectMap[$userRole] ?? '/404';
         }
+
+        return null;
+    }
+
+    public function getCurrentUserRole()
+    {
+        $this->ensureSessionStarted();
+        return $_SESSION['role'] ?? self::ROLE_GUEST;
     }
 }

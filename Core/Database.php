@@ -238,7 +238,7 @@ class Database
         return $this->statement->fetchAll();
     }
 
-    public function generateUniqueOrderId()
+    public function generateUniqueOrderId(): int
     {
         $maxAttempts = 10; // Prevent infinite loops
         $attempt = 0;

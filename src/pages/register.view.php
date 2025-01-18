@@ -90,26 +90,29 @@
             
             <!-- Username Fields -->
             <div class="mb-3">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= old('username') ?>" required>
                 <div class="invalid-feedback">
                     Please enter your username.
                 </div>
+                <?php showError('username') ?>
             </div>
 
             <!-- Name Fields -->
             <div class="mb-3">
-                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" required>
+                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" value="<?= old('fullname') ?>" required>
                 <div class="invalid-feedback">
                     Please enter your full name.
                 </div>
+                <?php showError('fullname') ?>
             </div>
 
             <!-- Password -->
             <div class="mb-3">
                 <div class="password-input-container">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                    <input type="password" class="form-control" id="password" name="password" value="<?= old('password') ?>" placeholder="Password"
                         required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$">
                     <i class="fas fa-eye password-toggle"></i>
+                    <?php showError('password') ?>
                 </div>
                 <div class="password-requirements mt-2 mb-4">
                     <div><i class="fas fa-times-circle"></i> Minimum of 8 characters</div>

@@ -10,6 +10,7 @@ spl_autoload_register(function ($class) {
     require "{$class}.php";
 });
 
-dummyLogin('customer');
+// dummyLogin('customer');
+// clearSession();
 
 require 'routes/routes.php';

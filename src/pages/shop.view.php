@@ -19,7 +19,7 @@
     <?php require "src/components/loading.php" ?>
     
     <!-- navigator -->
-    <?php require "src/components/nav.php"; ?>
+    <?php require "src/components/nav.php";?>
 
     <div class="main-grid container mt-5">
         <div class="filter-bar px-3 mb-2">
@@ -39,7 +39,7 @@
                                 <div class="btn-group category-checkbox" role="group"
                                     aria-label="Basic checkbox toggle button group">
 
-                                    <?php foreach ($category as $cat): ?>
+                                    <?php foreach ($categories as $cat): ?>
                                         <input type="checkbox" name="categories[]" value="<?= $cat['category_id'] ?>"
                                             class="btn-check" id="category-<?= $cat['category_id'] ?>" autocomplete="off"
                                             <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>

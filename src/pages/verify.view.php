@@ -53,14 +53,15 @@
 
         <!-- Form -->
         <form class="needs-validation" method="POST" novalidate>
-            <div class="mb-4 password-input-container">
+            <div class="mb-2 password-input-container">
                 <input type="password" class="form-control" placeholder="Password" name="password" id="password"
-                    required>
+                value="<?= old('password') ?>" required>
                 <i class="fas fa-eye password-toggle"></i>
                 <div class="invalid-feedback">
                     Require.
                 </div>
             </div>
+            <?php showError('password') ?>
 
             <!-- Terms Text -->
             <div class="terms-text">

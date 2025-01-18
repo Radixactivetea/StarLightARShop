@@ -1,41 +1,52 @@
 <?php
 
 
+use Src\Controllers\CartController;
+use Src\Controllers\CheckoutController;
+use src\Controllers\HomeController;
+use Src\Controllers\PaymentController;
+use Src\Controllers\ProductController;
+use Src\Controllers\ShopController;
+use Src\Controllers\ARController;
+use Src\Controllers\UserAuthController;
+use Src\Controllers\OrderController;
+
 require_once 'router.php';
 
-get('/', '../src/controllers/home.php');
-get('/shop', '../src/controllers/shop.php');
-get('/shop/$id', '../src/controllers/product.php');
-post('/shop/$id', '../src/controllers/cart-add.php');
+get('/', function () { $controller = new HomeController(); $controller->index();});
+get('/shop', function () { $controller = new ShopController(); $controller->index();});
+get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
+post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});
 
-get('/cart', '../src/controllers/cart.php');
-post('/cart-update', '../src/controllers/cart-update.php');
-post('/cart', '../src/controllers/cart.php');
+get('/cart', function () { $controller = new CartController(); $controller->viewCart();});
+post('/cart-update', function () { $controller = new CartController(); $controller->updateCart();});
+destroy('/cart', function () { $controller = new CartController(); $controller->removeFromCart();});
+post('/cart', function () { $controller = new CartController(); $controller->moveToCheckOut();});
 
-get('/checkout', '../src/controllers/checkout.php');
-post('/checkout', '../src/controllers/order-create.php');
+get('/checkout', function () { $controller = new CheckoutController(); $controller->index();});
+post('/checkout', function () { $controller = new CheckoutController(); $controller->store();});
 
-get('/payment', '../src/controllers/payment.php');
-post('/payment', '../src/controllers/payment.php');
+get('/payment', function () { $controller = new PaymentController(); $controller->index();});
+post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
-get('/AR/$id', '../src/controllers/ar.php');
+get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 
-get('/login', '../src/controllers/login.php');
-post('/login', '../src/controllers/login.php');
-get('/verify', '../src/controllers/verify.php');
-post('/verify', '../src/controllers/verify.php');
-get('/register', '../src/controllers/register.php');
-post('/register', '../src/controllers/register.php');
+get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
+post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});
+get('/register', function () { $controller = new UserAuthController(); $controller->showRegister();});
+post('/register', function () { $controller = new UserAuthController(); $controller->processRegistration();});
+get('/verify', function () { $controller = new UserAuthController(); $controller->showVerify();});
+post('/verify', function () { $controller = new UserAuthController(); $controller->processVerification();});
+get('/logout', function () { $controller = new UserAuthController(); $controller->logout();});
 
-get('/products', '../src/controllers/seller/products-show.php');
-destroy('/products', '../src/controllers/seller/products-show.php');
-get('/product/create', '../src/controllers/seller/product-create.php');
-post('/product/create', '../src/controllers/seller/product-create.php');
+destroy('/shop', function () { $controller = new ProductController(); $controller->delete();});
+get('/shop/product/create', function () { $controller = new ProductController(); $controller->showForm();});
+post('/shop/product/create', function () { $controller = new ProductController(); $controller->create();});
 
-get('/orders', '../src/controllers/seller/orders.php');
-post('/orders', '../src/controllers/seller/order-update.php');
+get('/orders', function () { $controller = new OrderController(); $controller->index();});
+post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
 
-get('/review&rating', '../src/controllers/seller/review&rating.php');
-post('/review&rating', '../src/controllers/seller/review&rating-update.php');
+get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
+post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
 
 any('/404', '../src/pages/404.view.php');

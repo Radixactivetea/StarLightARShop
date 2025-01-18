@@ -72,7 +72,7 @@
             <i class="bi bi-grid"></i>
             Dashboard
         </a>
-        <a class="nav-link <?= urlis('/products') ? 'active' : '' ?>" href="/products">
+        <a class="nav-link <?= urlis('/shop') ? 'active' : '' ?>" href="/shop">
             <i class="bi bi-box"></i>
             Products
         </a>
@@ -104,7 +104,7 @@
     </nav>
 
     <nav class="nav flex-column mt-4">
-        <a class="nav-link" href="/log-out">
+        <a class="nav-link" href="/logout">
             <i class="bi bi-box-arrow-left"></i>
             Log Out
         </a>

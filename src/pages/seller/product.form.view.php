@@ -32,8 +32,8 @@
 
                 <div class="col-md-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?= $_POST['name'] ?? '' ?>"
-                        required>
+                    <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" required>
+                    <?php showError('name') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['name'] ?? '' ?></div>
                 </div>
 
@@ -42,8 +42,9 @@
                     <div class="input-group">
                         <span class="input-group-text">RM</span>
                         <input type="number" class="form-control" id="price" name="price" min="0" step="0.01"
-                            value="<?= $_POST['price'] ?? '' ?>" required>
+                            value="<?= old('price') ?>" required>
                     </div>
+                    <?php showError('price') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['price'] ?? ''; ?></div>
                 </div>
 
@@ -52,16 +53,18 @@
                     <div class="input-group">
                         <span class="input-group-text">Total</span>
                         <input type="number" class="form-control" id="stock" name="stock" min="0" step="1"
-                            value="<?= $_POST['stock'] ?? '' ?>" required>
+                            value="<?= old('stock') ?>" required>
                     </div>
+                    <?php showError('stock') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['stock'] ?? ''; ?></div>
                 </div>
 
                 <div class="col-12">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3"
-                        required><?= $_POST['description'] ?? ''; ?></textarea>
+                        required><?= old('description') ?></textarea>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['description'] ?? ''; ?></div>
+                    <?php showError('description') ?>
                 </div>
 
                 <p class="text-muted m-0 mt-5">The dimensions we need are diameter (in cm), height (in cm), weight (in
@@ -70,6 +73,7 @@
                     capacity (in liters).
                 </p>
                 <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['categories'] ?? ''; ?></div>
+                <?php showError('categories') ?>
 
                 <?php foreach ($category as $cat): ?>
                     <div class="col-md-3">
@@ -90,26 +94,30 @@
                 <div class="col-md-3">
                     <label for="diameter" class="form-label">Diameter (cm)</label>
                     <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1"
-                        value="<?= $_POST['diameter'] ?? '' ?>" required>
+                        value="<?= old('diameter') ?>" required>
+                    <?php showError('diameter') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['diameter'] ?? ''; ?></div>
                 </div>
 
                 <div class="col-md-3">
                     <label for="height" class="form-label">Height (cm)</label>
                     <input type="number" class="form-control" id="height" name="height" min="0" step="0.1"
-                        value="<?= $_POST['height'] ?? '' ?>" required>
+                        value="<?= old('height') ?>" required>
+                    <?php showError('height') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['height'] ?? ''; ?></div>
                 </div>
                 <div class="col-md-3">
                     <label for="weight" class="form-label">Weight (kg)</label>
                     <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01"
-                        value="<?= $_POST['weight'] ?? '' ?>" required>
+                        value="<?= old('weight') ?>" required>
+                    <?php showError('weight') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['weight'] ?? ''; ?></div>
                 </div>
                 <div class="col-md-3">
                     <label for="capacity" class="form-label">Capacity (l)</label>
                     <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01"
-                        value="<?= $_POST['capacity'] ?? '' ?>" required>
+                        value="<?= old('capacity') ?>" required>
+                    <?php showError('capacity') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['capacity'] ?? ''; ?></div>
                 </div>
 
