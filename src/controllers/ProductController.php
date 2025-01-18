@@ -13,7 +13,7 @@ class ProductController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+        $this->authMiddleware->redirectRestrictedUsers(['admin']);
     }
 
     public function show(int $id)

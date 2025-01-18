@@ -16,7 +16,7 @@ class OrderController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->handle('staff');
+        $this->authMiddleware->authenticate('staff');
     }
 
     public function index()

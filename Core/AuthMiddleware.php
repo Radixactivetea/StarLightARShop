@@ -11,25 +11,21 @@ class AuthMiddleware
         $this->auth = new AuthService();
     }
 
-    public function handleLogin()
+    public function requireLogin()
     {
         if (!$this->auth->checkLogin()) {
-
             redirect('/login');
-
         }
     }
 
-    public function handleRole($requiredRole)
+    public function requireRole($requiredRole)
     {
         if (!$this->auth->checkRole($requiredRole)) {
-
             redirect('/404');
-
         }
     }
 
-    public function handleRestrictedRoles(array $restrictedRoles)
+    public function redirectRestrictedUsers(array $restrictedRoles)
     {
         $redirectLocation = $this->auth->restrictRoles($restrictedRoles);
 
@@ -38,9 +34,14 @@ class AuthMiddleware
         }
     }
 
-    public function handle($requiredRole = 'customer')
+    public function authenticate($requiredRole = 'customer')
     {
-        $this->handleLogin();
-        $this->handleRole($requiredRole);
+        $this->requireLogin();
+        $this->requireRole($requiredRole);
+    }
+
+    public function getUserRole()
+    {
+        return $this->auth->getCurrentUserRole();
     }
 }

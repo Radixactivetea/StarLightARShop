@@ -3,10 +3,13 @@
 namespace Src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
 
 class ShopController extends Controller
 {
     private $authMiddleware;
+
+    private $userRole;
 
     public function __construct()
     {
@@ -14,25 +17,35 @@ class ShopController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+        $this->authMiddleware->redirectRestrictedUsers(['admin']);
+
+        $this->userRole = $this->authMiddleware->getUserRole();
     }
     public function index()
     {
-        // Initialization
         $selectedCategories = isset($_GET['categories']) ? array_map('intval', $_GET['categories']) : [];
         $priceSort = isset($_GET['price_sort']) && in_array($_GET['price_sort'], ['low_high', 'high_low']) ? $_GET['price_sort'] : 'low_high';
 
-        // Fetch products and categories
         $products = $this->getProducts($selectedCategories, $priceSort);
         $categories = $this->getCategories();
 
-        // Pass data to the view
-        echo $this->view('shop', [
+        $viewData = [
             'products' => $products,
             'categories' => $categories,
             'selectedCategories' => $selectedCategories,
             'priceSort' => $priceSort
-        ]);
+        ];
+
+        switch ($this->userRole) {
+            
+            case AuthService::ROLE_STAFF:
+                echo $this->view('seller/shop', $viewData);
+                break;
+
+            default:
+                echo $this->view('shop', $viewData);
+                break;
+        }
     }
 
     private function getProducts(array $selectedCategories, string $priceSort): array

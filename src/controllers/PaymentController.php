@@ -15,7 +15,7 @@ class PaymentController extends Controller
         parent::__construct();
 
         $this->authMiddleware = new AuthMiddleware();
-        $this->authMiddleware->handle('customer');
+        $this->authMiddleware->authenticate('customer');
 
         $this->orderId = $_GET['order'] ?? null;
 

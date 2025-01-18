@@ -39,7 +39,7 @@ get('/verify', function () { $controller = new UserAuthController(); $controller
 post('/verify', function () { $controller = new UserAuthController(); $controller->processVerification();});
 get('/logout', function () { $controller = new UserAuthController(); $controller->logout();});
 
-get('/products', '../src/controllers/seller/products-show.php');
+// get('/products', function () { $controller = new ShopController(); $controller->index();});
 destroy('/products', '../src/controllers/seller/products-show.php');
 get('/product/create', '../src/controllers/seller/product-create.php');
 post('/product/create', '../src/controllers/seller/product-create.php');

@@ -15,7 +15,7 @@ class CartController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->handle('customer');
+        $this->authMiddleware->authenticate('customer');
     }
 
     public function viewCart()

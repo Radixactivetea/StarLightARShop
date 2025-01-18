@@ -17,7 +17,7 @@ class CheckoutController extends Controller
         parent::__construct();
 
         $this->authMiddleware = new AuthMiddleware();
-        $this->authMiddleware->handle('customer');
+        $this->authMiddleware->authenticate('customer');
 
         $this->token = $_GET['token'] ?? '';
         $this->sessionToken = $_SESSION['checkout_token'] ?? '';

@@ -6,6 +6,10 @@ use Core\Database;
 
 class AuthService
 {
+    public const ROLE_ADMIN = 'admin';
+    public const ROLE_STAFF = 'staff';
+    public const ROLE_CUSTOMER = 'customer';
+    public const ROLE_GUEST = 'guest';
     private function ensureSessionStarted()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -62,30 +66,31 @@ class AuthService
     public function checkRole($requiredRole)
     {
         $this->ensureSessionStarted();
-
-        if ($_SESSION['role'] !== $requiredRole) {
-            return false;
-        }
-
-        return true;
+        return $this->getCurrentUserRole() === $requiredRole;
     }
 
     public function restrictRoles(array $restrictedRoles)
     {
         $this->ensureSessionStarted();
 
-        $userRole = $_SESSION['role'] ?? null;
+        $userRole = $this->getCurrentUserRole();
 
         if (in_array($userRole, $restrictedRoles, true)) {
-
+            
             $redirectMap = [
-                'admin' => '/admin',
-                'staff' => '/dashboard'
+                self::ROLE_ADMIN => '/admin',
+                self::ROLE_STAFF => '/dashboard'
             ];
 
             return $redirectMap[$userRole] ?? '/404';
         }
 
         return null;
+    }
+
+    public function getCurrentUserRole()
+    {
+        $this->ensureSessionStarted();
+        return $_SESSION['role'] ?? self::ROLE_GUEST;
     }
 }

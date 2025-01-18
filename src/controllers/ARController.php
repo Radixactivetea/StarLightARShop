@@ -14,7 +14,7 @@ class ARController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->handleRestrictedRoles(['admin', 'staff']);
+        $this->authMiddleware->redirectRestrictedUsers(['admin', 'staff']);
     }
 
     public function index($id)

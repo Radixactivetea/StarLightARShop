@@ -137,6 +137,7 @@ class UserAuthController extends Controller
         $this->validator->required('password');
 
         if (!$this->validator->passes()) {
+
             $this->handleValidationError('/verify', $this->validator->getErrors());
         }
 
@@ -152,7 +153,9 @@ class UserAuthController extends Controller
             $this->handleLoginAndRedirect($email, $_POST['password'] ?? '');
 
         } catch (Exception $e) {
+
             $this->handleAuthError($e, '/verify');
+
         }
     }
 
@@ -162,14 +165,20 @@ class UserAuthController extends Controller
 
         $userRole = $auth->login($email, $password);
 
+        if (!$userRole) {
+
+            $this->handleValidationError("/verify?email=" . urlencode($email), ['password' => 'Sorry, Wrong password. Please try again']);
+
+        }
+
         switch ($userRole) {
-            case 'customer':
+            case AuthService::ROLE_CUSTOMER:
                 redirect('/');
                 break;
-            case 'staff':
+            case AuthService::ROLE_STAFF:
                 redirect('/dashboard');
                 break;
-            case 'admin':
+            case AuthService::ROLE_ADMIN:
                 redirect('/admin');
                 break;
             default:
@@ -182,6 +191,7 @@ class UserAuthController extends Controller
     {
         $_SESSION['errors'] = $errors;
         $_SESSION['old'] = $_POST;
+
         redirect($redirectPath);
     }
 

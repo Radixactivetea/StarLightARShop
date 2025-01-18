@@ -49,7 +49,7 @@
                                         <div class="btn-group category-checkbox" role="group"
                                             aria-label="Basic checkbox toggle button group">
 
-                                            <?php foreach ($category as $cat): ?>
+                                            <?php foreach ($categories as $cat): ?>
                                                 <input type="checkbox" name="categories[]"
                                                     value="<?= $cat['category_id'] ?>" class="btn-check"
                                                     id="category-<?= $cat['category_id'] ?>" autocomplete="off" <?php if (in_array($cat['category_id'], $selectedCategories)): ?> checked <?php endif; ?>>
@@ -100,7 +100,7 @@
                 <div class="shop-content mb-5">
                     <div class="col">
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                            <?php foreach ($getProducts as $product): ?>
+                            <?php foreach ($products as $product): ?>
                                 <div>
                                     <div class="card h-100 shadow-sm overflow-hidden rounded-lg position-relative">
                                         <img src="/public/upload/product/<?= $product['image_url'] ?>"
