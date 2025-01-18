@@ -39,7 +39,6 @@ get('/verify', function () { $controller = new UserAuthController(); $controller
 post('/verify', function () { $controller = new UserAuthController(); $controller->processVerification();});
 get('/logout', function () { $controller = new UserAuthController(); $controller->logout();});
 
-// get('/products', function () { $controller = new ShopController(); $controller->index();});
 destroy('/shop', function () { $controller = new ProductController(); $controller->delete();});
 get('/product/create', '../src/controllers/seller/product-create.php');
 post('/product/create', '../src/controllers/seller/product-create.php');
