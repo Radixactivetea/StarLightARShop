@@ -24,7 +24,7 @@
 
         <div class="my-4 main-content me-4">
             <div class="w-100 d-flex justify-content-end">
-                <a href="/product/create" class="btn btn-primary my-2">
+                <a href="/shop/product/create" class="btn btn-primary my-2">
                     Add New
                 </a>
             </div>

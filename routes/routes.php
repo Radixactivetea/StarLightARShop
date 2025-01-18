@@ -40,13 +40,13 @@ post('/verify', function () { $controller = new UserAuthController(); $controlle
 get('/logout', function () { $controller = new UserAuthController(); $controller->logout();});
 
 destroy('/shop', function () { $controller = new ProductController(); $controller->delete();});
-get('/product/create', '../src/controllers/seller/product-create.php');
-post('/product/create', '../src/controllers/seller/product-create.php');
+get('/shop/product/create', function () { $controller = new ProductController(); $controller->showForm();});
+post('/shop/product/create', function () { $controller = new ProductController(); $controller->create();});
 
 get('/orders', function () { $controller = new OrderController(); $controller->index();});
 post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
 
-get('/review&rating', '../src/controllers/seller/review&rating.php');
-post('/review&rating', '../src/controllers/seller/review&rating-update.php');
+get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
+post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
 
 any('/404', '../src/pages/404.view.php');
