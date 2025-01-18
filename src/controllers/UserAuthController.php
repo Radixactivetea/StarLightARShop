@@ -70,7 +70,7 @@ class UserAuthController extends Controller
                 redirect("/register?email=" . urlencode($email));
             }
         } catch (Exception $e) {
-            $this->handleAuthError($e, '/login');
+            $this->handleProcessError($e, '/login');
         }
     }
 
@@ -122,7 +122,7 @@ class UserAuthController extends Controller
 
         } catch (Exception $e) {
             dd($e);
-            $this->handleAuthError($e, '/register');
+            $this->handleProcessError($e, '/register');
         }
 
         $this->handleLoginAndRedirect($userData['email'], $_POST['password'] ?? '');
@@ -154,7 +154,7 @@ class UserAuthController extends Controller
 
         } catch (Exception $e) {
 
-            $this->handleAuthError($e, '/verify');
+            $this->handleProcessError($e, '/verify');
 
         }
     }
@@ -185,21 +185,6 @@ class UserAuthController extends Controller
                 redirect('/404');
                 break;
         }
-    }
-
-    private function handleValidationError(string $redirectPath, array $errors): void
-    {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['old'] = $_POST;
-
-        redirect($redirectPath);
-    }
-
-    private function handleAuthError(Exception $e, string $redirectPath): void
-    {
-        error_log("Authentication error: " . $e->getMessage());
-        setFlashMessage('status', 'An error occurred. Please try again.', 'error');
-        redirect($redirectPath);
     }
 
     public function logout()

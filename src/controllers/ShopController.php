@@ -37,7 +37,7 @@ class ShopController extends Controller
         ];
 
         switch ($this->userRole) {
-            
+
             case AuthService::ROLE_STAFF:
                 echo $this->view('seller/shop', $viewData);
                 break;
@@ -50,24 +50,33 @@ class ShopController extends Controller
 
     private function getProducts(array $selectedCategories, string $priceSort): array
     {
-        // Product query
+        // Base product query
         $product_query = "SELECT DISTINCT p.* FROM product p 
-            JOIN product_category pc ON p.product_id = pc.product_id 
-            WHERE p.stock_level > 0";
+        JOIN product_category pc ON p.product_id = pc.product_id 
+        WHERE 1=1";
 
+        // Include stock level conditionally based on user role
+        if ($this->userRole !== 'staff') {
+            $product_query .= " AND p.stock_level > 0";
+        }
+
+        // Add category filter if categories are selected
         if (!empty($selectedCategories)) {
             $placeholders = implode(',', array_fill(0, count($selectedCategories), '?'));
             $product_query .= " AND pc.category_id IN ($placeholders)";
         }
 
+        // Add price sorting
         $product_query .= match ($priceSort) {
             'low_high' => " ORDER BY p.price ASC",
             'high_low' => " ORDER BY p.price DESC",
             default => "",
         };
 
+        // Execute query and return results
         return $this->db->query($product_query, $selectedCategories)->fetchAll();
     }
+
 
     private function getCategories(): array
     {

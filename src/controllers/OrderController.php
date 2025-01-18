@@ -66,7 +66,8 @@ class OrderController extends Controller
 
         } catch (Exception $e) {
 
-            $this->handleUpdateError($e);
+            $message = "An error occurred while updating the order. Please try again.";
+            $this->handleProcessError($e, 'orders', $message);
             
         }
 
@@ -107,19 +108,5 @@ class OrderController extends Controller
             'shipped' => 'status-shipped',
             default => 'status-pending'
         };
-    }
-
-    private function handleValidationError(string $redirectPath, array $errors): void
-    {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['old'] = $_POST;
-        redirect($redirectPath);
-    }
-
-    private function handleUpdateError(Exception $e): void
-    {
-        error_log("Order update error: " . $e->getMessage());
-        setFlashMessage('status', 'An error occurred while updating the order. Please try again.', 'error');
-        redirect('/orders');
     }
 }

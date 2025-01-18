@@ -64,7 +64,9 @@ class PaymentController extends Controller
 
         } catch (Exception $e) {
 
-            $this->handleProcessingError($e);
+            $message = "We're sorry, but there was an error processing your payment. Please try again.";
+            $redirect = "/payment?order=" . urlencode($this->orderId);
+            $this->handleProcessError($e, $redirect, $message);
 
         }
     }
@@ -223,18 +225,5 @@ class PaymentController extends Controller
             'error'
         );
         redirect('/cart');
-    }
-
-    private function handleProcessingError(Exception $e): void
-    {
-        error_log("Payment processing error: " . $e->getMessage());
-
-        setFlashMessage(
-            'status',
-            "We're sorry, but there was an error processing your payment. Please try again.",
-            'error'
-        );
-
-        redirect("/payment?order=" . urlencode($this->orderId));
     }
 }

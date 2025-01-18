@@ -93,7 +93,7 @@ class ProductController extends Controller
 
             } catch (Exception $e) {
 
-                $this->handleProductError($e);
+                $this->handleProcessError($e, '/shop');
 
             }
         } else {
@@ -128,7 +128,7 @@ class ProductController extends Controller
 
             } catch (Exception $e) {
 
-                $this->handleProductError($e);
+                $this->handleProcessError($e, '/shop');
 
             }
 
@@ -162,7 +162,7 @@ class ProductController extends Controller
 
         } catch (Exception $e) {
 
-            $this->handleProductError($e);
+            $this->handleProcessError($e, '/shop');
 
         }
 
@@ -361,26 +361,5 @@ class ProductController extends Controller
         }
 
         return $percentages;
-    }
-
-    private function handleProductError(Exception $e): void
-    {
-        error_log("Order creation error: " . $e->getMessage());
-
-        setFlashMessage(
-            'status',
-            "We're sorry, but there was an issue processing your product. Please try again.",
-            'error'
-        );
-
-        redirect('/shop');
-    }
-
-    private function handleValidationError(string $redirectPath, array $errors): void
-    {
-        $_SESSION['errors'] = $errors;
-        $_SESSION['old'] = $_POST;
-
-        redirect($redirectPath);
     }
 }

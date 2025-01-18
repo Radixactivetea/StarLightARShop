@@ -71,12 +71,13 @@ class CheckoutController extends Controller
 
             } catch (Exception $e) {
 
-                $this->handleOrderError($e);
+                $message = "We're sorry, but there was an issue processing your order. Please try again.";
+                $this->handleProcessError($e, '/checkout', $message);
 
             }
         } else {
 
-            $this->handleValidationError();
+            $this->handleValidationError('/checkout', $validator->getErrors());
         }
     }
 
@@ -182,23 +183,5 @@ class CheckoutController extends Controller
     {
         unset($_SESSION['checkout_token']);
         redirect('/cart');
-    }
-
-    private function handleOrderError(Exception $e): void
-    {
-        error_log("Order creation error: " . $e->getMessage());
-
-        setFlashMessage(
-            'status',
-            "We're sorry, but there was an issue processing your order. Please try again.",
-            'error'
-        );
-
-        redirect('/checkout');
-    }
-
-    private function handleValidationError(): void
-    {
-        redirect('/checkout');
     }
 }
