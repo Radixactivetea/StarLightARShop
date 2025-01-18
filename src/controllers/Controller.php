@@ -2,7 +2,6 @@
 
 namespace src\Controllers;
 
-use Core\AuthService;
 use Core\Database;
 
 abstract class Controller

@@ -48,10 +48,7 @@ function initSession()
 
 function setFlashMessage($key, $value, $type = 'info')
 {
-    if (session_status() == PHP_SESSION_NONE) {
-
-        session_start();
-    }
+    initSession();
 
     $_SESSION['flash_messages'][$key] = [
         'message' => $value,
@@ -98,7 +95,6 @@ function displayAlert($message = null, $type = 'info')
         return '';
     }
 
-    // Determine alert class based on type or message content
     $alertClass = match ($type) {
         'success' => 'alert-success',
         'error' => 'alert-danger',
@@ -109,13 +105,54 @@ function displayAlert($message = null, $type = 'info')
         : 'alert-danger'
     };
 
-    // Generate the alert HTML
+    // Get modal icon based on type
+    $icon = match ($type) {
+        'success' => '<i class="bi bi-check-circle-fill text-success fs-1"></i>',
+        'error' => '<i class="bi bi-x-circle-fill text-danger fs-1"></i>',
+        'warning' => '<i class="bi bi-exclamation-triangle-fill text-warning fs-1"></i>',
+        'info' => '<i class="bi bi-info-circle-fill text-info fs-1"></i>',
+        default => '<i class="bi bi-info-circle-fill text-info fs-1"></i>'
+    };
+
+    // Generate the modal HTML
     return sprintf(
-        '<div class="alert %s alert-dismissible fade show ms-3" role="alert">%s
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>',
+        '<div class="modal" id="alertModal" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header %s border-0">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center pb-5">
+                        <div class="mb-4">
+                            %s
+                        </div>
+                        <div>
+                            %s
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var modal = new bootstrap.Modal(document.getElementById("alertModal"), {
+                    backdrop: "static",
+                    keyboard: false
+                });
+                modal.show();
+                
+                // Auto close after 5 seconds for success messages
+                if ("%s" === "success") {
+                    setTimeout(function() {
+                        modal.hide();
+                    }, 5000);
+                }
+            });
+        </script>',
         $alertClass,
-        htmlspecialchars($message)
+        $icon,
+        htmlspecialchars($message),
+        $type
     );
 }
 

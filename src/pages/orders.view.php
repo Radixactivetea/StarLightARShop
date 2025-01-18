@@ -57,6 +57,8 @@
 
         <div class="main-content p-4">
 
+            <?= displayAlert() ?>
+
             <div class="rounded-3 p-3" style="background-color: rgba(175, 143, 111, 0.3);">
                 <div class="d-flex justify-content-between align-items-center mb-4 text-primary">
                     <h5 class="mb-0">Recent Invoices</h5>
@@ -79,7 +81,7 @@
                         </thead>
                         <tbody>
 
-                            <?php foreach ($getAllOrders as $index => $order): ?>
+                            <?php foreach ($orders as $index => $order): ?>
                                 <tr>
                                     <td>
                                         <a href="/order/<?= $order['order_id'] ?>"
@@ -140,7 +142,8 @@
                 <form method="POST" class="needs-validation" novalidate>
                     <div class="modal-body">
                         <input type="text" id="trackingNumberInput" name="trackingNumberInput" class="form-control"
-                            required>
+                            value="<?= old('trackingNumberInput') ?>" required>
+                        <?php showError('trackingNumberInput') ?>
                         <div class="invalid-feedback ms-2" style="font-size: 10px;">Tracking number is required.</div>
                         <input type="hidden" id="trackingIdInput" name="order_id">
                     </div>

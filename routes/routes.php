@@ -9,6 +9,7 @@ use Src\Controllers\ProductController;
 use Src\Controllers\ShopController;
 use Src\Controllers\ARController;
 use Src\Controllers\UserAuthController;
+use Src\Controllers\OrderController;
 
 require_once 'router.php';
 
@@ -43,8 +44,8 @@ destroy('/products', '../src/controllers/seller/products-show.php');
 get('/product/create', '../src/controllers/seller/product-create.php');
 post('/product/create', '../src/controllers/seller/product-create.php');
 
-get('/orders', '../src/controllers/seller/orders.php');
-post('/orders', '../src/controllers/seller/order-update.php');
+get('/orders', function () { $controller = new OrderController(); $controller->index();});
+post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
 
 get('/review&rating', '../src/controllers/seller/review&rating.php');
 post('/review&rating', '../src/controllers/seller/review&rating-update.php');
