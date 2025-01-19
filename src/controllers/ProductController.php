@@ -314,7 +314,7 @@ class ProductController extends Controller
 
     private function fetchAllReviews()
     {
-        return $this->db->query('SELECT r.*, u.username, u.full_name, p.name AS product_name, p.image_url, DATE_FORMAT(r.date, "%d/%m/%Y") AS formatted_date
+        return $this->db->query('SELECT r.*, u.firstname, u.lastname, p.name AS product_name, p.image_url, DATE_FORMAT(r.date, "%d/%m/%Y") AS formatted_date
             FROM `review&rating` r
             LEFT JOIN `user` u ON r.user_id = u.user_id
             LEFT JOIN `product` p ON r.product_id = p.product_id

@@ -78,7 +78,7 @@ class OrderController extends Controller
     {
         $orders = $this->db->query('SELECT 
             o.*,
-            u.username,
+            u.firstname,
             DATE_FORMAT(o.date, "%d/%m/%Y") AS formatted_date,
             DATE_FORMAT(o.time, "%h:%i %p") AS formatted_time
             FROM `orders` o

@@ -10,6 +10,7 @@ use Src\Controllers\ShopController;
 use Src\Controllers\ARController;
 use Src\Controllers\UserAuthController;
 use Src\Controllers\OrderController;
+use Src\Controllers\UserController;
 
 require_once 'router.php';
 
@@ -30,6 +31,8 @@ get('/payment', function () { $controller = new PaymentController(); $controller
 post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
+
+get('/profile', function () { $controller = new UserController(); $controller->index();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});

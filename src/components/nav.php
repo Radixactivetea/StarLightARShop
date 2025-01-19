@@ -10,9 +10,9 @@
                 </a>
             </div>
 
-            <?php if (!empty($_SESSION['username'])) { ?>
+            <?php if (!empty($_SESSION['firstname'])) { ?>
                 <div class="col-auto d-md-flex align-items-md-center" style="padding-left: 0px;"><a class="nav-link-top" href="/profile" style="padding-right: 0px;font-size: 13px;">
-                        Hi, <?= ucfirst(strtolower($_SESSION['username'])) ?>!
+                        Hi, <?= ucfirst(strtolower($_SESSION['firstname'])) ?>!
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em"
                             fill="currentColor"
                             style="margin-left: 10px;transform: translateY(-3px);width: 20px;height: 20px;">

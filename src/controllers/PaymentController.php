@@ -131,7 +131,7 @@ class PaymentController extends Controller
     {
         return $this->db->query(
             "SELECT o.*, 
-                    u.full_name as customer_name,
+                    u.firstname as customer_name,
                     u.email
             FROM orders o
             JOIN user u ON o.user_id = u.user_id

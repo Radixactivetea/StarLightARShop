@@ -185,7 +185,8 @@
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Your Name" name="name"
-                                    value="<?= htmlspecialchars($customerAddress['full_name'] ?? '') ?>" required>
+                                    value="<?= htmlspecialchars(($customerAddress['firstname'] ?? '') . ' ' . ($customerAddress['lastname'] ?? '')) ?>"
+                                    required>
                                 <div class="invalid-feedback ms-2" style="font-size: 10px;">
                                     Your name reply is required.
                                 </div>
