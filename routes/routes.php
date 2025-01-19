@@ -33,6 +33,7 @@ post('/payment', function () { $controller = new PaymentController(); $controlle
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
+post('/profile', function () { $controller = new UserController(); $controller->update();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});

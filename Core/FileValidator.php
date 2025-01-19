@@ -102,6 +102,11 @@ class FileValidator
         return $this;
     }
 
+    public function isEmpty(): bool
+    {
+        return empty($this->file) || $this->file['size'] === 0;
+    }
+
     /**
      * Move uploaded file to destination
      * 

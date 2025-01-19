@@ -3,6 +3,10 @@
 namespace Src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
+use Core\FileValidator;
+use Core\FormValidator;
+use Exception;
 
 class UserController extends Controller
 {
@@ -13,11 +17,14 @@ class UserController extends Controller
         parent::__construct();
 
         $this->authMiddleware = new AuthMiddleware();
+
+        $this->authMiddleware->authenticate('customer');
     }
 
     public function index()
     {
         $user = $this->fetchUser();
+        $address = $this->fetchUserAddress();
         $cartNum = $this->fetchCartNum();
         $order = $this->fetchOrder();
 
@@ -26,14 +33,187 @@ class UserController extends Controller
             [
                 'user' => $user,
                 'cartNum' => $cartNum,
-                'order' => $order
+                'order' => $order,
+                'address' => $address
             ]
         );
+    }
+
+    public function update()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/profile');
+        }
+
+        [$validator, $fileValidator] = $this->initializeValidators();
+
+        if ($validator->passes() && $fileValidator->passes()) {
+
+            $user = $validator->getSanitizedData();
+
+            try {
+
+                $this->processUpdate($user, $fileValidator);
+
+                clearErrors();
+
+                setFlashMessage(
+                    'status',
+                    'Successfully update you profile',
+                    'success'
+                );
+
+                redirect('/profile');
+
+            } catch (Exception $e) {
+
+                setFlashMessage(
+                    'status',
+                    'Unable to update your profile. Please try again.',
+                    'error'
+                );
+
+                redirect('/profile');
+
+            }
+        } else {
+
+            setFlashMessage(
+                'status',
+                'Unable to update your profile. Please try again.',
+                'error'
+            );
+
+            $this->handleValidationError('/profile', $validator->getErrors());
+        }
+    }
+
+    private function processUpdate($validator, FileValidator $fileValidator)
+    {
+        $this->db->transaction(function ($db) use ($validator, $fileValidator) {
+
+            $imagePath = !$fileValidator->isEmpty()
+                ? $fileValidator->move('public/upload/profile')
+                : $validator['uploaded_file'];
+
+
+            $this->db->update(
+                'user',
+                $_SESSION['user_id'],
+                [
+                    'firstname' => $validator['firstname'],
+                    'lastname' => $validator['lastname'],
+                    'email' => $validator['email'],
+                    'phone_num' => $validator['phonenum'],
+                    'profile_pic_url' => $imagePath
+                ],
+                'user_id'
+            );
+
+            if ($this->fetchUserAddress()) {
+
+                $this->db->update(
+                    'address',
+                    $_SESSION['user_id'],
+                    [
+                        'name' => $validator['firstname'] . ' ' . $validator['lastname'],
+                        'phone_number' => $validator['phonenum'],
+                        'street_address' => $validator['street_address'],
+                        'city' => $validator['city'],
+                        'state' => $validator['state'],
+                        'post_code' => $validator['post_code'],
+                        'is_default' => 1,
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ],
+                    'user_id'
+                );
+            } else {
+
+                $this->db->insert(
+                    'address',
+                    [
+                        'user_id' => $_SESSION['user_id'],
+                        'name' => $validator['firstname'] . ' ' . $validator['lastname'],
+                        'phone_number' => $validator['phonenum'],
+                        'street_address' => $validator['street_address'],
+                        'city' => $validator['city'],
+                        'state' => $validator['state'],
+                        'post_code' => $validator['post_code'],
+                        'is_default' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]
+                );
+            }
+
+            $this->updatePassword($validator);
+
+        });
+    }
+
+    private function updatePassword($data)
+    {
+
+        $user = $this->fetchUser();
+
+        if (!empty($data['currentpassword'])) {
+
+            if ($user && password_verify($data['currentpassword'], $user['password'])) {
+
+                $hashedPassword = password_hash($data['newpassword'], PASSWORD_BCRYPT);
+
+                $this->db->update(
+                    'user',
+                    $_SESSION['user_id'],
+                    [
+                        'password' => $hashedPassword
+                    ],
+                    'user_id'
+                );
+
+            } else {
+
+                throw new Exception('Password updated cannot be done.');
+
+            }
+        }
+    }
+
+    private function initializeValidators()
+    {
+        $validator = new FormValidator($_POST);
+        $fileValidator = new FileValidator($_FILES['profile_picture']);
+
+        $validator
+            ->required('firstname', 'Full name')
+            ->required('lastname', 'Last Name')
+            ->required('email', 'Email');
+
+        if (!empty($_POST['currentpassword'])) {
+
+            $validator
+                ->required('newpassword', 'New password')
+                ->minLength('newpassword', 8, 'Password')
+                ->required('confirmpassword', 'Confirm password')
+                ->minLength('confirmpassword', 8, 'Password')
+                ->match('newpassword', 'confirmpassword', 'Password');
+
+        }
+
+        $fileValidator
+            ->maxSize(5);
+
+        return [$validator, $fileValidator];
     }
 
     private function fetchUser()
     {
         return $this->db->findOrFail('user', ['user_id' => $_SESSION['user_id']]);
+    }
+
+    private function fetchUserAddress()
+    {
+        return $this->db->find('address', conditions: ['user_id' => $_SESSION['user_id'], 'is_default' => 1]);
     }
 
     private function fetchCartNum()

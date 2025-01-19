@@ -76,7 +76,7 @@ class AuthService
         $userRole = $this->getCurrentUserRole();
 
         if (in_array($userRole, $restrictedRoles, true)) {
-            
+
             $redirectMap = [
                 self::ROLE_ADMIN => '/admin',
                 self::ROLE_STAFF => '/dashboard'
