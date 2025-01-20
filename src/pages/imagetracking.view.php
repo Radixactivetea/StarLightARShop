@@ -17,24 +17,30 @@
 
 <body>
     <a-scene
-        mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/band.mind;"
+        mindar-image="imageTargetSrc: ../public/targets.mind"
         color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
         <a-assets>
-            <a-asset-item id="bearModel"
-                src="https://cdn.jsdelsddsivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/bear/scene.gltf"></a-asset-item>
-            <a-asset-item id="raccoonModel"
-                src="https://cdn.jsdedsdslivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/band-example/raccoon/scene.gltf"></a-asset-item>
+            <a-asset-item id="cupModel"
+                src="/public/models/cup.glb"></a-asset-item>
+            <a-asset-item id="jugModel"
+                src="/public/models/jug.glb"></a-asset-item>
+                <a-asset-item id="potModel"
+                src="/public/models/pot.glb"></a-asset-item>
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
-
+        
         <a-entity mindar-image-target="targetIndex: 0">
-            <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#raccoonModel"
+            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#jugModel"
                 animation-mixer>
         </a-entity>
         <a-entity mindar-image-target="targetIndex: 1">
-            <a-gltf-model rotation="0 0 0 " position="0 -0.25 0" scale="0.05 0.05 0.05" src="#bearModel"
+            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#cupModel"
+                animation-mixer>
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 2">
+            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#potModel"
                 animation-mixer>
         </a-entity>
     </a-scene>
