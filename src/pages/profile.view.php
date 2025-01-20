@@ -121,7 +121,7 @@
                         <div class="list-group list-group-flush">
 
                             <?php foreach ($order as $orderDetail): ?>
-                                <a href="profile/order/213" class="list-group-item list-group-item-action">
+                                <a href="/order/detail/<?= $orderDetail['order_id']?>" class="list-group-item list-group-item-action">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="mb-1">Order #<?= substr($orderDetail['order_id'], 0, 6) ?></h6>
@@ -336,7 +336,7 @@
 
                     <!-- Orders List -->
                     <div class="list-group">
-                        <a href="/order/12345" class="list-group-item list-group-item-action">
+                        <a href="/order/detail/12345" class="list-group-item list-group-item-action">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div>
                                     <h6 class="mb-1">Order #12345</h6>

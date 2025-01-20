@@ -3,6 +3,7 @@
 namespace Src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
 use Core\FormValidator;
 use Exception;
 
@@ -16,16 +17,26 @@ class OrderController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->authenticate('staff');
+        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_ADMIN, AuthService::ROLE_GUEST]);
     }
 
     public function index()
     {
+        $this->authMiddleware->authenticate('staff');
+
         $orders = $this->getAllOrders();
 
         echo $this->view('orders', [
             'orders' => $orders
         ]);
+    }
+
+    public function orderDetail($id)
+    {
+        $order = $this->fetchOrder($id);
+
+        
+        echo $this->view('order', ['order' => $order]);
     }
 
     public function updateTracking()
@@ -68,7 +79,7 @@ class OrderController extends Controller
 
             $message = "An error occurred while updating the order. Please try again.";
             $this->handleProcessError($e, 'orders', $message);
-            
+
         }
 
         redirect('/orders');
@@ -108,5 +119,10 @@ class OrderController extends Controller
             'shipped' => 'status-shipped',
             default => 'status-pending'
         };
+    }
+
+    private function fetchOrder($id)
+    {
+        return $this->db->findOrFail('orders', ['order_id' => $id]);
     }
 }

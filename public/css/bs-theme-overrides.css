@@ -40,6 +40,10 @@
   background-color: var(--scrollbar-thumb-hover);
 }
 
+.light-color {
+  background-color: var(--bs-focus-ring-color);
+}
+
 .btn-close {
   --bs-btn-close-focus-shadow: 0 0 0 0.25rem rgba(175, 143, 111, 0.3);
 }

@@ -48,7 +48,7 @@
 
     <div class="d-none d-md-block">
         <!-- loading page -->
-        <?php require("src/components/loading.php") ?>
+        <?php require "src/components/loading.php" ?>
 
         <!-- navigator -->
         <?php include "src/components/nav.php"; ?>

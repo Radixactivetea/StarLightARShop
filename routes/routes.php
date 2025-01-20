@@ -31,6 +31,7 @@ get('/payment', function () { $controller = new PaymentController(); $controller
 post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
+get('/ar-experience', function () { $controller = new ARController(); $controller->arGallery();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
 post('/profile', function () { $controller = new UserController(); $controller->update();});
@@ -49,6 +50,7 @@ post('/shop/product/create', function () { $controller = new ProductController()
 
 get('/orders', function () { $controller = new OrderController(); $controller->index();});
 post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
+get('/order/detail/$id', function ($id) { $controller = new OrderController(); $controller->orderDetail($id);});
 
 get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
 post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
