@@ -11,6 +11,7 @@ use Exception;
 class UserController extends Controller
 {
     protected AuthMiddleware $authMiddleware;
+    private $userRole;
 
     public function __construct()
     {
@@ -18,7 +19,9 @@ class UserController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->authenticate('customer');
+        $this->userRole = $this->authMiddleware->getUserRole();
+
+        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_GUEST]);
     }
 
     public function index()
@@ -28,15 +31,22 @@ class UserController extends Controller
         $cartNum = $this->fetchCartNum();
         $order = $this->fetchOrder();
 
-        echo $this->view(
-            'profile',
-            [
-                'user' => $user,
-                'cartNum' => $cartNum,
-                'order' => $order,
-                'address' => $address
-            ]
-        );
+        if ($this->userRole == 'staff') {
+
+            echo $this->view('seller/setting',['user' => $user]);
+
+        } else {
+
+            echo $this->view(
+                'profile',
+                [
+                    'user' => $user,
+                    'cartNum' => $cartNum,
+                    'order' => $order,
+                    'address' => $address
+                ]
+            );
+        }
     }
 
     public function update()

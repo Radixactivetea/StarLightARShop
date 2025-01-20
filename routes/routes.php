@@ -20,7 +20,6 @@ get('/', function () { $controller = new HomeController(); $controller->index();
 get('/about-us', function () { $controller = new HomeController(); $controller->aboutUs();});
 get('/dashboard', function () { $controller = new HomeController(); $controller->homeSeller();});
 
-
 get('/shop', function () { $controller = new ShopController(); $controller->index();});
 get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
 post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});
@@ -38,13 +37,17 @@ post('/payment', function () { $controller = new PaymentController(); $controlle
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 get('/ar-experience', function () { $controller = new ARController(); $controller->arGallery();});
+get('/ar-experience/camera', function () { $controller = new ARController(); $controller->arCamera();});
 
 get('/mail', function () { $controller = new NotificationController(); $controller->index();});
+get('/messages', function () { $controller = new NotificationController(); $controller->index();});
 
 get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
+get('/help&center', function () { $controller = new FeedBackController(); $controller->index();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
 post('/profile', function () { $controller = new UserController(); $controller->update();});
+get('/settings', function () { $controller = new UserController(); $controller->index();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});

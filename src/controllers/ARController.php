@@ -29,9 +29,9 @@ class ARController extends Controller
         echo $this->view('ar-experience');
     }
 
-    public function showFullScreen($id)
+    public function arCamera()
     {
-        echo $this->view('arFullPage', ['image' => $id]);
+        echo $this->view('imagetracking');
     }
 
     private function fetchAR($id)

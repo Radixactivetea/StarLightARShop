@@ -8,6 +8,7 @@ use Core\AuthService;
 class NotificationController extends Controller
 {
     protected AuthMiddleware $authMiddleware;
+    private $userRole;
 
     public function __construct()
     {
@@ -15,11 +16,20 @@ class NotificationController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
+        $this->userRole = $this->authMiddleware->getUserRole();
+
         $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_GUEST]);
     }
 
     public function index()
     {
-        echo $this->view('notification');
+        if ($this->userRole == AuthService::ROLE_STAFF) {
+
+            echo $this->view('seller/notification');
+
+        } else if ($this->userRole == AuthService::ROLE_STAFF) {
+
+            echo $this->view('notification');
+        }
     }
 }

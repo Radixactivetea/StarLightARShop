@@ -19,6 +19,11 @@ class HomeController extends Controller
 
     public function index()
     {
+        if($this->authMiddleware->getUserRole() == 'staff'){
+
+            redirect('/dashboard');
+
+        }
 
         $promotion = $this->db->findAll('promotion');
         $collection = $this->db->find('product', ['product_id' => 2]);

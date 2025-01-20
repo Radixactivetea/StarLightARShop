@@ -26,8 +26,8 @@
                     <h1 class="display-4 fw-bold mb-4">Experience Pottery in AR Instantly</h1>
                     <p class="lead mb-4">No app download needed! Simply scan our markers using your web browser to see
                         our pottery come to life.</p>
-                    <button class="btn btn-primary btn-lg">Start AR Experience <i
-                            class="fas fa-camera ms-2"></i></button>
+                    <a href="/ar-experience/camera" class="btn btn-primary btn-lg">Start AR Experience <i
+                            class="fas fa-camera ms-2"></i></a>
                 </div>
                 <div class="col-lg-6 d-flex justify-content-end">
                     <img src="/public/img/ar-demo.gif" alt="AR Demo" class="img-fluid rounded shadow">
