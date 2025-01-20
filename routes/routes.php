@@ -3,6 +3,7 @@
 
 use Src\Controllers\CartController;
 use Src\Controllers\CheckoutController;
+use Src\Controllers\FeedBackController;
 use src\Controllers\HomeController;
 use Src\Controllers\PaymentController;
 use Src\Controllers\ProductController;
@@ -11,6 +12,7 @@ use Src\Controllers\ARController;
 use Src\Controllers\UserAuthController;
 use Src\Controllers\OrderController;
 use Src\Controllers\UserController;
+use src\Controllers\NotificationController;
 
 require_once 'router.php';
 
@@ -36,6 +38,10 @@ post('/payment', function () { $controller = new PaymentController(); $controlle
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
 get('/ar-experience', function () { $controller = new ARController(); $controller->arGallery();});
+
+get('/mail', function () { $controller = new NotificationController(); $controller->index();});
+
+get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
 post('/profile', function () { $controller = new UserController(); $controller->update();});

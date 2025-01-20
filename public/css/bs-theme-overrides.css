@@ -267,3 +267,28 @@ input[type=number] {
   background-color: #e5edff;
   color: #42389d;
 }
+
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+  color: var(--bs-list-group-color);
+  text-decoration: none;
+  background-color: var(--bs-list-group-bg);
+  border: var(--bs-list-group-border-width) solid var(--bs-focus-ring-color);
+}
+
+.list-group {
+  --bs-list-group-border-color: var(--bs-focus-ring-color);
+  --bs-list-group-action-hover-bg: rgba(175, 143, 111, 0.1);
+}
+
+.list-group-item-action:active {
+  color: var(--bs-list-group-action-active-color);
+  background-color: var(--bs-focus-ring-color);
+}
+
+.form-check-input {
+  --bs-form-check-bg: var(--bs-focus-ring-color);
+}
+
