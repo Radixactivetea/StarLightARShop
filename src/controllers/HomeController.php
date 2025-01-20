@@ -14,7 +14,7 @@ class HomeController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->redirectRestrictedUsers(['admin', 'staff']);
+        $this->authMiddleware->redirectRestrictedUsers(['admin']);
     }
 
     public function index()
@@ -40,5 +40,17 @@ class HomeController extends Controller
             'new_product' => $new_product,
             'category' => $category
         ]);
+    }
+
+    public function homeSeller()
+    {
+        $this->authMiddleware->authenticate('staff');
+
+        echo $this->view('seller/dashboard');
+    }
+
+    public function aboutUs()
+    {
+        echo $this->view('about');
     }
 }

@@ -15,6 +15,10 @@ use Src\Controllers\UserController;
 require_once 'router.php';
 
 get('/', function () { $controller = new HomeController(); $controller->index();});
+get('/about-us', function () { $controller = new HomeController(); $controller->aboutUs();});
+get('/dashboard', function () { $controller = new HomeController(); $controller->homeSeller();});
+
+
 get('/shop', function () { $controller = new ShopController(); $controller->index();});
 get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
 post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});

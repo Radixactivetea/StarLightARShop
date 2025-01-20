@@ -37,7 +37,7 @@
     </section>
 
     <!-- How It Works -->
-    <section class="py-5">
+    <section style="padding: 7rem 0">
         <div class="container">
             <h2 class="text-center mb-5">How Web AR Works</h2>
             <div class="row g-4">
@@ -64,7 +64,7 @@
                         <div class="card-body text-center">
                             <i class="fas fa-qrcode fa-3x text-primary mb-3"></i>
                             <h3 class="h5">3. Scan & View</h3>
-                            <p>Point your camera at the marker to see the 3D model instantly</p>
+                            <p>Point your camera at the marker or image of the product to see the 3D model instantly</p>
                         </div>
                     </div>
                 </div>
@@ -73,52 +73,41 @@
     </section>
 
     <!-- Sample Products with Markers -->
-    <section class="py-5" style="background-color: rgba(175, 143, 111, 0.1);">
+    <section style="background-color: rgba(175, 143, 111, 0.1); padding: 7rem 0;">
         <div class="container">
-            <h2 class="text-center mb-5">Try These Products in AR</h2>
+            <h2 class="text-center">Try These Products in AR</h2>
+            <h6 class="text-center mb-5 text-muted">Scan the image to view in AR</h6>
             <div class="row g-4">
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="/api/placeholder/400/300" class="card-img-top" alt="Ceramic Vase">
+                        <img src="/public/img/jug.png" class="card-img-top" alt="Ceramic Vase">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title">Ceramic Vase</h5>
-                                <img src="/api/placeholder/50/50" alt="AR Marker" class="border">
+                                <h5 class="card-title">Ceramic Jug</h5>
                             </div>
-                            <p class="card-text">Modern ceramic vase with a unique glaze finish</p>
-                            <button class="btn btn-primary w-100">
-                                <i class="fas fa-camera me-2"></i>View in full screen
-                            </button>
+                            <p class="card-text">Modern ceramic jug with a unique glaze finish</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="/api/placeholder/400/300" class="card-img-top" alt="Table Lamp">
+                        <img src="/public/img/cup.png" class="card-img-top" alt="Table Lamp">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title">Table Lamp</h5>
-                                <img src="/api/placeholder/50/50" alt="AR Marker" class="border">
+                                <h5 class="card-title">Cup</h5>
                             </div>
-                            <p class="card-text">Handcrafted ceramic lamp with textured surface</p>
-                            <button class="btn btn-primary w-100">
-                                <i class="fas fa-camera me-2"></i>View in full screen
-                            </button>
+                            <p class="card-text">Handcrafted ceramic cup with textured surface</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="card h-100">
-                        <img src="/api/placeholder/400/300" class="card-img-top" alt="Decorative Bowl">
+                        <img src="/public/img/pot.png" class="card-img-top" alt="Decorative Bowl">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-start mb-3">
-                                <h5 class="card-title">Decorative Bowl</h5>
-                                <img src="/api/placeholder/50/50" alt="AR Marker" class="border">
+                                <h5 class="card-title">Decorative Pot</h5>
                             </div>
-                            <p class="card-text">Large decorative bowl with custom patterns</p>
-                            <button class="btn btn-primary w-100">
-                                <i class="fas fa-camera me-2"></i>View in full screen
-                            </button>
+                            <p class="card-text">Large decorative Pot with clay plain</p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +116,7 @@
     </section>
 
     <!-- Features Section -->
-    <section class="py-5">
+    <section style="padding: 7rem 0">
         <div class="container">
             <h2 class="text-center mb-5">Why Use Our Web AR?</h2>
             <div class="row g-4">
