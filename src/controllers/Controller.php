@@ -50,7 +50,7 @@ abstract class Controller
         $this->redirect($redirectPath);
     }
 
-    protected function handleProcessError(Exception $e, string $redirectPath, string $message = null): void
+    protected function handleProcessError(Exception $e = null, string $redirectPath, string $message = null): void
     {
         error_log(get_class($this) . " error: " . $e->getMessage());
 

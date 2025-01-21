@@ -32,7 +32,8 @@
 
                 <div class="col-md-12">
                     <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?= old('name') ?>" required>
+                    <input type="text" class="form-control" id="name" name="name"
+                        value="<?= $product['name'] ?? old('name') ?>" required>
                     <?php showError('name') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['name'] ?? '' ?></div>
                 </div>
@@ -42,7 +43,7 @@
                     <div class="input-group">
                         <span class="input-group-text">RM</span>
                         <input type="number" class="form-control" id="price" name="price" min="0" step="0.01"
-                            value="<?= old('price') ?>" required>
+                            value="<?= $product['price'] ?? old('price') ?>" required>
                     </div>
                     <?php showError('price') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['price'] ?? ''; ?></div>
@@ -53,7 +54,7 @@
                     <div class="input-group">
                         <span class="input-group-text">Total</span>
                         <input type="number" class="form-control" id="stock" name="stock" min="0" step="1"
-                            value="<?= old('stock') ?>" required>
+                            value="<?= $product['stock_level'] ?? old('stock') ?>" required>
                     </div>
                     <?php showError('stock') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['stock'] ?? ''; ?></div>
@@ -62,7 +63,7 @@
                 <div class="col-12">
                     <label for="description" class="form-label">Description</label>
                     <textarea class="form-control" id="description" name="description" rows="3"
-                        required><?= old('description') ?></textarea>
+                        required><?= $product['description'] ?? old('description') ?></textarea>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['description'] ?? ''; ?></div>
                     <?php showError('description') ?>
                 </div>
@@ -94,7 +95,7 @@
                 <div class="col-md-3">
                     <label for="diameter" class="form-label">Diameter (cm)</label>
                     <input type="number" class="form-control" id="diameter" name="diameter" min="0" step="0.1"
-                        value="<?= old('diameter') ?>" required>
+                        value="<?= $diamension['diameter'] ?? old('diameter') ?>" required>
                     <?php showError('diameter') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['diameter'] ?? ''; ?></div>
                 </div>
@@ -102,21 +103,21 @@
                 <div class="col-md-3">
                     <label for="height" class="form-label">Height (cm)</label>
                     <input type="number" class="form-control" id="height" name="height" min="0" step="0.1"
-                        value="<?= old('height') ?>" required>
+                        value="<?= $diamension['height'] ?? old('height') ?>" required>
                     <?php showError('height') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['height'] ?? ''; ?></div>
                 </div>
                 <div class="col-md-3">
                     <label for="weight" class="form-label">Weight (kg)</label>
                     <input type="number" class="form-control" id="weight" name="weight" min="0" step="0.01"
-                        value="<?= old('weight') ?>" required>
+                        value="<?= $diamension['weight'] ?? old('weight') ?>" required>
                     <?php showError('weight') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['weight'] ?? ''; ?></div>
                 </div>
                 <div class="col-md-3">
                     <label for="capacity" class="form-label">Capacity (l)</label>
                     <input type="number" class="form-control" id="capacity" name="capacity" min="0" step="0.01"
-                        value="<?= old('capacity') ?>" required>
+                        value="<?= $diamension['capacity'] ?? old('capacity') ?>" required>
                     <?php showError('capacity') ?>
                     <div class="mt-1 text-danger" style="font-size: 10px;"><?= $errors['capacity'] ?? ''; ?></div>
                 </div>
@@ -124,17 +125,19 @@
                 <div class="col-md-6">
                     <label for="image_url" class="form-label">Image</label>
                     <input type="file" class="form-control form-control-file" id="image_url" name="image_url" required>
-
+                    <input type="hidden" name="image_url" value="<?= $product['image_url'] ?>">
+                    <?php showError('type') ?>
                     <?php if (!empty($imageErrors)): ?>
                         <?php foreach ($imageErrors as $error): ?>
                             <div class="mt-1 text-danger" style="font-size: 10px;"><?= $error ?></div>
+                            
                         <?php endforeach; ?>
                     <?php endif; ?>
 
                 </div>
                 <div class="col-12">
                     <a href="/seller/manage-products" class="btn btn-primary">Back</a>
-                    <input type="hidden" name="save-form" id="save-form">
+                    <input type="hidden" name="product_id" id="product_id" value="<?= $product['product_id'] ?>">
                     <button type="submit" class="btn btn-secondary">Save</button>
                 </div>
             </form>

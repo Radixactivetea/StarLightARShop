@@ -60,7 +60,7 @@ class PaymentController extends Controller
 
             $this->processPayment();
 
-            redirect('/profile/orders');
+            redirect("/order/detail/{$this->orderId}");
 
         } catch (Exception $e) {
 
@@ -131,7 +131,7 @@ class PaymentController extends Controller
     {
         return $this->db->query(
             "SELECT o.*, 
-                    u.full_name as customer_name,
+                    u.firstname as customer_name,
                     u.email
             FROM orders o
             JOIN user u ON o.user_id = u.user_id
@@ -210,6 +210,19 @@ class PaymentController extends Controller
         try {
 
             $orderDetails = $this->fetchOrderDetails();
+
+            $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+            $this->db->insert(
+                'notifications',
+                [
+                    'user_id' => $_SESSION['user_id'],
+                    'title' => 'Order Successful!',
+                    'message' => "Thank you for your payment! Your order (ID: #{$this->orderId}) is now being processed. We’ll notify you once it’s shipped. 😊",
+                    'category' => 'Order',
+                    'created_at' => $dateTime->format('Y-m-d H:i:s')
+                ]
+                );
 
         } catch (Exception $e) {
 

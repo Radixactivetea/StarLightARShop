@@ -24,6 +24,16 @@ class ARController extends Controller
         echo $this->view('ar', ['getAr' => $getAr]);
     }
 
+    public function arGallery()
+    {
+        echo $this->view('ar-experience');
+    }
+
+    public function arCamera()
+    {
+        echo $this->view('imagetracking');
+    }
+
     private function fetchAR($id)
     {
 

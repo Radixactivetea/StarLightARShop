@@ -1,6 +1,34 @@
 <link rel="stylesheet" href="/public/css/nav.css">
 <link rel="stylesheet" href="/public/css/Navbar-Centered-Brand-icons.css">
 
+<style>
+    /* Show dropdown menu on hover */
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    /* Ensure the dropdown is hidden by default */
+    .dropdown-menu {
+        display: none;
+        margin-top: 0;
+        font-size: 13px;
+        /* Optional adjustment for alignment */
+    }
+
+    .dropdown-item:hover {
+        background-color: transparent;
+        color: var(--bs-primary);
+        text-decoration: underline;
+        text-underline-offset: 5px;
+    }
+
+    /* Add hover effect to the dropdown link */
+    .nav-link-top:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
 <nav>
     <div class="container justify-content-lg-end align-items-lg-center">
         <div class="row d-flex justify-content-end align-items-center" style="height: 35px;">
@@ -10,20 +38,25 @@
                 </a>
             </div>
 
-            <?php if (!empty($_SESSION['username'])) { ?>
-                <div class="col-auto d-md-flex align-items-md-center" style="padding-left: 0px;"><a class="nav-link-top" href="/profile" style="padding-right: 0px;font-size: 13px;">
-                        Hi, <?= ucfirst(strtolower($_SESSION['username'])) ?>!
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em"
-                            fill="currentColor"
-                            style="margin-left: 10px;transform: translateY(-3px);width: 20px;height: 20px;">
-                            Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License -
-                            https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
-                            Copyright 2023 Fonticons, Inc.
-                            <path
-                                d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z">
-                            </path>
-                        </svg>
-                    </a>
+            <?php if (!empty($_SESSION['firstname'])) { ?>
+                <div class="col-auto d-md-flex align-items-md-center" style="padding-left: 0px;">
+                    <div class="dropdown">
+                        <a class="nav-link-top" href="/profile" id="userDropdown" role="button"
+                            style="padding-right: 0px; font-size: 13px;">
+                            Hi, <?= ucfirst(strtolower($_SESSION['firstname'])) ?>!
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-32 0 512 512" width="1em" height="1em"
+                                fill="currentColor"
+                                style="margin-left: 10px; transform: translateY(-3px); width: 20px; height: 20px;">
+                                <path
+                                    d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z">
+                                </path>
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        </ul>
+                    </div>
                 </div>
             <?php } else { ?>
                 <div class="col-auto d-md-flex align-items-md-center" style="padding-left: 0px;"><a class="nav-link-top"

@@ -115,7 +115,7 @@
                                             </div>
                                         </div>
                                         <div class="mt-2 me-2 position-absolute top-0 end-0">
-                                            <a href="/product/update/<?= $product['product_id'] ?>"
+                                            <a href="/shop/product/update/<?= $product['product_id'] ?>"
                                                 class="btn btn-success ">Update</a>
                                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                 data-bs-target="#delete-product-modal"

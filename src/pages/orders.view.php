@@ -10,40 +10,6 @@
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <style>
-        .status-pill {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            display: inline-block;
-        }
-
-        .status-paid {
-            background-color: #def7ec;
-            color: #03543f;
-        }
-
-        .status-pending {
-            background-color: #fef3c7;
-            color: #92400e;
-        }
-
-        .status-cancelled {
-            background-color: #fde2e2;
-            color: #9b1c1c;
-        }
-
-        .status-processing {
-            background-color: #e1effe;
-            color: #1e429f;
-        }
-
-        .status-shipped {
-            background-color: #e5edff;
-            color: #42389d;
-        }
-    </style>
 </head>
 
 <body>
@@ -84,13 +50,13 @@
                             <?php foreach ($orders as $index => $order): ?>
                                 <tr>
                                     <td>
-                                        <a href="/order/<?= $order['order_id'] ?>"
+                                        <a href="/order/detail/<?= $order['order_id'] ?>"
                                             class="btn btn-primary">#<?= substr($order['order_id'], 0, 6) ?>
                                         </a>
                                     </td>
                                     <td>
                                         <div class="d-flex align-items-center gap-2">
-                                            <?= $order['username'] ?>
+                                            <?= $order['firstname'] ?>
                                         </div>
                                     </td>
                                     <td>

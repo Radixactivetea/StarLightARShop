@@ -90,20 +90,20 @@
             
             <!-- Username Fields -->
             <div class="mb-3">
-                <input type="text" class="form-control" id="username" name="username" placeholder="Username" value="<?= old('username') ?>" required>
+                <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" value="<?= old('firstname') ?>" required>
                 <div class="invalid-feedback">
-                    Please enter your username.
+                    Please enter your first name.
                 </div>
-                <?php showError('username') ?>
+                <?php showError('firstname') ?>
             </div>
 
             <!-- Name Fields -->
             <div class="mb-3">
-                <input type="text" class="form-control" id="fullname" name="fullname" placeholder="Full Name" value="<?= old('fullname') ?>" required>
+                <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name" value="<?= old('lastname') ?>" required>
                 <div class="invalid-feedback">
-                    Please enter your full name.
+                    Please enter your last name.
                 </div>
-                <?php showError('fullname') ?>
+                <?php showError('lastname') ?>
             </div>
 
             <!-- Password -->

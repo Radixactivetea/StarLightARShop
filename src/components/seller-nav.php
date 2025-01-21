@@ -93,11 +93,11 @@
     <div class="section-title mt-4 text-muted">HELP & SUPPORT</div>
 
     <nav class="nav flex-column">
-        <a class="nav-link" href="/help&center">
+        <a class="nav-link <?= urlis('/help&center') ? 'active' : '' ?>" href="/help&center">
             <i class="bi bi-question-circle"></i>
             Help & Center
         </a>
-        <a class="nav-link" href="/settings">
+        <a class="nav-link <?= urlis('/settings') ? 'active' : '' ?>" href="/settings">
             <i class="bi bi-gear"></i>
             Settings
         </a>

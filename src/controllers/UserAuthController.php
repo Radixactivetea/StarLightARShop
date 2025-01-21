@@ -81,8 +81,8 @@ class UserAuthController extends Controller
         }
 
         $this->validator
-            ->required('username')
-            ->required('fullname')
+            ->required('firstname')
+            ->required('lastname')
             ->required('password')
             ->required('dob_day')
             ->required('dob_month')
@@ -106,8 +106,8 @@ class UserAuthController extends Controller
             }
 
             $userData = [
-                'username' => $this->validator->sanitize($_POST['username'] ?? ''),
-                'full_name' => $this->validator->sanitize($_POST['fullname'] ?? ''),
+                'firstname' => $this->validator->sanitize($_POST['firstname'] ?? ''),
+                'lastname' => $this->validator->sanitize($_POST['lastname'] ?? ''),
                 'password' => password_hash($_POST['password'] ?? '', PASSWORD_BCRYPT),
                 'email' => $email,
                 'date_of_birth' => sprintf(

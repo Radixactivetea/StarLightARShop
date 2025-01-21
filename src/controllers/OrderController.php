@@ -3,12 +3,14 @@
 namespace Src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
 use Core\FormValidator;
 use Exception;
 
 class OrderController extends Controller
 {
     protected AuthMiddleware $authMiddleware;
+    private $userRole;
 
     public function __construct()
     {
@@ -16,16 +18,32 @@ class OrderController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->authenticate('staff');
+        $this->userRole = $this->authMiddleware->getUserRole();
+
+        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_ADMIN, AuthService::ROLE_GUEST]);
     }
 
     public function index()
     {
+        $this->authMiddleware->authenticate('staff');
+
         $orders = $this->getAllOrders();
 
         echo $this->view('orders', [
             'orders' => $orders
         ]);
+    }
+
+    public function orderDetail($id)
+    {
+        $order = $this->fetchOrder($id);
+        $order_item = $this->fetchListItem($id);
+
+        $view = $this->userRole === AuthService::ROLE_CUSTOMER ? 'order' : ($this->userRole === AuthService::ROLE_STAFF ? 'seller/order' : null);
+
+        if ($view) {
+            echo $this->view($view, ['order' => $order, 'order_item' => $order_item]);
+        }
     }
 
     public function updateTracking()
@@ -68,7 +86,7 @@ class OrderController extends Controller
 
             $message = "An error occurred while updating the order. Please try again.";
             $this->handleProcessError($e, 'orders', $message);
-            
+
         }
 
         redirect('/orders');
@@ -78,7 +96,7 @@ class OrderController extends Controller
     {
         $orders = $this->db->query('SELECT 
             o.*,
-            u.username,
+            u.firstname,
             DATE_FORMAT(o.date, "%d/%m/%Y") AS formatted_date,
             DATE_FORMAT(o.time, "%h:%i %p") AS formatted_time
             FROM `orders` o
@@ -108,5 +126,20 @@ class OrderController extends Controller
             'shipped' => 'status-shipped',
             default => 'status-pending'
         };
+    }
+
+    private function fetchOrder($id)
+    {
+        return $this->db->findOrFail('orders', ['order_id' => $id]);
+    }
+
+    private function fetchListItem($id)
+    {
+        return $this->db->query(
+            'SELECT o.*, p.* FROM `order_item` o 
+            JOIN product p on o.product_id = p.product_id
+            WHERE o.order_id = :order_id',
+            ['order_id' => $id]
+        )->fetchAll();
     }
 }

@@ -32,7 +32,7 @@
                 <div class="card mb-2 rounded-2">
                     <div class="card-header">
                         <small class="text-muted">
-                            <?= htmlspecialchars($review['username']) ?> | Order ID:
+                            <?= htmlspecialchars($review['firstname']) ?> | Order ID:
                             <a href="/order/<?= $review['order_id'] ?>"
                                 class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><?= $review['order_id'] ?></a>
                         </small>

@@ -179,13 +179,14 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-4">
-                            <span class="step-number">3</span>
+                            <span class="step-number bg-secondary text-white">3</span>
                             <h5 class="mb-0">Shipping Address</h5>
                         </div>
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <input type="text" class="form-control" placeholder="Your Name" name="name"
-                                    value="<?= htmlspecialchars($customerAddress['full_name'] ?? '') ?>" required>
+                                    value="<?= htmlspecialchars(($getCustomerDetail['firstname'] ?? '') . ' ' . ($getCustomerDetail['lastname'] ?? '')) ?>"
+                                    required>
                                 <div class="invalid-feedback ms-2" style="font-size: 10px;">
                                     Your name reply is required.
                                 </div>

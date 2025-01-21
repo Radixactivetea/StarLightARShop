@@ -10,6 +10,13 @@ class AuthService
     public const ROLE_STAFF = 'staff';
     public const ROLE_CUSTOMER = 'customer';
     public const ROLE_GUEST = 'guest';
+
+    private const REDIRECT_MAP = [
+        self::ROLE_ADMIN => '/admin',
+        self::ROLE_STAFF => '/dashboard',
+        self::ROLE_GUEST => '/login',  // Added guest redirect
+        'default' => '/404'
+    ];
     private function ensureSessionStarted()
     {
         if (session_status() === PHP_SESSION_NONE) {
@@ -27,7 +34,7 @@ class AuthService
             session_regenerate_id(true);
 
             $_SESSION['user_id'] = $user['user_id'];
-            $_SESSION['username'] = $user['username'];
+            $_SESSION['firstname'] = $user['firstname'];
             $_SESSION['role'] = $user['role'];
 
             return $_SESSION['role'];
@@ -69,23 +76,18 @@ class AuthService
         return $this->getCurrentUserRole() === $requiredRole;
     }
 
-    public function restrictRoles(array $restrictedRoles)
+    public function restrictRoles(array $restrictedRoles): ?string
     {
         $this->ensureSessionStarted();
-
+        
         $userRole = $this->getCurrentUserRole();
-
-        if (in_array($userRole, $restrictedRoles, true)) {
-            
-            $redirectMap = [
-                self::ROLE_ADMIN => '/admin',
-                self::ROLE_STAFF => '/dashboard'
-            ];
-
-            return $redirectMap[$userRole] ?? '/404';
+        
+        if (!in_array($userRole, $restrictedRoles, true)) {
+            return null;
         }
-
-        return null;
+        
+        return self::REDIRECT_MAP[$userRole] 
+            ?? self::REDIRECT_MAP['default'];
     }
 
     public function getCurrentUserRole()

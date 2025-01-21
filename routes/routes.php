@@ -3,6 +3,7 @@
 
 use Src\Controllers\CartController;
 use Src\Controllers\CheckoutController;
+use Src\Controllers\FeedBackController;
 use src\Controllers\HomeController;
 use Src\Controllers\PaymentController;
 use Src\Controllers\ProductController;
@@ -10,10 +11,15 @@ use Src\Controllers\ShopController;
 use Src\Controllers\ARController;
 use Src\Controllers\UserAuthController;
 use Src\Controllers\OrderController;
+use Src\Controllers\UserController;
+use src\Controllers\NotificationController;
 
 require_once 'router.php';
 
 get('/', function () { $controller = new HomeController(); $controller->index();});
+get('/about-us', function () { $controller = new HomeController(); $controller->aboutUs();});
+get('/dashboard', function () { $controller = new HomeController(); $controller->homeSeller();});
+
 get('/shop', function () { $controller = new ShopController(); $controller->index();});
 get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
 post('/shop/$id', function ($id) { $controller = new CartController(); $controller->addToCart($id);});
@@ -30,6 +36,21 @@ get('/payment', function () { $controller = new PaymentController(); $controller
 post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
+get('/ar-experience', function () { $controller = new ARController(); $controller->arGallery();});
+get('/ar-experience/camera', function () { $controller = new ARController(); $controller->arCamera();});
+
+get('/mail', function () { $controller = new NotificationController(); $controller->index();});
+get('/messages', function () { $controller = new NotificationController(); $controller->index();});
+
+get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
+post('/feedback', function () { $controller = new FeedBackController(); $controller->create();});
+get('/help&center', function () { $controller = new FeedBackController(); $controller->index();});
+post('/help&center', function () { $controller = new FeedBackController(); $controller->create();});
+
+get('/profile', function () { $controller = new UserController(); $controller->index();});
+post('/profile', function () { $controller = new UserController(); $controller->update();});
+get('/settings', function () { $controller = new UserController(); $controller->index();});
+post('/settings', function () { $controller = new UserController(); $controller->update();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});
@@ -42,11 +63,16 @@ get('/logout', function () { $controller = new UserAuthController(); $controller
 destroy('/shop', function () { $controller = new ProductController(); $controller->delete();});
 get('/shop/product/create', function () { $controller = new ProductController(); $controller->showForm();});
 post('/shop/product/create', function () { $controller = new ProductController(); $controller->create();});
+get('/shop/product/update/$id', function ($id) { $controller = new ProductController(); $controller->update($id);});
+post('/shop/product/update/$id', function ($id) { $controller = new ProductController(); $controller->updateProduct($id);});
 
 get('/orders', function () { $controller = new OrderController(); $controller->index();});
 post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
+get('/order/detail/$id', function ($id) { $controller = new OrderController(); $controller->orderDetail($id);});
 
 get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
 post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
+post('/order/detail/$id', function ($id) { $controller = new ProductController(); $controller->createReview($id);});
 
+any('/help', '../src/pages/help.view.php');
 any('/404', '../src/pages/404.view.php');
