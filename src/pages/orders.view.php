@@ -50,7 +50,7 @@
                             <?php foreach ($orders as $index => $order): ?>
                                 <tr>
                                     <td>
-                                        <a href="/order/<?= $order['order_id'] ?>"
+                                        <a href="/order/detail/<?= $order['order_id'] ?>"
                                             class="btn btn-primary">#<?= substr($order['order_id'], 0, 6) ?>
                                         </a>
                                     </td>

@@ -10,12 +10,15 @@ use Exception;
 class OrderController extends Controller
 {
     protected AuthMiddleware $authMiddleware;
+    private $userRole;
 
     public function __construct()
     {
         parent::__construct();
 
         $this->authMiddleware = new AuthMiddleware();
+
+        $this->userRole = $this->authMiddleware->getUserRole();
 
         $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_ADMIN, AuthService::ROLE_GUEST]);
     }
@@ -36,7 +39,11 @@ class OrderController extends Controller
         $order = $this->fetchOrder($id);
         $order_item = $this->fetchListItem($id);
 
-        echo $this->view('order', ['order' => $order, 'order_item' => $order_item]);
+        $view = $this->userRole === AuthService::ROLE_CUSTOMER ? 'order' : ($this->userRole === AuthService::ROLE_STAFF ? 'seller/order' : null);
+
+        if ($view) {
+            echo $this->view($view, ['order' => $order, 'order_item' => $order_item]);
+        }
     }
 
     public function updateTracking()

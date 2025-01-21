@@ -23,6 +23,8 @@
         <!-- navigation -->
         <?php require "src/components/seller-nav.php" ?>
 
+        <?= displayAlert() ?>
+
         <div class="main-content p-4">
             <div class="container mt-5">
                 <h1 class="mb-4">Edit Profile</h1>

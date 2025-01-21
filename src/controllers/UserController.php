@@ -79,6 +79,8 @@ class UserController extends Controller
 
             } catch (Exception $e) {
 
+                dd($e);
+
                 setFlashMessage(
                     'status',
                     'Unable to update your profile. Please try again.',
@@ -109,7 +111,7 @@ class UserController extends Controller
                 : $validator['uploaded_file'];
 
 
-            $this->db->update(
+            $db->update(
                 'user',
                 $_SESSION['user_id'],
                 [
@@ -122,41 +124,27 @@ class UserController extends Controller
                 'user_id'
             );
 
+            $addressData = [
+                'name' => $validator['firstname'] . ' ' . $validator['lastname'],
+                'phone_number' => $validator['phonenum'],
+                'street_address' => $validator['street_address'] ?? '',
+                'city' => $validator['city'] ?? '',
+                'state' => $validator['state'] ?? '',
+                'post_code' => $validator['post_code'] ?? '',
+                'is_default' => 1,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ];
+
             if ($this->fetchUserAddress()) {
-
-                $this->db->update(
-                    'address',
-                    $_SESSION['user_id'],
-                    [
-                        'name' => $validator['firstname'] . ' ' . $validator['lastname'],
-                        'phone_number' => $validator['phonenum'],
-                        'street_address' => $validator['street_address'],
-                        'city' => $validator['city'],
-                        'state' => $validator['state'],
-                        'post_code' => $validator['post_code'],
-                        'is_default' => 1,
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ],
-                    'user_id'
-                );
+                // Update existing address
+                $db->update('address', $_SESSION['user_id'], $addressData, 'user_id');
             } else {
-
-                $this->db->insert(
-                    'address',
-                    [
-                        'user_id' => $_SESSION['user_id'],
-                        'name' => $validator['firstname'] . ' ' . $validator['lastname'],
-                        'phone_number' => $validator['phonenum'],
-                        'street_address' => $validator['street_address'],
-                        'city' => $validator['city'],
-                        'state' => $validator['state'],
-                        'post_code' => $validator['post_code'],
-                        'is_default' => 1,
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s')
-                    ]
-                );
+                // Insert new address
+                $addressData['user_id'] = $_SESSION['user_id'];
+                $addressData['created_at'] = date('Y-m-d H:i:s');
+                $db->insert('address', $addressData);
             }
+
 
             $this->updatePassword($validator);
 

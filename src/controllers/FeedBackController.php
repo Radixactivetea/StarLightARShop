@@ -44,6 +44,12 @@ class FeedBackController extends Controller
 
             $this->insertFeedback();
 
+            setFlashMessage(
+                'status',
+                'Thank you send in sending your feedback.',
+                'info'
+            );
+
             redirect('/feedback');
 
         } catch (\Exception $e) {

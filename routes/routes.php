@@ -45,10 +45,12 @@ get('/messages', function () { $controller = new NotificationController(); $cont
 get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
 post('/feedback', function () { $controller = new FeedBackController(); $controller->create();});
 get('/help&center', function () { $controller = new FeedBackController(); $controller->index();});
+post('/help&center', function () { $controller = new FeedBackController(); $controller->create();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
 post('/profile', function () { $controller = new UserController(); $controller->update();});
 get('/settings', function () { $controller = new UserController(); $controller->index();});
+post('/settings', function () { $controller = new UserController(); $controller->update();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});
