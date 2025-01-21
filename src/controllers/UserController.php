@@ -29,11 +29,12 @@ class UserController extends Controller
         $user = $this->fetchUser();
         $address = $this->fetchUserAddress();
         $cartNum = $this->fetchCartNum();
+        $notiNum = $this->fetchNotiNum();
         $order = $this->fetchOrder();
 
         if ($this->userRole == 'staff') {
 
-            echo $this->view('seller/setting',['user' => $user]);
+            echo $this->view('seller/setting', ['user' => $user]);
 
         } else {
 
@@ -42,6 +43,7 @@ class UserController extends Controller
                 [
                     'user' => $user,
                     'cartNum' => $cartNum,
+                    'notiNum' => $notiNum,
                     'order' => $order,
                     'address' => $address
                 ]
@@ -231,6 +233,11 @@ class UserController extends Controller
         return $this->db->query('SELECT COUNT(*) AS total_items FROM cart_items WHERE user_id = :id;', ['id' => $_SESSION['user_id']])->fetch();
     }
 
+    private function fetchNotiNum()
+    {
+        return $this->db->query('SELECT COUNT(*) AS total_notification FROM notifications WHERE user_id = :id;', ['id' => $_SESSION['user_id']])->fetch();
+    }
+
     private function fetchOrder()
     {
         $orders = $this->db->query("SELECT o.*, (SELECT COUNT(*) FROM orders WHERE user_id = :id) AS total_orders,
@@ -238,8 +245,7 @@ class UserController extends Controller
             FROM orders o
             LEFT JOIN order_item oi ON o.order_id = oi.order_id
             WHERE o.user_id = :id
-            GROUP BY o.order_id
-            LIMIT 3;",
+            GROUP BY o.order_id;",
             ['id' => $_SESSION['user_id']]
         )->fetchAll();
 

@@ -82,16 +82,17 @@
                     </div>
                     <div class="col-md-4">
                         <div class="card shadow-sm h-100">
-                            <a href="/cart" class="card-body text-center text-decoration-none hover-shadow">
+                            <a href="/mail" class="card-body text-center text-decoration-none hover-shadow">
                                 <div class="position-relative d-inline-block">
                                     <i class="fas fa-bell fa-2x text-primary mb-2"></i>
                                     <span
                                         class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                        5
+                                        <?= $notiNum['total_notification'] ?>
                                     </span>
                                 </div>
                                 <h6 class="card-title mt-2">Notifications</h6>
-                                <p class="small text-muted mb-0">5 unread messages</p>
+                                <p class="small text-muted mb-0"><?= $notiNum['total_notification'] ?> messages
+                                </p>
                             </a>
                         </div>
                     </div>
@@ -109,19 +110,16 @@
                 <!-- Recent Orders -->
                 <div class="card shadow-sm">
                     <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex justify-content-between align-items-center p-2">
                             <h6 class="mb-0">Recent Orders</h6>
-                            <button class="btn btn-sm btn-link text-reset" data-bs-toggle="modal"
-                                data-bs-target="#allOrdersModal">
-                                View All
-                            </button>
                         </div>
                     </div>
                     <div class="card-body">
                         <div class="list-group list-group-flush">
 
                             <?php foreach ($order as $orderDetail): ?>
-                                <a href="/order/detail/<?= $orderDetail['order_id']?>" class="list-group-item list-group-item-action">
+                                <a href="/order/detail/<?= $orderDetail['order_id'] ?>"
+                                    class="list-group-item list-group-item-action">
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="mb-1">Order #<?= substr($orderDetail['order_id'], 0, 6) ?></h6>
@@ -292,109 +290,6 @@
                         <button type="submit" class="btn btn-primary">Save Changes</button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="allOrdersModal" tabindex="-1" aria-labelledby="allOrdersModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="allOrdersModalLabel">Order History</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Order Filters -->
-                    <div class="mb-4">
-                        <div class="row g-2">
-                            <div class="col-md-4">
-                                <select class="form-select">
-                                    <option selected>All Status</option>
-                                    <option>Delivered</option>
-                                    <option>Processing</option>
-                                    <option>Cancelled</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <select class="form-select">
-                                    <option selected>Last 6 Months</option>
-                                    <option>Last Year</option>
-                                    <option>2023</option>
-                                    <option>2022</option>
-                                </select>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Search orders...">
-                                    <button class="btn btn-outline-secondary" type="button">
-                                        <i class="fas fa-search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Orders List -->
-                    <div class="list-group">
-                        <a href="/order/detail/12345" class="list-group-item list-group-item-action">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1">Order #12345</h6>
-                                    <p class="mb-1 text-muted small">2 items • Total: $156.00</p>
-                                    <small class="text-muted">Delivered on Jan 15, 2025</small>
-                                </div>
-                                <div class="text-end">
-                                    <span class="badge bg-success mb-2 d-block">Delivered</span>
-                                    <small class="text-primary">View Details →</small>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="/order/12344" class="list-group-item list-group-item-action">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1">Order #12344</h6>
-                                    <p class="mb-1 text-muted small">1 item • Total: $49.99</p>
-                                    <small class="text-muted">Processing</small>
-                                </div>
-                                <div class="text-end">
-                                    <span class="badge bg-warning text-dark mb-2 d-block">Processing</span>
-                                    <small class="text-primary">View Details →</small>
-                                </div>
-                            </div>
-                        </a>
-                        <!-- More Order Items -->
-                        <a href="/order/12343" class="list-group-item list-group-item-action">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <h6 class="mb-1">Order #12343</h6>
-                                    <p class="mb-1 text-muted small">3 items • Total: $238.50</p>
-                                    <small class="text-muted">Delivered on Jan 10, 2025</small>
-                                </div>
-                                <div class="text-end">
-                                    <span class="badge bg-success mb-2 d-block">Delivered</span>
-                                    <small class="text-primary">View Details →</small>
-                                </div>
-                            </div>
-                        </a>
-                        <!-- Repeat similar items for more orders -->
-                    </div>
-                </div>
-                <div class="modal-footer justify-content-between">
-                    <div class="text-muted small">Showing 10 of 25 orders</div>
-                    <nav aria-label="Order pagination">
-                        <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled">
-                                <a class="page-link" href="#" tabindex="-1">Previous</a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
             </div>
         </div>
     </div>
