@@ -34,9 +34,9 @@ class OrderController extends Controller
     public function orderDetail($id)
     {
         $order = $this->fetchOrder($id);
+        $order_item = $this->fetchListItem($id);
 
-        
-        echo $this->view('order', ['order' => $order]);
+        echo $this->view('order', ['order' => $order, 'order_item' => $order_item]);
     }
 
     public function updateTracking()
@@ -124,5 +124,15 @@ class OrderController extends Controller
     private function fetchOrder($id)
     {
         return $this->db->findOrFail('orders', ['order_id' => $id]);
+    }
+
+    private function fetchListItem($id)
+    {
+        return $this->db->query(
+            'SELECT o.*, p.* FROM `order_item` o 
+            JOIN product p on o.product_id = p.product_id
+            WHERE o.order_id = :order_id',
+            ['order_id' => $id]
+        )->fetchAll();
     }
 }

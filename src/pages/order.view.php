@@ -27,7 +27,7 @@
     <div class="container py-5">
         <!-- Order Status Banner -->
         <div class="alert text-center mb-4" role="alert">
-            <h4 class="alert-heading mb-0"><?= substr($order['order_id'], 0, 6) ?> - <?= $order['order_status'] ?></h4>
+            <h4 class="alert-heading mb-0">#ODR<?= $order['order_id'] ?></h4>
         </div>
 
         <div class="row g-4">
@@ -39,20 +39,18 @@
                     </div>
                     <div class="card-body">
                         <div class="row mb-4 px-3">
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <p class="text-muted mb-2">Order Date</p>
-                                <p class="fw-bold"><?= $order['date'] ?></p>
+                                <p class="fw-bold"><?= $date = date('d F Y', strtotime($order['date'])); ?></p>
                             </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <p class="text-muted mb-2">Expected Delivery</p>
-                                <p class="fw-bold"><?= $order['date'] ?></p>
+                                <p class="fw-bold">
+                                    <?= $expectedDelivery = date('d F Y', strtotime($order['date'] . ' +10 days')); ?>
+                                </p>
                             </div>
-                            <div class="col-md-3 text-center">
+                            <div class="col-md-4 text-center">
                                 <p class="text-muted mb-2">Order Status</p>
-                                <span class="badge bg-success"><?= $order['order_status'] ?></span>
-                            </div>
-                            <div class="col-md-3 text-center">
-                                <p class="text-muted mb-2">Payment Status</p>
                                 <span class="badge bg-success"><?= $order['order_status'] ?></span>
                             </div>
                         </div>
@@ -69,20 +67,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td style="padding-left: 1rem;">
-                                            <div class="d-flex align-items-center">
-                                                <img src="/api/placeholder/60/60" class="me-3" alt="Product">
-                                                <div>
-                                                    <h6 class="mb-0">Product Name 1</h6>
-                                                    <small class="text-muted">SKU: PRD001</small>
+
+                                    <?php foreach ($order_item as $item): ?>
+                                        <tr>
+                                            <td style="padding-left: 1rem;">
+                                                <div class="d-flex align-items-center">
+                                                    <img src="/public/upload/product/<?= $item['image_url'] ?>" width="70px" height="70px" class="me-3" alt="Product">
+                                                    <div>
+                                                        <h6 class="mb-0"><?= $item['name'] ?></h6>
+                                                        <small class="text-muted">SKU: PRD<?= $item['product_id'] ?></small>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>2</td>
-                                        <td>$49.99</td>
-                                        <td>$99.98</td>
-                                    </tr>
+                                            </td>
+                                            <td><?= $item['quantity'] ?></td>
+                                            <td>RM <?= $item['price'] ?></td>
+                                            <td>RM <?= $item['total_price'] ?></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+
                                 </tbody>
                             </table>
                         </div>
