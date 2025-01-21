@@ -61,6 +61,8 @@ get('/logout', function () { $controller = new UserAuthController(); $controller
 destroy('/shop', function () { $controller = new ProductController(); $controller->delete();});
 get('/shop/product/create', function () { $controller = new ProductController(); $controller->showForm();});
 post('/shop/product/create', function () { $controller = new ProductController(); $controller->create();});
+get('/shop/product/update/$id', function ($id) { $controller = new ProductController(); $controller->update($id);});
+post('/shop/product/update/$id', function ($id) { $controller = new ProductController(); $controller->updateProduct($id);});
 
 get('/orders', function () { $controller = new OrderController(); $controller->index();});
 post('/orders', function () { $controller = new OrderController(); $controller->updateTracking();});
@@ -68,6 +70,7 @@ get('/order/detail/$id', function ($id) { $controller = new OrderController(); $
 
 get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
 post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
+post('/order/detail/$id', function ($id) { $controller = new ProductController(); $controller->createReview($id);});
 
 any('/help', '../src/pages/help.view.php');
 any('/404', '../src/pages/404.view.php');

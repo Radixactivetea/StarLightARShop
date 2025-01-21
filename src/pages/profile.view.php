@@ -123,8 +123,8 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div>
                                             <h6 class="mb-1">Order #<?= substr($orderDetail['order_id'], 0, 6) ?></h6>
-                                            <small class="text-muted"><?= $orderDetail['total_items'] ?> items • Delivered
-                                                on Jan 15, 2025</small>
+                                            <small class="text-muted"><?= $orderDetail['total_items'] ?> items •
+                                                <?= $date = date('d-m-Y', strtotime($orderDetail['date'])); ?></small>
                                         </div>
                                         <span class="badge status-pill <?= $orderDetail['status_class'] ?>">
                                             <?= $orderDetail['status_order'] ?>

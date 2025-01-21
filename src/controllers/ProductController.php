@@ -7,6 +7,7 @@ use Core\AuthService;
 use Core\FileValidator;
 use Core\FormValidator;
 use Exception;
+use Throwable;
 class ProductController extends Controller
 {
     private $authMiddleware;
@@ -103,6 +104,82 @@ class ProductController extends Controller
         }
     }
 
+    public function createReview($id)
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_CUSTOMER);
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/');
+        }
+
+        $validator = new FormValidator($_POST);
+
+        $validator
+            ->required('review')
+            ->maxLength('review', 1000)
+            ->required('rating');
+
+        if ($validator->passes()) {
+
+            $data = $validator->getSanitizedData();
+
+            try {
+
+                $reviewExist = $this->db->find('`review&rating`', ['order_id' => $data['order_id']]);
+
+                if (!empty($reviewExist)) {
+
+                    setFlashMessage(
+                        'status',
+                        "You already review this product",
+                        'error'
+                    );
+
+                    redirect("/order/detail/{$id}");
+                }
+
+                $this->db->insert(
+                    '`review&rating`',
+                    [
+                        'user_id' => $_SESSION['user_id'],
+                        'order_id' => $data['order_id'],
+                        'product_id' => $data['product_id'],
+                        'review' => $data['review'],
+                        'rating' => $data['rating'],
+                        'date' => (new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur')))->format('Y-m-d H:i:s')
+                    ]
+                );
+
+                clearErrors();
+
+                setFlashMessage(
+                    'status',
+                    "Thank you for you review",
+                    'success'
+                );
+
+                redirect("/order/detail/{$id}");
+
+            } catch (Exception $e) {
+
+                dd($e);
+
+                $this->handleProcessError($e, "/order/detail/{$id}");
+
+            }
+        } else {
+
+            setFlashMessage(
+                'status',
+                $message ?? "An error occurred. Please try again.",
+                'error'
+            );
+
+            $this->handleValidationError("/order/detail/{$id}", $validator->getErrors());
+
+        }
+    }
+
     public function create()
     {
         $this->authMiddleware->authenticate(AuthService::ROLE_STAFF);
@@ -166,6 +243,72 @@ class ProductController extends Controller
 
         }
 
+    }
+
+    public function update($id)
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_STAFF);
+
+        $product = $this->fetchProduct($id);
+        $categories = $this->getCategories();
+        $diamensions = $this->fetchDimensions($id);
+        $categoryIds = $this->getSelectedCategory($id);
+        
+        $diamension = $diamensions[0] ?? null;
+
+        echo $this->view(
+            'seller/product.form',
+            [
+                'product' => $product,
+                'category' => $categories,
+                'selectedCategories' => $categoryIds,
+                'diamension' => $diamension
+            ]
+        );
+    }
+
+    public function updateProduct($id)
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_STAFF);
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/404');
+        }
+
+        [$validator, $fileValidator] = $this->initializeValidators();
+
+        if ($validator->passes()) {
+
+            $productData = $validator->getSanitizedData();
+
+            try {
+
+                $this->processUpdate($productData, $fileValidator);
+
+                setFlashMessage('status', 'Product created updated!', 'success');
+
+                clearErrors();
+
+                redirect('/shop');
+
+            } catch (Throwable  $e) {
+
+                dd($e);
+
+                $this->handleProcessError($e, '/shop');
+
+            }
+
+        } else {
+
+            $fileErrors = $fileValidator->getErrors() ?? [];
+            $formErrors = $validator->getErrors() ?? [];
+            $errors = array_merge($fileErrors, $formErrors);
+
+            $errors = array_unique($errors, SORT_REGULAR);
+            $this->handleValidationError("/shop/product/update/{$id}", $errors);
+
+        }
     }
 
     private function initializeValidators(): array
@@ -258,6 +401,59 @@ class ProductController extends Controller
         redirect('/shop');
     }
 
+    private function processUpdate(array $productData, FileValidator $fileValidator): void
+    {
+        $this->db->transaction(function ($db) use ($productData, $fileValidator) {
+
+            $imagePath = !$fileValidator->isEmpty()
+                ? $fileValidator->move('public/upload/product')
+                : $productData['image_url'];
+
+            $db->update(
+                'product',
+                $productData['product_id'],
+                [
+                    'name' => $productData['name'],
+                    'description' => $productData['description'],
+                    'price' => $productData['price'],
+                    'stock_level' => $productData['stock'],
+                    'image_url' => $imagePath
+                ],
+                'product_id'
+            );
+
+            $db->update(
+                'dimensions',
+                $productData['product_id'],
+                [
+                    'diameter' => $productData['diameter'],
+                    'height' => $productData['height'],
+                    'weight' => $productData['weight'],
+                    'capacity' => $productData['capacity']
+                ],
+                'product_id'
+            );
+
+            $originalCategory = $this->getSelectedCategory($productData['product_id']);
+
+            foreach ($originalCategory as $categoryId) {
+
+                $db->delete('product_category', ['category_id' => $categoryId, 'product_id' => $productData['product_id']]);
+
+            }
+
+            foreach ($productData['categories'] as $categoryId) {
+
+                $db->insert('product_category', [
+                    'product_id' => $productData['product_id'],
+                    'category_id' => $categoryId,
+                ]);
+
+            }
+
+        });
+    }
+
     private function deleteProductImage(string $imageUrl): void
     {
         $imagePath = "public/upload/product/{$imageUrl}";
@@ -342,6 +538,19 @@ class ProductController extends Controller
     private function getCategories(): array
     {
         return $this->db->query('SELECT * FROM category')->fetchAll();
+    }
+
+    private function getSelectedCategory($id)
+    {
+        $selectedCategories = $this->db->query('SELECT c.category_id, c.name 
+            FROM product_category pc JOIN category c ON pc.category_id = c.category_id
+            WHERE pc.product_id = :product_id;',
+            [
+                'product_id' => $id
+            ]
+        )->fetchAll();
+
+        return array_column($selectedCategories, "category_id");
     }
 
     private function processRatings(array $ratings)

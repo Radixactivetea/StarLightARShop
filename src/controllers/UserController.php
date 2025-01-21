@@ -266,6 +266,7 @@ class UserController extends Controller
         return match (strtolower($status)) {
             'cancelled' => 'status-cancelled',
             'processing' => 'status-paid',
+            'shipped' => 'status-shipped',
             'delivered' => 'status-shipped',
             default => 'status-pending'
         };
@@ -275,10 +276,11 @@ class UserController extends Controller
     {
         return match (strtolower($status)) {
             'paid' => 'Processing',
+            'delivered' => 'Delivered',
             'cancelled' => 'Cancelled',
             'processing' => 'Not Paid Yet!',
-            'shipped' => 'Delivered',
-            default => 'status-pending'
+            'shipped' => 'Shipped',
+            default => 'processing'
         };
     }
 }
