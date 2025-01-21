@@ -69,4 +69,5 @@ get('/order/detail/$id', function ($id) { $controller = new OrderController(); $
 get('/review&rating', function () { $controller = new ProductController(); $controller->showReview();});
 post('/review&rating', function () { $controller = new ProductController(); $controller->replyReview();});
 
+any('/help', '../src/pages/help.view.php');
 any('/404', '../src/pages/404.view.php');
