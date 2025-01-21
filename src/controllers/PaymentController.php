@@ -217,7 +217,7 @@ class PaymentController extends Controller
                 'notifications',
                 [
                     'user_id' => $_SESSION['user_id'],
-                    'title' => 'Payment Successful!',
+                    'title' => 'Order Successful!',
                     'message' => "Thank you for your payment! Your order (ID: #{$this->orderId}) is now being processed. We’ll notify you once it’s shipped. 😊",
                     'category' => 'Order',
                     'created_at' => $dateTime->format('Y-m-d H:i:s')
