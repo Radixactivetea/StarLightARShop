@@ -56,7 +56,7 @@
                 <?php foreach ($notifications as $notification): ?>
                     <div data-category="<?= $notification['category'] ?>"
                         data-timestamp="<?= strtotime($notification['created_at']) ?>"
-                        class="list-group-item list-group-item-action notification-item">
+                        class="list-group-item list-group-item-action notification-item py-3">
                         <div class="d-flex gap-3">
                             <!-- Icon -->
                             <div class="flex-shrink-0">
