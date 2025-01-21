@@ -23,6 +23,9 @@
     <?php include "src/components/nav.php"; ?>
 
     <div class="container py-5">
+
+        <?= displayAlert() ?>
+
         <!-- Header -->
         <div class="text-center mb-5">
             <h1 class="h2 mb-3">Help Us Improve</h1>
@@ -34,13 +37,14 @@
             <div class="col-lg-8">
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
-                        <form>
+                        <form method="POST">
                             <!-- Overall Rating -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">How would you rate your overall experience?</label>
                                 <div class="d-flex gap-3 mb-2">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="rating" id="rating5">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating5"
+                                            value="5">
                                         <label class="form-check-label" for="rating5">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="fas fa-star text-warning"></i>
@@ -50,7 +54,8 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="rating" id="rating4">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating4"
+                                            value="4">
                                         <label class="form-check-label" for="rating4">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="fas fa-star text-warning"></i>
@@ -60,7 +65,8 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="rating" id="rating3">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating3"
+                                            value="3">
                                         <label class="form-check-label" for="rating3">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="fas fa-star text-warning"></i>
@@ -70,7 +76,8 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="rating" id="rating2">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating2"
+                                            value="2">
                                         <label class="form-check-label" for="rating2">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="fas fa-star text-warning"></i>
@@ -80,7 +87,8 @@
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="rating" id="rating1">
+                                        <input class="form-check-input" type="radio" name="rating" id="rating1"
+                                            value="1">>
                                         <label class="form-check-label" for="rating1">
                                             <i class="fas fa-star text-warning"></i>
                                             <i class="far fa-star text-warning"></i>
@@ -92,49 +100,20 @@
                                 </div>
                             </div>
 
-                            <!-- Specific Features -->
-                            <div class="mb-4">
-                                <label class="form-label fw-bold">Which features did you use?</label>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="feature1">
-                                            <label class="form-check-label" for="feature1">AR Product View</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="feature2">
-                                            <label class="form-check-label" for="feature2">Product Search</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="feature3">
-                                            <label class="form-check-label" for="feature3">Filtering</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="feature4">
-                                            <label class="form-check-label" for="feature4">Shopping Cart</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                             <!-- Feedback Details -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Tell us about your experience</label>
                                 <textarea class="form-control" rows="5"
-                                    placeholder="What worked well? What could be improved?"></textarea>
+                                    placeholder="What worked well? What could be improved?"
+                                    name="experience_details"></textarea>
                             </div>
 
                             <!-- Suggestions -->
                             <div class="mb-4">
                                 <label class="form-label fw-bold">Do you have any suggestions for new features?</label>
                                 <textarea class="form-control" rows="3"
-                                    placeholder="Share your ideas for making our system better"></textarea>
+                                    placeholder="Share your ideas for making our system better"
+                                    name="suggestions"></textarea>
                             </div>
 
                             <!-- Contact Info (Initially Hidden) -->

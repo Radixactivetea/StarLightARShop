@@ -43,6 +43,7 @@ get('/mail', function () { $controller = new NotificationController(); $controll
 get('/messages', function () { $controller = new NotificationController(); $controller->index();});
 
 get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
+post('/feedback', function () { $controller = new FeedBackController(); $controller->create();});
 get('/help&center', function () { $controller = new FeedBackController(); $controller->index();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
