@@ -136,13 +136,15 @@ class UserController extends Controller
             ];
 
             if ($this->fetchUserAddress()) {
-                // Update existing address
+
                 $db->update('address', $_SESSION['user_id'], $addressData, 'user_id');
+
             } else {
-                // Insert new address
+
                 $addressData['user_id'] = $_SESSION['user_id'];
                 $addressData['created_at'] = date('Y-m-d H:i:s');
                 $db->insert('address', $addressData);
+
             }
 
 
