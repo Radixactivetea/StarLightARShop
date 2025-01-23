@@ -65,7 +65,7 @@ class ProductController extends Controller
 
         $getAllReview = $this->fetchAllReviews();
 
-        echo $this->view('review&rating', compact('getAllReview'));
+        echo $this->view('seller/review&rating', compact('getAllReview'));
     }
 
     public function replyReview()
@@ -86,7 +86,9 @@ class ProductController extends Controller
         if ($validator->passes()) {
 
             try {
-                $this->updateReview($_POST);
+                $this->updateReview(replyData: $_POST);
+
+                $this->setNotification(replyData: $_POST);
 
                 clearErrors();
 
@@ -94,7 +96,7 @@ class ProductController extends Controller
 
             } catch (Exception $e) {
 
-                $this->handleProcessError($e, '/shop');
+                $this->handleProcessError($e, '/review&rating');
 
             }
         } else {
@@ -147,6 +149,17 @@ class ProductController extends Controller
                         'review' => $data['review'],
                         'rating' => $data['rating'],
                         'date' => (new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur')))->format('Y-m-d H:i:s')
+                    ]
+                );
+
+                $this->db->insert(
+                    'notifications',
+                    [
+                        'user_id' => "1fa01c70-a80c-11ef-8f6a-d45d64613b08",
+                        'title' => "Get review for {$data['product_id']} ",
+                        'message' => $data['review'],
+                        'category' => 'Review',
+                        'created_at' => (new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur')))->format('Y-m-d H:i:s')
                     ]
                 );
 
@@ -510,12 +523,17 @@ class ProductController extends Controller
 
     private function fetchAllReviews()
     {
-        return $this->db->query('SELECT r.*, u.firstname, u.lastname, p.name AS product_name, p.image_url, DATE_FORMAT(r.date, "%d/%m/%Y") AS formatted_date
+        return $this->db->query('SELECT r.*, u.user_id, u.firstname, u.lastname, p.name AS product_name, p.image_url, DATE_FORMAT(r.date, "%d/%m/%Y") AS formatted_date
             FROM `review&rating` r
             LEFT JOIN `user` u ON r.user_id = u.user_id
             LEFT JOIN `product` p ON r.product_id = p.product_id
             ORDER BY r.date DESC;'
         )->fetchAll();
+    }
+
+    private function fetchReview($id)
+    {
+        return $this->db->find('`review&rating', ['review_id']);
     }
 
     private function updateReview(array $replyData)
@@ -570,5 +588,23 @@ class ProductController extends Controller
         }
 
         return $percentages;
+    }
+
+    private function setNotification(array $replyData)
+    {
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        $review = $this->db->find('`review&rating`', ['review_id' => $replyData['review_id']]);
+
+        $this->db->insert(
+            'notifications',
+            [
+                'user_id' => $review['user_id'],
+                'title' => "Seller Response Your Review",
+                'message' => $replyData['replyReviewInput'],
+                'category' => 'Review',
+                'created_at' => $dateTime->format('Y-m-d H:i:s')
+            ]
+        );
     }
 }

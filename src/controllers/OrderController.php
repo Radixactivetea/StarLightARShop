@@ -29,7 +29,7 @@ class OrderController extends Controller
 
         $orders = $this->getAllOrders();
 
-        echo $this->view('orders', [
+        echo $this->view('seller/orders', [
             'orders' => $orders
         ]);
     }
@@ -67,18 +67,25 @@ class OrderController extends Controller
 
         clearErrors();
 
+
         try {
             $trackingData = $validator->getSanitizedData();
+
+            $trackingNum = $trackingData['order_id'];
+
+            $order = $this->fetchOrder($trackingNum);
 
             $this->db->update(
                 '`orders`',
                 $trackingData['order_id'],
                 [
-                    'tracking_number' => $trackingData['trackingNumberInput'],
+                    'tracking_number' => $trackingNum,
                     'order_status' => 'Shipped'
                 ],
                 'order_id'
             );
+
+            $this->setNotification($trackingData['order_id'], $order['user_id'], $trackingNum);
 
             setFlashMessage('status', 'Tracking number updated successfully!', 'success');
 
@@ -141,5 +148,21 @@ class OrderController extends Controller
             WHERE o.order_id = :order_id',
             ['order_id' => $id]
         )->fetchAll();
+    }
+
+    private function setNotification($order, $user, $trackingNum)
+    {
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        $this->db->insert(
+            'notifications',
+            [
+                'user_id' => $user,
+                'title' => "Order shipped.",
+                'message' => "To keep update with your parcel, please refer this tracking number: {$trackingNum}.",
+                'category' => 'Order',
+                'created_at' => $dateTime->format('Y-m-d H:i:s')
+            ]
+        );
     }
 }

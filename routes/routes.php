@@ -18,7 +18,10 @@ require_once 'router.php';
 
 get('/', function () { $controller = new HomeController(); $controller->index();});
 get('/about-us', function () { $controller = new HomeController(); $controller->aboutUs();});
-get('/dashboard', function () { $controller = new HomeController(); $controller->homeSeller();});
+get('/dashboard', function () { $controller = new HomeController(); $controller->index();});
+
+get('/admin', function () { $controller = new HomeController(); $controller->index();});
+post('/admin', function () { $controller = new FeedBackController(); $controller->reply();});
 
 get('/shop', function () { $controller = new ShopController(); $controller->index();});
 get('/shop/$id', function ($id) { $controller = new ProductController(); $controller->show($id);});
@@ -36,6 +39,9 @@ get('/payment', function () { $controller = new PaymentController(); $controller
 post('/payment', function () { $controller = new PaymentController(); $controller->process();});
 
 get('/AR/$id', function ($id) { $controller = new ARController(); $controller->index($id);});
+get('/AR', function () { $controller = new ARController(); $controller->manageAR();});
+post('/AR', function () { $controller = new ARController(); $controller->findAR();});
+post('/AR/create', function () { $controller = new ARController(); $controller->createAR();});
 get('/ar-experience', function () { $controller = new ARController(); $controller->arGallery();});
 get('/ar-experience/camera', function () { $controller = new ARController(); $controller->arCamera();});
 
@@ -44,13 +50,23 @@ get('/messages', function () { $controller = new NotificationController(); $cont
 
 get('/feedback', function () { $controller = new FeedBackController(); $controller->index();});
 post('/feedback', function () { $controller = new FeedBackController(); $controller->create();});
-get('/help&center', function () { $controller = new FeedBackController(); $controller->index();});
-post('/help&center', function () { $controller = new FeedBackController(); $controller->create();});
+get('/help&center/feedback', function () { $controller = new FeedBackController(); $controller->index();});
+post('/help&center/feedback', function () { $controller = new FeedBackController(); $controller->create();});
+get('/help&center/request-ban', function () { $controller = new FeedBackController(); $controller->index();});
+get('/help&center/request-seller', function () { $controller = new FeedBackController(); $controller->index();});
 
 get('/profile', function () { $controller = new UserController(); $controller->index();});
 post('/profile', function () { $controller = new UserController(); $controller->update();});
 get('/settings', function () { $controller = new UserController(); $controller->index();});
 post('/settings', function () { $controller = new UserController(); $controller->update();});
+post('/help&center/request-ban', function () { $controller = new UserController(); $controller->requestBan();});
+post('/help&center/request-seller/confirm', function () { $controller = new UserController(); $controller->validateSeller();});
+post('/help&center/request-seller', function () { $controller = new UserController(); $controller->requestSeller();});
+get('/user-management/user', function () { $controller = new UserController(); $controller->manageUser();});
+post('/user-management/user', function () { $controller = new UserController(); $controller->banUser();});
+post('/user-management/user/rejected', function () { $controller = new UserController(); $controller->rejectBan();});
+get('/user-management/seller', function () { $controller = new UserController(); $controller->manageSeller();});
+post('/user-management/seller', function () { $controller = new UserController(); $controller->transferSeller();});
 
 get('/login', function () { $controller = new UserAuthController(); $controller->showLogin();});
 post('/login', function () { $controller = new UserAuthController(); $controller->processLogin();});

@@ -20,8 +20,6 @@ class UserController extends Controller
         $this->authMiddleware = new AuthMiddleware();
 
         $this->userRole = $this->authMiddleware->getUserRole();
-
-        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_GUEST]);
     }
 
     public function index()
@@ -48,6 +46,229 @@ class UserController extends Controller
                     'address' => $address
                 ]
             );
+        }
+    }
+
+    public function manageUser()
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_ADMIN);
+
+        $ban_requests = $this->db->query('SELECT br.*, u.firstname FROM ban_requests br LEFT JOIN user u ON br.seller_id = u.user_id 
+    ORDER BY br.created_at DESC;')->fetchAll();
+
+        $statusClassMap = [
+            'pending' => 'bg-warning',
+            'approved' => 'bg-success',
+            'rejected' => 'bg-danger',
+        ];
+
+        foreach ($ban_requests as &$ban_request) {
+            // Map the status to a CSS class
+            $ban_request['css_class'] = $statusClassMap[$ban_request['status']] ?? 'text-muted';
+
+            // Format the created_at date
+            $ban_request['formatted_date'] = date('d M Y, H:i A', strtotime($ban_request['created_at']));
+
+            // Limit the reason to a preview (e.g., first 50 characters)
+            $ban_request['reason_preview'] = strlen($ban_request['reason']) > 50
+                ? substr($ban_request['reason'], 0, 47) . '...'
+                : $ban_request['reason'];
+        }
+
+        $summary = $this->db->query("SELECT 
+        COUNT(CASE WHEN br.status = 'pending' THEN 1 END) AS total_pending,
+        COUNT(CASE WHEN br.status = 'approved' THEN 1 END) AS total_approved,
+        COUNT(CASE WHEN br.status = 'rejected' THEN 1 END) AS total_rejected,
+        COUNT(DISTINCT br.seller_id) AS total_banned_users
+    FROM ban_requests br
+    WHERE br.status IN ('pending', 'approved', 'rejected')")->fetch();
+
+
+        echo $this->view('admin/usermanagement', ['ban' => $ban_requests, 'summary' => $summary]);
+    }
+
+    public function banUser()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/user-management/user');
+        }
+
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        try {
+
+            $this->db->update(
+                'ban_requests',
+                $_POST['ban_id'],
+                [
+                    'status' => 'approved',
+                    'admin_id' => $_SESSION['user_id'],
+                    'updated_at' => $dateTime->format('Y-m-d H:i:s')
+                ],
+                'id'
+            );
+
+            $this->db->update(
+                'user',
+                $_POST['user_id'],
+                [
+                    'banned' => '1'
+                ],
+                'user_id'
+            );
+
+            $this->db->insert(
+                'notifications',
+                [
+                    'user_id' => $_POST['seller_id'],
+                    'title' => 'Banning request on ' . $_POST['user_id'],
+                    'message' => 'Succesfull ban ' . $_POST['user_id'],
+                    'category' => 'review'
+                ]
+            );
+
+            setFlashMessage(
+                'status',
+                'You approve to ban this user'
+            );
+
+            redirect('/user-management/user');
+
+        } catch (Exception $e) {
+
+            dd($e);
+            $this->handleProcessError($e, '/user-management/user');
+
+        }
+    }
+
+    public function rejectBan()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/user-management/user');
+        }
+
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        try {
+
+            $this->db->update(
+                'ban_requests',
+                $_POST['ban_id'],
+                [
+                    'status' => 'rejected',
+                    'admin_id' => $_SESSION['user_id'],
+                    'updated_at' => $dateTime->format('Y-m-d H:i:s'),
+                    'admin_notes' => $_POST['rejection_note']
+                ],
+                'id'
+            );
+
+            $this->db->insert(
+                'notifications',
+                [
+                    'user_id' => $_POST['seller_id'],
+                    'title' => 'Banning request on ' . $_POST['user_id'],
+                    'message' => 'Your request were rejected: ' . $_POST['rejection_note'],
+                    'category' => 'review'
+                ]
+            );
+
+            setFlashMessage(
+                'status',
+                'You did not approve to ban this user'
+            );
+
+            redirect('/user-management/user');
+
+        } catch (Exception $e) {
+
+            dd($e);
+            $this->handleProcessError($e, '/user-management/user');
+
+        }
+    }
+
+    public function manageSeller()
+    {
+        $this->authMiddleware->authenticate(AuthService::ROLE_ADMIN);
+
+        $summary = $this->db->query("SELECT 
+        COUNT(CASE WHEN sr.status = 'pending' THEN 1 END) AS total_pending,
+        COUNT(CASE WHEN sr.status = 'approved' THEN 1 END) AS total_approved,
+        COUNT(CASE WHEN sr.status = 'rejected' THEN 1 END) AS total_rejected,
+        (
+            SELECT COUNT(*) 
+            FROM user 
+            WHERE role = 'staff'
+        ) AS total_sellers
+    FROM seller_requests sr;")->fetch();
+
+        $request = $this->db->query(" SELECT sr.*, u.firstname AS user_firstname,s.user_id AS seller_id, s.firstname AS requested_by_name 
+        FROM seller_requests sr LEFT JOIN user u ON sr.user_id = u.user_id LEFT JOIN user s ON sr.requested_by = s.user_id")->fetchAll();
+
+        $statusClassMap = [
+            'pending' => 'bg-warning',
+            'approved' => 'bg-success',
+            'rejected' => 'bg-danger',
+        ];
+
+        foreach ($request as &$user) {
+            // Map the status to a CSS class
+            $user['css_class'] = $statusClassMap[$user['status']] ?? 'text-muted';
+
+            // Format the created_at date
+            $user['formatted_date'] = date('d M Y, H:i A', strtotime($user['created_at']));
+
+        }
+
+        $allSeller = $this->db->findAll('user', ['role' => 'staff']);
+
+        echo $this->view('admin/sellermanagement', ['summary' => $summary, 'request' => $request, 'allSeller' => $allSeller]);
+    }
+
+    public function transferSeller()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/user-management/seller');
+        }
+
+        try {
+
+            $this->db->update(
+                'seller_requests',
+                $_POST['request_id'],
+                [
+                    'status' => 'approved'
+                ],
+                'id'
+            );
+
+            $this->db->update(
+                'user',
+                $_POST['user_id'],
+                [
+                    'role' => 'staff'
+                ],
+                'user_id'
+            );
+
+            $this->db->insert(
+                'notifications',
+                [
+                    'user_id' => $_POST['seller_id'],
+                    'title' => 'Transfer Account ' . $_POST['user_id'],
+                    'message' => $_POST['user_id'] . 'Successfully become one of staff members',
+                    'category' => 'review'
+                ]
+            );
+
+            redirect('/user-management/seller');
+
+        } catch (Exception $e){
+
+            dd($e);
+            $this->handleProcessError($e, '/user-management/seller');
         }
     }
 
@@ -99,6 +320,105 @@ class UserController extends Controller
             );
 
             $this->handleValidationError('/profile', $validator->getErrors());
+        }
+    }
+
+    public function requestBan()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/help&center/request-ban');
+        }
+
+        $requestBanDetails = $this->validateBanRequest($_POST);
+
+        try {
+
+            $this->insertBan($requestBanDetails);
+
+            setFlashMessage(
+                'status',
+                'Your request submitted',
+                'success'
+            );
+
+            redirect('/help&center/request-ban');
+
+        } catch (Exception $e) {
+
+            $this->handleProcessError($e, '/help&center/request-ban', $e);
+
+        }
+    }
+
+    public function validateSeller()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unset_session'])) {
+
+            unset($_SESSION['user']);
+
+            redirect('/help&center/request-seller');
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/help&center/request-seller');
+        }
+
+        $validation = new FormValidator($_POST);
+
+        $validation->required('email')->email('email');
+
+        if (!$validation->passes()) {
+            $this->handleValidationError('/help&center/request-seller', $validation->getErrors());
+        }
+
+        $email = $validation->getSanitizedValue('email');
+
+        $userExist = $this->db->find('user', ['email' => $email]);
+
+        if (!$userExist) {
+
+            setFlashMessage(
+                'status',
+                'User Not Found!',
+                'error'
+            );
+
+            redirect('/help&center/request-seller');
+        }
+
+        unset($_SESSION['user']);
+
+        $_SESSION['user'] = $userExist;
+
+        redirect('/help&center/request-seller');
+    }
+
+    public function requestSeller()
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('/help&center/request-seller');
+        }
+
+        try {
+
+            $this->insertRequestSeller($_SESSION['user']);
+
+            unset($_SESSION['user']);
+
+            setFlashMessage(
+                'status',
+                'Your request has been submited.',
+                'success'
+            );
+
+            redirect('/help&center/request-seller');
+
+        } catch (Exception $e) {
+
+            dd($e);
+            $this->handleProcessError($e, '/help&center/request-seller');
+
         }
     }
 
@@ -181,6 +501,72 @@ class UserController extends Controller
         }
     }
 
+    private function insertBan(array $data)
+    {
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        $this->db->insert(
+            'ban_requests',
+            [
+                'user_id' => $data['user_id'],
+                'seller_id' => $_SESSION['user_id'],
+                'reason' => $data['reason'],
+                'evidence' => $data['evidence'],
+                'created_at' => $dateTime->format('Y-m-d H:i:s')
+            ]
+        );
+    }
+
+    private function validateBanRequest($data)
+    {
+        $validation = new FormValidator($data);
+
+        $validation
+            ->required('username', "User's Name")
+            ->required('reason', 'Reason')
+            ->required('evidence', 'Evidence');
+
+        if (!$validation->passes()) {
+
+            $this->handleValidationError('/help&center/request-ban', $validation->getErrors());
+
+        }
+
+        $userFirstname = $validation->getSanitizedValue('username');
+
+        $userExist = $this->db->find('user', ['firstname' => $userFirstname]);
+
+        if (!$userExist) {
+
+            setFlashMessage(
+                'status',
+                "User with name {$userFirstname} is not exist",
+                'error'
+            );
+            redirect('/help&center/request-ban');
+        }
+
+        $validations = $validation->getSanitizedData();
+        $validations['user_id'] = $userExist['user_id'];
+
+        return $validations;
+    }
+
+    private function insertRequestSeller(array $data)
+    {
+        $dateTime = new \DateTime('now', new \DateTimeZone('Asia/Kuala_Lumpur'));
+
+        $this->db->insert(
+            'seller_requests',
+            [
+                'user_id' => $data['user_id'],
+                'status' => 'pending',
+                'requested_by' => $_SESSION['user_id'],
+                'created_at' => $dateTime->format('Y-m-d H:i:s')
+            ]
+        );
+    }
+
     private function initializeValidators()
     {
         $validator = new FormValidator($_POST);
@@ -210,7 +596,7 @@ class UserController extends Controller
 
     private function fetchUser()
     {
-        return $this->db->findOrFail('user', ['user_id' => $_SESSION['user_id']]);
+        return $this->db->find('user', ['user_id' => $_SESSION['user_id']]);
     }
 
     private function fetchUserAddress()

@@ -3,10 +3,19 @@
 namespace src\Controllers;
 
 use Core\AuthMiddleware;
+use Core\AuthService;
 
 class HomeController extends Controller
 {
     private $authMiddleware;
+
+    private $roleMethods = [
+        AuthService::ROLE_STAFF => 'homeSeller',
+        AuthService::ROLE_ADMIN => 'homeAdmin',
+        AuthService::ROLE_CUSTOMER => 'homeCustomer',
+    ];
+
+    private $userRole;
 
     public function __construct()
     {
@@ -14,17 +23,21 @@ class HomeController extends Controller
 
         $this->authMiddleware = new AuthMiddleware();
 
-        $this->authMiddleware->redirectRestrictedUsers(['admin']);
+        $this->userRole = $this->authMiddleware->getUserRole();
     }
 
     public function index()
     {
-        if ($this->authMiddleware->getUserRole() == 'staff') {
-
-            redirect('/dashboard');
-
+        if (isset($this->roleMethods[$this->userRole]) && method_exists($this, $this->roleMethods[$this->userRole])) {
+            $this->{$this->roleMethods[$this->userRole]}();
+            return;
         }
 
+        $this->homeCustomer();
+    }
+
+    private function homeCustomer()
+    {
         $promotion = $this->db->findAll('promotion');
         $collection = $this->db->find('product', ['product_id' => 2]);
 
@@ -47,17 +60,28 @@ class HomeController extends Controller
         ]);
     }
 
-    public function homeSeller()
+    private function homeSeller()
     {
         $this->authMiddleware->authenticate('staff');
 
         $summary = $this->fetchSummary();
         $latestOrder = $this->fetchLastestOrder();
 
-
-
-
         echo $this->view('seller/dashboard', ['summary' => $summary, 'latestOrder' => $latestOrder]);
+    }
+
+    private function homeAdmin()
+    {
+        $overview = $this->getAdminOverview();
+        $feedbacks = $this->fetchFeedback();
+
+        echo $this->view(
+            'admin/dashboard',
+            [
+                'overview' => $overview,
+                'feedbacks' => $feedbacks
+            ]
+        );
     }
 
     public function aboutUs()
@@ -103,5 +127,17 @@ class HomeController extends Controller
     private function fetchLastestOrder()
     {
         return $this->db->query('SELECT * FROM `orders` ORDER BY date DESC LIMIT 3')->fetchAll();
+    }
+
+    private function getAdminOverview()
+    {
+        return $this->db->query('SELECT (SELECT COUNT(*) FROM user) AS total_users, (SELECT COUNT(*) FROM ar) AS total_ar,
+            (SELECT COUNT(*) FROM feedback) AS total_feedback, (SELECT COUNT(*) FROM user WHERE banned = 1) AS total_banned_users;'
+        )->fetch();
+    }
+
+    private function fetchFeedback()
+    {
+        return $this->db->findAll('feedback');
     }
 }

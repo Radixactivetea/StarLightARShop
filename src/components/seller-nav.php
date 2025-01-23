@@ -54,6 +54,20 @@
         border-radius: 12px;
         font-size: 0.8rem;
     }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown-item:hover {
+        background-color: var(--bs-secondary);
+        color: white;
+    }
+
+    .dropdown-item.active {
+        background-color: var(--bs-secondary);
+        color: white;
+    }
 </style>
 
 <!-- Seller Navigation Bar -->
@@ -93,10 +107,34 @@
     <div class="section-title mt-4 text-muted">HELP & SUPPORT</div>
 
     <nav class="nav flex-column">
-        <a class="nav-link <?= urlis('/help&center') ? 'active' : '' ?>" href="/help&center">
-            <i class="bi bi-question-circle"></i>
-            Help & Center
-        </a>
+        <div class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle <?= urlis('/help&center/feedback') || urlis('/help&center/request-ban') || urlis('/help&center/request-seller') ? 'active' : '' ?>"
+                id="helpCenterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-question-circle"></i>
+                Help & Center
+            </div>
+            <ul class="dropdown-menu dropdown-menu-start" aria-labelledby="helpCenterDropdown">
+                <li>
+                    <a class="dropdown-item <?= urlis('/help&center/feedback') ? 'active' : '' ?>"
+                        href="/help&center/feedback">
+                        Feedback
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item <?= urlis('/help&center/request-ban') ? 'active' : '' ?>"
+                        href="/help&center/request-ban">
+                        Request Ban User
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item <?= urlis('/help&center/request-seller') ? 'active' : '' ?>"
+                        href="/help&center/request-seller">
+                        Request Seller
+                    </a>
+                </li>
+            </ul>
+        </div>
+
         <a class="nav-link <?= urlis('/settings') ? 'active' : '' ?>" href="/settings">
             <i class="bi bi-gear"></i>
             Settings
