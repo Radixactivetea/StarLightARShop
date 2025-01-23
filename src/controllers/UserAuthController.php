@@ -154,7 +154,8 @@ class UserAuthController extends Controller
 
         } catch (Exception $e) {
 
-            $this->handleProcessError($e, '/verify');
+            
+            $this->handleProcessError($e, '/verify', $e->getMessage());
 
         }
     }

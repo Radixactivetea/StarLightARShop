@@ -39,75 +39,14 @@
                     <div class="card shadow-sm">
                         <div class="card-body p-4">
                             <form method="POST">
-                                <!-- Overall Rating -->
-                                <div class="mb-4">
-                                    <label class="form-label fw-bold">How would you rate your overall
-                                        experience?</label>
-                                    <div class="d-flex gap-3 mb-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="rating" id="rating5"
-                                                value="5">
-                                            <label class="form-check-label" for="rating5">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="rating" id="rating4"
-                                                value="4">
-                                            <label class="form-check-label" for="rating4">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="rating" id="rating3"
-                                                value="3">
-                                            <label class="form-check-label" for="rating3">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="rating" id="rating2"
-                                                value="2">
-                                            <label class="form-check-label" for="rating2">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="rating" id="rating1"
-                                                value="1">>
-                                            <label class="form-check-label" for="rating1">
-                                                <i class="fas fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                                <i class="far fa-star text-warning"></i>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <!-- Feedback Details -->
                                 <div class="mb-4">
                                     <label class="form-label fw-bold">Tell us about your experience</label>
+                                    <label class="text-muted" style="font-size: 9px">Required</label>
                                     <textarea class="form-control" rows="5"
                                         placeholder="What worked well? What could be improved?"
-                                        name="experience_details"></textarea>
+                                        name="experience_details"><?= old('experience_details'); ?></textarea>
+                                    <?= showError('experience_details'); ?>
                                 </div>
 
                                 <!-- Suggestions -->

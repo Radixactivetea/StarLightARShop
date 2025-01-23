@@ -7,6 +7,8 @@
     <link rel="icon" href="/public/img/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
     <style>
         .logo-container {
             display: flex;
@@ -39,6 +41,8 @@
     <!-- loading page -->
     <?php require "src/components/loading.php" ?>
 
+    <?= displayAlert() ?>
+
     <div class="form-container">
         <!-- Logo Container -->
         <div class="logo-container">
@@ -51,7 +55,8 @@
         <!-- Form -->
         <form class="needs-validation" method="POST" novalidate>
             <div class="mb-4">
-                <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="<?= old('email') ?>" required>
+                <input type="email" class="form-control" placeholder="Email" name="email" id="email"
+                    value="<?= old('email') ?>" required>
                 <div class="invalid-feedback">
                     Require.
                 </div>

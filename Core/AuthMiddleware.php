@@ -25,13 +25,11 @@ class AuthMiddleware
         }
     }
 
-    public function redirectRestrictedUsers(array $restrictedRoles, $direction=null)
+    public function redirectRestrictedUsers(array $restrictedRoles)
     {
         $redirectLocation = $this->auth->restrictRoles($restrictedRoles);
 
         if ($redirectLocation) {
-
-            $redirectLocation = $direction ?: $redirectLocation;
             redirect($redirectLocation);
         }
     }

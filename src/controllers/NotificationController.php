@@ -12,7 +12,7 @@ class NotificationController extends Controller
 
     private const VIEW_PATHS = [
         AuthService::ROLE_STAFF => 'seller/notification',
-        AuthService::ROLE_ADMIN => 'notification',
+        AuthService::ROLE_ADMIN => 'admin/notification',
         AuthService::ROLE_CUSTOMER => 'notification'
     ];
 
@@ -30,7 +30,7 @@ class NotificationController extends Controller
         
         $this->authMiddleware = new AuthMiddleware();
         $this->userRole = $this->authMiddleware->getUserRole();
-        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_GUEST], '/login');
+        $this->authMiddleware->redirectRestrictedUsers([AuthService::ROLE_GUEST]);
     }
 
     public function index(): void

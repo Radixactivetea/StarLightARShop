@@ -14,7 +14,7 @@ class AuthService
     private const REDIRECT_MAP = [
         self::ROLE_ADMIN => '/admin',
         self::ROLE_STAFF => '/dashboard',
-        self::ROLE_GUEST => '/login',  // Added guest redirect
+        self::ROLE_GUEST => '/login',
         'default' => '/404'
     ];
     private function ensureSessionStarted()
@@ -29,6 +29,12 @@ class AuthService
         $this->ensureSessionStarted();
 
         $user = $this->getUserFromDatabase($email);
+
+        if ($this->isUserBanned($user)) {
+            
+            throw new \Exception("Sorry, seem like your account are banned");
+
+        }
 
         if ($user && password_verify($password, $user['password'])) {
             session_regenerate_id(true);
@@ -49,6 +55,11 @@ class AuthService
         $db = new Database($config['database']);
 
         return $db->find('user', ['email' => $email]);
+    }
+
+    private function isUserBanned($user)
+    {
+        return $user['banned'] == 1;
     }
 
     public function logout()
@@ -79,14 +90,14 @@ class AuthService
     public function restrictRoles(array $restrictedRoles): ?string
     {
         $this->ensureSessionStarted();
-        
+
         $userRole = $this->getCurrentUserRole();
-        
+
         if (!in_array($userRole, $restrictedRoles, true)) {
             return null;
         }
-        
-        return self::REDIRECT_MAP[$userRole] 
+
+        return self::REDIRECT_MAP[$userRole]
             ?? self::REDIRECT_MAP['default'];
     }
 
