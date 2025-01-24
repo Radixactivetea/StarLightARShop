@@ -64,7 +64,7 @@
                         Find Product
                     </button>
                 </form>
-                <form action="/AR/create" id="validationForm" method="POST" enctype="multipart/form-data" novalidate>
+                <form action="/AR/create" id="validationForm" method="POST" enctype="multipart/form-data" class="<?= isset($_SESSION['product']['name']) ? 'd-block' : 'd-none' ?>" novalidate>
 
                     <div class="row">
                         <div class="mb-3 col-6">
