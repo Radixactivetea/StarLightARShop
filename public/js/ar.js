@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // scene.add(cube);
 
         const loader = new GLTFLoader();
-        loader.load('/public/models/cup/cup.glb', (cup) => {
+        loader.load('/public/models/cup.glb', (cup) => {
 
             scene.add(cup.scene);
 

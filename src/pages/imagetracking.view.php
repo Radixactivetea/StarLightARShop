@@ -23,26 +23,26 @@
         <a-assets>
             <a-asset-item id="cupModel"
                 src="/public/models/cup.glb"></a-asset-item>
-            <a-asset-item id="jugModel"
+            <!-- <a-asset-item id="jugModel"
                 src="/public/models/jug.glb"></a-asset-item>
                 <a-asset-item id="potModel"
-                src="/public/models/pot.glb"></a-asset-item>
+                src="/public/models/pot.glb"></a-asset-item> -->
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
         
-        <a-entity mindar-image-target="targetIndex: 0">
+        <!-- <a-entity mindar-image-target="targetIndex: 0">
             <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#jugModel"
                 animation-mixer>
-        </a-entity>
-        <a-entity mindar-image-target="targetIndex: 1">
+        </a-entity> -->
+        <a-entity mindar-image-target="targetIndex: 0">
             <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#cupModel"
                 animation-mixer>
         </a-entity>
-        <a-entity mindar-image-target="targetIndex: 2">
+        <!-- <a-entity mindar-image-target="targetIndex: 2">
             <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#potModel"
                 animation-mixer>
-        </a-entity>
+        </a-entity> -->
     </a-scene>
 
     <!-- bootstap and popper -->
