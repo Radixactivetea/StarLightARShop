@@ -101,7 +101,7 @@
                             <div class="card-body text-center">
                                 <i class="fas fa-box fa-2x text-primary mb-2"></i>
                                 <h6 class="card-title mt-2">Orders</h6>
-                                <p class="small text-muted mb-0"><?= $order[0]['total_orders'] ?> total orders</p>
+                                <p class="small text-muted mb-0"><?= $order[0]['total_orders'] ?? '0' ?> total orders</p>
                             </div>
                         </div>
                     </div>
