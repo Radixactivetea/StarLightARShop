@@ -1,75 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Star Light Pottery Shop</title>
-    <link rel="icon" href="/public/img/logo.png" type="image/x-icon">
-    <!-- bootstap css & override -->
-    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/css/bs-theme-overrides.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter&amp;display=swap">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://libs.zappar.com/zappar-aframe/2.0.0/zappar-aframe.js"></script>
 
-    <script type="importmap">
-            {
-              "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
-              }
-            }
-          </script>
-    <script type="module" src="/public/js/ar.js"></script>
-
+    <meta charset="utf-8" />
+    <title>Zappar for A-Frame: Instant Tracking 3D Model Example</title>
     <style>
-        a.link-primary:hover {
-            color: #74512D !important;
-            text-decoration-color: RGBA(116, 81, 45, var(--bs-link-underline-opacity, 1)) !important;
-        }
-
-        .view-ar {
+        html,
+        body {
             margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
         }
 
-        .view-ar button {
-            position: fixed;
-            z-index: 100;
-            padding: 1vh;
-            bottom: 1vh;
-            left: 41%;
+        #zappar-placement-ui {
+            position: absolute;
+            bottom: 30px;
+            width: 200px;
+            left: calc(50% - 100px);
+
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            font-family: sans-serif;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
+</head>
 
 <body>
+    <a-scene>
+        <!-- Ask user for camera permissions, display some text if permission is denied -->
+        <a-entity zappar-permissions-ui id="permissions"></a-entity>
+        <!-- shows a full-page dialog that informs the user they're using an unsupported browser -->
+        <a-entity zappar-compatibility-ui id="compatibility"></a-entity>
 
-    <div class="d-md-none view-ar">
-        <button id="ar-button" class="btn btn-primary">Start AR</button>
-    </div>
+        <a-camera zappar-camera />
 
-    <div class="d-none d-md-block">
-        <!-- loading page -->
-        <?php require "src/components/loading.php" ?>
+        <!-- Setup our instant tracker and start it in placement mode so the user can -->
+        <!-- choose a location for the object -->
+        <a-entity zappar-instant="placement-mode: true" id="instant-tracker">
 
-        <!-- navigator -->
-        <?php include "src/components/nav.php"; ?>
+            <!-- Include a 3D model inside our instant tracker -->
+            <a-entity gltf-model="url(/public/models/cup.glb)"></a-entity>
 
-        <div class="text-center my-4">
-            <h3>Scan the QR code to open on your phone</h3>
-            <img src="/public/upload/qr/<?= $getAr['img_url'] ?>" alt="QR Code" width="200" height="200">
-            <h2>Or</h2>
-            <a href="<?= $getAr['qr_link'] ?>"
-                class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"><?= $getAr['qr_link'] ?></a>
-        </div>
+        </a-entity>
+    </a-scene>
 
+    <!-- Some UI for the user to tap to indicate they're happy with the placement -->
+    <div id="zappar-placement-ui">Tap here to place the object</div>
 
-        <!-- footer -->
-        <?php include "src/components/footer.html"; ?>
-    </div>
-
-    <!-- bootstap and popper -->
-    <script src="/node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-
+    <script>
+        // Listen for when the user taps the UI
+        const placementUI = document.getElementById("zappar-placement-ui");
+        placementUI.addEventListener("click", function () {
+            // Set placement mode to false on our instant tracker
+            const instantTracker = document.getElementById("instant-tracker");
+            instantTracker.setAttribute("zappar-instant", "placement-mode: false");
+            // And remove the placement UI
+            placementUI.remove();
+        });
+    </script>
 </body>
 
 </html>

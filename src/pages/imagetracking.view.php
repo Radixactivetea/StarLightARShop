@@ -17,30 +17,30 @@
 
 <body>
     <a-scene
-        mindar-image="imageTargetSrc: ../public/targets.mind"
+        mindar-image="imageTargetSrc:/public/targets.mind"
         color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
         device-orientation-permission-ui="enabled: false">
         <a-assets>
-            <a-asset-item id="cupModel"
-                src="/public/models/cup.glb"></a-asset-item>
-            <!-- <a-asset-item id="jugModel"
+            <!-- <a-asset-item id="cupModel"
+                src="/public/models/cup.glb"></a-asset-item> -->
+            <a-asset-item id="jugModel"
                 src="/public/models/jug.glb"></a-asset-item>
-                <a-asset-item id="potModel"
+                <!-- <a-asset-item id="potModel"
                 src="/public/models/pot.glb"></a-asset-item> -->
         </a-assets>
 
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
         
-        <!-- <a-entity mindar-image-target="targetIndex: 0">
-            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#jugModel"
-                animation-mixer>
-        </a-entity> -->
-        <a-entity mindar-image-target="targetIndex: 0">
-            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#cupModel"
+        <a-entity mindar-image-target="targetIndex: 1">
+            <a-gltf-model rotation="0 0 0 " position="0 -1 0" scale="4 4 4" src="#jugModel"
                 animation-mixer>
         </a-entity>
-        <!-- <a-entity mindar-image-target="targetIndex: 2">
-            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="5 5 5" src="#potModel"
+        <!-- <a-entity mindar-image-target="targetIndex: 0">
+            <a-gltf-model rotation="0 0 0 " position="0 0 0" scale="7 7 7" src="#cupModel"
+                animation-mixer>
+        </a-entity>
+        <a-entity mindar-image-target="targetIndex: 2">
+            <a-gltf-model rotation="0 0 0 " position="0 -1 0" scale="5 5 5" src="#potModel"
                 animation-mixer>
         </a-entity> -->
     </a-scene>
