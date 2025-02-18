@@ -8,9 +8,6 @@ Starlight AR Shop integrates a simple AR feature for specific products, allowing
 🔧 Technologies Used
 
 Frontend: [HTML, CSS, JS, Bootstrap]
-
 Backend: [Pure PHP]
-
 AR Framework: [WebXR, MindAR, Three.js]
-
 Database: [MySQL]
