@@ -11,3 +11,7 @@ Frontend: [HTML, CSS, JS, Bootstrap]
 Backend: [Pure PHP]
 AR Framework: [WebXR, MindAR, Three.js]
 Database: [MySQL]
+
+📷 Example Screenshots
+
+![Alt Text](assets/cart.png)
