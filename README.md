@@ -14,4 +14,7 @@ Database: [MySQL]
 
 📷 Example Screenshots
 
-![Alt Text](assets/cart.png)
+![shop](assets/shop.png)
+![cart](assets/cart.png)
+![checkout](assets/checkout.png)
+![ar](assets/ar.jpg)
