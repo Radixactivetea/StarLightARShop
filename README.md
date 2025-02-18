@@ -15,6 +15,10 @@ Database: [MySQL]
 📷 Example Screenshots
 
 ![shop](assets/shop.png)
+Shop Page
 ![cart](assets/cart.png)
+Cart Page
 ![checkout](assets/checkout.png)
+Checkout Page
 ![ar](assets/ar.jpg)
+AR Feature Page
